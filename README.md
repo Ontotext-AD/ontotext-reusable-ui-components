@@ -2,26 +2,31 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
 
+## Development
+
+### Setup environment
+
+* Checkout or clone the project from GitHub.
+* Enter the project directory and execute `npm install` in order to install all needed dependencies locally.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+### Running unit tests
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io/).
 
-## Build
+### Running integration tests
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npm run cy:run` to execute the integration tests via [Cypress](https://www.cypress.io/).
 
-## Running unit tests
+Run `npm run cy:open` to open the cypress dashboard and run the tests manually.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Release and publish
+   
+When a newer version needs to be published:
+   
+* Increase the version in the `package.json` by following the semantic versioning approach.
+* Create a new MR and a tag through Github. Beware the version to follow the pattern /v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$/ as defined in .travis.yml. Any discrepancies will result in version being rejected as appropriate for publish in the NPM.
+* If the build is successful which can be seen in https://travis-ci.com/github/Ontotext-AD/ontotext-reusable-ui-components.
