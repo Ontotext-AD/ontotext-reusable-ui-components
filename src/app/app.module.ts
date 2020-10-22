@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {OntoSearchModule} from "src/app/onto-search/onto-search.module";
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, environment.httpLoaderPrefix, environment.httpLoaderSuffix);
@@ -30,6 +31,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     }),
 
     DirectivesModule,
+
+    OntoSearchModule
   ],
   providers: [TranslateService],
   bootstrap: [AppComponent],
