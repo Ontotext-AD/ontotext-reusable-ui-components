@@ -1,0 +1,13 @@
+.state-type {
+  float: right;
+}
+
+.state-labels {
+  white-space: normal;
+  line-height: 1em;
+}
+
+::ng-deep .state-suggestion {
+  background-color: lightblue !important;
+  color: black !important;
+}

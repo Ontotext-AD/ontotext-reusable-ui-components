@@ -1,6 +1,8 @@
 {
-  'BUTTON': {
-    'OK': 'Ok',
-    'CANCEL': 'Cancel'
+  "BUTTON": {
+    "OK": "Ok",
+    "CANCEL": "Cancel",
+    "SEARCH": "Search"
   },
-};
+  "SEARCH_PLACEHOLDER": "Search..."
+}

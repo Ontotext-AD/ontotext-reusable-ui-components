@@ -1,0 +1,34 @@
+<div class="search-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxFlex="grow">
+    <mat-form-field class="state-chip-list" fxFill>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+          *ngFor="let state of statesList"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(state)"
+          [ngClass]="state.label ? 'state-suggestion' : 'state-free-text'">
+          {{state.label || state}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="{{'SEARCH_PLACEHOLDER' | translate}}"
+          #statesInput
+          [formControl]="stateCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option class="state-option" *ngFor="let state of filteredStates | async" [value]="state">
+          <ng-container *ngTemplateOutlet="currentTemplate; context: {$implicit: state}">
+          </ng-container>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div class="search-button-wrapper">
+    <button mat-raised-button  (click)="search()" appCypressData="search-button">{{'BUTTON.SEARCH' | translate}}</button>
+  </div>
+</div>

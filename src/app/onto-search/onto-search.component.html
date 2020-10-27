@@ -1,0 +1,11 @@
+<p>onto-search works!</p>
+<app-search
+  [states]="states"
+  [workingTemplate]="customTemplate ? customTemplate : defaultTemplate"
+  (onSearch)="onSearchEvent($event)"></app-search>
+
+  <ng-template #defaultTemplate let-state>
+    <span class="state-label">{{state.label}}</span>
+    <span class="state-type">{{state.type}}</span> <br/>
+    <span class="state-labels"><small>{{state.labels}}</small></span>
+</ng-template>
