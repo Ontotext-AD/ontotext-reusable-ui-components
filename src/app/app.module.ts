@@ -3,12 +3,12 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {DirectivesModule} from 'src/app/directives/directives.module';
+import {DirectivesModule} from './directives/directives.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
-import {OntoSearchModule} from 'src/app/onto-search/onto-search.module';
+import {OntoSearchModule} from "projects/onto-search/src/lib/onto-search.module";
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, environment.httpLoaderPrefix, environment.httpLoaderSuffix);
@@ -32,12 +32,13 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
     DirectivesModule,
     HttpClientModule,
+    OntoSearchModule,
 
-    OntoSearchModule
+
   ],
   providers: [TranslateService],
   bootstrap: [AppComponent],
-  exports:[OntoSearchModule]
+  exports:[]
 })
 export class AppModule {
 }

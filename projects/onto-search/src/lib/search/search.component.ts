@@ -4,8 +4,8 @@ import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {SearchConfiguration} from 'src/app/onto-search/models/search-configuration';
-import {SearchModel} from 'src/app/onto-search/models/search-model';
+import {SearchConfiguration} from './../models/search-configuration';
+import {SearchModel} from './../models/search-model';
 
 @Component({
   selector: 'app-search',

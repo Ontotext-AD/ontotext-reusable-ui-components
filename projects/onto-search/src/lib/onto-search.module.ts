@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {TranslateModule} from '@ngx-translate/core';
 import {MatButtonModule} from "@angular/material/button";
 import {FlexModule} from "@angular/flex-layout";
+import {DirectivesModule} from "src/app/directives/directives.module";
 
 
 @NgModule({
@@ -20,21 +21,22 @@ import {FlexModule} from "@angular/flex-layout";
   exports: [
     OntoSearchComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatChipsModule,
-    MatIconModule,
-    MatButtonModule,
-    TranslateModule.forRoot(),
-    FlexModule,
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatChipsModule,
+        MatIconModule,
+        MatButtonModule,
+        TranslateModule.forRoot(),
+        FlexModule,
+        DirectivesModule,
+    ],
 })
 export class OntoSearchModule {
 }
