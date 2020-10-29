@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {OntoSearchModule} from "projects/onto-search/src/lib/onto-search/onto-search.module";
+import {OntoSearchFieldModule} from 'projects/onto-search/src/lib/onto-search-field/onto-search-field.module';
 
 @NgModule({
   declarations: [
@@ -11,11 +11,11 @@ import {OntoSearchModule} from "projects/onto-search/src/lib/onto-search/onto-se
   imports: [
     BrowserModule,
     AppRoutingModule,
-    OntoSearchModule,
+    OntoSearchFieldModule,
   ],
 
   bootstrap: [AppComponent],
-  exports:[]
+  exports: [],
 })
 export class AppModule {
 }

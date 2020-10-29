@@ -6,7 +6,7 @@
           *ngFor="let state of statesList"
           [selectable]="selectable"
           [removable]="removable"
-          (removed)="remove(state)"
+          (removed)="remove($event, state)"
           [ngClass]="state.label ? 'state-suggestion' : 'state-free-text'">
           {{state.label || state}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -28,5 +28,6 @@
       </mat-autocomplete>
     </mat-form-field>
   </div>
-    <button mat-raised-button  (click)="search()" appCypressData="search-button">{{'ONTO_SEARCH.BUTTON.SEARCH' | transloco}}</button>
+  <button class="search-button" mat-raised-button (click)="search()"
+          appCypressData="search-button">{{'ONTO_SEARCH.BUTTON.SEARCH' | transloco}}</button>
 </div>

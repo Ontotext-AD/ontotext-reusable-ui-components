@@ -6,16 +6,16 @@
   display: flex;
   place-content: center space-between;
   align-items: center;
-}
 
-.selection-list {
-  flex: 1 1 100%;
-  box-sizing: border-box;
-  max-width: 100%;
-}
+  .selection-list {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
 
-.state-selection-list {
-  display: inherit;
+  .state-selection-list {
+    display: inherit;
+  }
 }
 
 button {

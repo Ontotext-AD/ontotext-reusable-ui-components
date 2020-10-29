@@ -38,14 +38,11 @@ export class SearchComponent implements OnInit {
   public removable: boolean = SearchConfiguration.removable;
   public separatorKeysCodes = SearchConfiguration.separatorKeysCodes;
 
-  constructor() {
-  }
-
   public ngOnInit(): void {
     this.filteredStates = this.stateCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map((state: string | null) => state ? this.filterStates(state) : [...this.statesList]));
+        .pipe(
+            startWith(''),
+            map((state: string | null) => state ? this.filterStates(state) : [...this.statesList]));
 
     this.states.subscribe((states) => {
       this._states = states;
@@ -76,8 +73,13 @@ export class SearchComponent implements OnInit {
     this.autocomplete.closePanel();
   }
 
-  public remove(state: any): void {
+  public remove(event, state: any): void {
+    console.log(event);
+    event.preventDefault();
     this.statesList.delete(state);
+    this.autocomplete.closePanel();
+
+    console.log(this.statesList);
   }
 
   public selected(event: MatAutocompleteSelectedEvent): void {

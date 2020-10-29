@@ -10,8 +10,8 @@
     "start:ci": "http-server ./dist/ontotext-reusable-ui-components -a localhost -p 4200 -c-1",
     "cy:ci": "ng build --prod && run-p --race start:ci cy:run",
     "cy:run": "cypress run --spec cypress/test/**/*.spec.ts",
-    "lint": "eslint 'src/**'",
-    "lint:fix": "eslint --fix 'src/**'",
+    "lint": "eslint 'src/**' && eslint 'projects/**'",
+    "lint:fix": "eslint --fix 'src/**' && eslint --fix 'projects/**'",
     "compodoc": "npx compodoc --tsconfig tsconfig.json src"
   },
   "private": true,

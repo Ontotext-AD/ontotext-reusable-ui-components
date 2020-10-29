@@ -4,10 +4,10 @@ import {SearchModel} from './models/search-model';
 
 @Component({
   selector: 'onto-search',
-  templateUrl: './onto-search.component.html',
-  styleUrls: ['./onto-search.component.scss'],
+  templateUrl: './onto-search-field.component.html',
+  styleUrls: ['./onto-search-field.component.scss'],
 })
-export class OntoSearchComponent implements OnInit {
+export class OntoSearchFieldComponent implements OnInit {
   @Input()
   customTemplate?: TemplateRef<any>;
   @Input()
