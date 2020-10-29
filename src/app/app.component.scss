@@ -1,0 +1,32 @@
+.table-wrapper {
+  width: 100%;
+}
+
+.template-class {
+  background-color: #ff9800;
+}
+
+.table-wrapper ::ng-deep .table-class {
+  background-color: red;
+  .onto-table-column-username {
+    flex: 0 0 30% ;
+    min-width: 5% ;
+    background-color: #4cae4c;
+  }
+
+  .onto-table-column-name {
+    flex: 0 0 20% ;
+    min-width: 5% !important;
+  }
+
+  .onto-table-column-column3 {
+    flex: 0 0 40% ;
+    min-width: 5% !important;
+  }
+
+  .onto-table-column-column4 {
+    flex: 0 0 10% ;
+    min-width: 5% !important;
+    background-color: #9a9a9a;
+  }
+}

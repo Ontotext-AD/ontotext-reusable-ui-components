@@ -1,0 +1,67 @@
+$onto-header-row-height: 56px;
+$onto-row-height: 48px;
+$onto-row-horizontal-padding: 24px;
+:host {
+  width: 100%;
+}
+
+.onto-table-fixed-layout {
+  table-layout: fixed;
+}
+.onto-table {
+  width: 100%;
+  border-spacing: 0;
+  display: table;
+  background: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.onto-table-header-row, .onto-table-row, .onto-table-footer-row {
+  display: flex;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-style: solid;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.onto-table-header-row {
+  height: $onto-header-row-height;
+}
+
+.onto-table-row, .onto-table-footer-row {
+  min-height: $onto-row-height;
+}
+
+.onto-table-header-cell, .onto-table-cell, .onto-table-footer-cell {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  min-height: inherit;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 400;
+
+  border-bottom-color: #000000;
+
+  div {
+    padding: 0;
+
+    &:first-of-type {
+      padding-left: $onto-row-horizontal-padding;
+    }
+
+    &:last-of-type {
+      padding-right: $onto-row-horizontal-padding;
+    }
+  }
+}
+.onto-table-header-cell {
+  text-align: left;
+}
+.onto-table-cell, .onto-table-footer-cell {
+  font-size: 14px;
+}

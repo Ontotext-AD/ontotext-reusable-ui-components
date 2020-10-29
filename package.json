@@ -12,7 +12,8 @@
     "cy:run": "cypress run --spec cypress/test/**/*.spec.ts",
     "lint": "eslint 'src/**' && eslint 'projects/**'",
     "lint:fix": "eslint --fix 'src/**' && eslint --fix 'projects/**'",
-    "compodoc": "npx compodoc --tsconfig tsconfig.json src"
+    "compodoc": "npx compodoc --tsconfig tsconfig.json src",
+    "pack-onto": "npm run lint:fix && ng build onto-search && npm run cy:run && cd dist/onto-search && npm pack"
   },
   "private": true,
   "dependencies": {

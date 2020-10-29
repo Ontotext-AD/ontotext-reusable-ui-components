@@ -2,13 +2,15 @@ import {TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {AppComponent} from "src/app/app.component";
 import {OntoSearchFieldModule} from "../../projects/onto-search/src/lib/onto-search-field/onto-search-field.module";
+import { OntoSearchResultsModule } from '../../projects/onto-search/src/lib/onto-search-results/onto-search-results.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        OntoSearchFieldModule
+        OntoSearchFieldModule,
+        OntoSearchResultsModule
       ],
       declarations: [
         AppComponent,
