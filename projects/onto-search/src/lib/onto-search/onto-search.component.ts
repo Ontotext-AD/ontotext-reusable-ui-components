@@ -10,6 +10,8 @@ import {SearchModel} from './models/search-model';
 export class OntoSearchComponent implements OnInit {
   @Input()
   customTemplate?: TemplateRef<any>;
+  @Input()
+  private selectedList: any[];
   @Output()
   onSearch: EventEmitter<any> = new EventEmitter<any>();
 
@@ -125,5 +127,9 @@ export class OntoSearchComponent implements OnInit {
 
   public onSearchEvent($event: any) {
     this.onSearch.emit($event);
+  }
+
+  public getSelectedList(): any[] {
+    return this.selectedList || [];
   }
 }

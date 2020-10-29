@@ -1,7 +1,7 @@
-<div class="search-wrapper" fxLayout="row" fxLayoutAlign="space-between center" appCypressData="WWWWW">
-  <div fxFlex="grow">
-    <mat-form-field class="state-chip-list" fxFill>
-      <mat-chip-list #chipList aria-label="Fruit selection">
+<div class="search-component" appCypressData="search-component">
+  <div class="selection-list">
+    <mat-form-field class="state-selection-list">
+      <mat-chip-list #selectionList aria-label="Search selection">
         <mat-chip
           *ngFor="let state of statesList"
           [selectable]="selectable"
@@ -12,11 +12,11 @@
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
         <input
-          placeholder="{{'SEARCH_PLACEHOLDER' | translate}}"
+          placeholder="{{'ONTO_SEARCH.SEARCH_PLACEHOLDER' | transloco}}"
           #statesInput
           [formControl]="stateCtrl"
           [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
+          [matChipInputFor]="selectionList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
@@ -28,7 +28,5 @@
       </mat-autocomplete>
     </mat-form-field>
   </div>
-  <div class="search-button-wrapper">
-    <button mat-raised-button  (click)="search()" appCypressData="search-button">{{'BUTTON.SEARCH' | translate}}</button>
-  </div>
+    <button mat-raised-button  (click)="search()" appCypressData="search-button">{{'ONTO_SEARCH.BUTTON.SEARCH' | transloco}}</button>
 </div>

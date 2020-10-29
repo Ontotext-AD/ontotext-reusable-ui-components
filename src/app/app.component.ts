@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent {
   title = 'ontotext-reusable-ui-components';
 
-  constructor(public translate: TranslateService) {
-    this.initTranslation();
+  constructor() {
   }
 
-  private initTranslation() {
-    this.translate.addLangs(['en']);
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
-  }
 }

@@ -9,6 +9,8 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "module": "es2020",
     "lib": [
@@ -25,7 +27,9 @@
   "include": [
     "src",
     "types",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "projects",
+    "projects/**/*.ts"
   ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

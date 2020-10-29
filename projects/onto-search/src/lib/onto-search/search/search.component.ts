@@ -18,7 +18,10 @@ export class SearchComponent implements OnInit {
   private _states: SearchModel[];
 
   @Input()
-  public workingTemplate: TemplateRef<any>;
+  private preselectedStatesList: any[];
+
+  @Input()
+  public autocompleteOptionTemplate: TemplateRef<any>;
 
   @Output()
   public onSearch: EventEmitter<any> = new EventEmitter<any>();
@@ -26,7 +29,7 @@ export class SearchComponent implements OnInit {
   @ViewChild('statesInput') statesInput: ElementRef<HTMLInputElement>;
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
-  public statesList: Set<any> = new Set<any>();
+  public statesList: Set<any>;
   public stateCtrl = new FormControl();
   public filteredStates: Observable<any[]>;
   public currentTemplate: TemplateRef<any>;
@@ -36,30 +39,33 @@ export class SearchComponent implements OnInit {
   public separatorKeysCodes = SearchConfiguration.separatorKeysCodes;
 
   constructor() {
-    this.filteredStates = this.stateCtrl.valueChanges
-        .pipe(
-            startWith(''),
-            map((state: string | null) => state ? this._filterStates(state) : Array.from(this.statesList)));
   }
 
   public ngOnInit(): void {
+    this.filteredStates = this.stateCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map((state: string | null) => state ? this.filterStates(state) : [...this.statesList]));
+
     this.states.subscribe((states) => {
       this._states = states;
     });
-    this.currentTemplate = this.workingTemplate;
+
+    this.currentTemplate = this.autocompleteOptionTemplate;
+    this.statesList = new Set<any>([...this.preselectedStatesList]);
   }
 
-  private _filterStates(value: string): any[] {
+  private filterStates(value: string): any[] {
     const filterValue = typeof value === 'string' ? value.toLowerCase() : value;
     return this._states.filter((state) => state.label.toLowerCase().indexOf(filterValue) === 0);
   }
 
   public add(event: MatChipInputEvent): void {
     const input = event.input;
-    const value = event.value;
+    const value = (event.value || '').trim();
 
-    if ((value || '').trim()) {
-      this.statesList.add(value.trim());
+    if (value) {
+      this.statesList.add(value);
     }
 
     if (input) {
@@ -70,7 +76,7 @@ export class SearchComponent implements OnInit {
     this.autocomplete.closePanel();
   }
 
-  public remove(state: any) {
+  public remove(state: any): void {
     this.statesList.delete(state);
   }
 
@@ -81,6 +87,6 @@ export class SearchComponent implements OnInit {
   }
 
   public search() {
-    this.onSearch.emit(Array.from(this.statesList));
+    this.onSearch.emit([...this.statesList]);
   }
 }

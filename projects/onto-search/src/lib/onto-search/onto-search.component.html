@@ -1,7 +1,7 @@
-<p>onto-search works!</p>
 <app-search
   [states]="states"
-  [workingTemplate]="customTemplate ? customTemplate : defaultTemplate"
+  [autocompleteOptionTemplate]="customTemplate || defaultTemplate"
+  [preselectedStatesList]="getSelectedList()"
   (onSearch)="onSearchEvent($event)"></app-search>
 
   <ng-template #defaultTemplate let-state>

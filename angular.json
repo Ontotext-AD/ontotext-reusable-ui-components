@@ -141,15 +141,10 @@
             "production": {
               "tsConfig": "projects/onto-search/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/onto-search/src/test.ts",
-            "tsConfig": "projects/onto-search/tsconfig.spec.json",
-            "karmaConfig": "projects/onto-search/karma.conf.js"
-          }
+          },
+          "assets": [
+            "projects/onto-search/src/assets"
+          ]
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
