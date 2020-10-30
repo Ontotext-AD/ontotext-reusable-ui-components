@@ -6,7 +6,7 @@
           *ngFor="let state of statesList"
           [selectable]="selectable"
           [removable]="removable"
-          (removed)="remove($event, state)"
+          (removed)="remove(state)"
           [ngClass]="state.label ? 'state-suggestion' : 'state-free-text'">
           {{state.label || state}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -18,7 +18,8 @@
           [matAutocomplete]="auto"
           [matChipInputFor]="selectionList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)">
+          (matChipInputTokenEnd)="add($event)"
+          (input)="onInputChange($event.target.value)">
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option class="state-option" *ngFor="let state of filteredStates | async" [value]="state">
