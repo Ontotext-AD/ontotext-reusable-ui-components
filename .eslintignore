@@ -1,13 +1,20 @@
 # Ignore tests
 src/**/*.spec.ts
+projects/**/*.spec.ts
 
 # Ignore specific files
 src/**/*.ico
 src/**/*.json
+projects/**/*.ico
+projects/**/*.json
+/**/*.md
 
 # Ignore styling
 src/**/*.css
 src/**/*.scss
+projects/**/*.css
+projects/**/*.scss
 
 # Ignore Jest test setup file
 /src/test.ts
+/projects/test.ts

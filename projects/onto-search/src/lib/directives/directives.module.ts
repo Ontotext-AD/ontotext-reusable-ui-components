@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CypressDataDirective} from 'src/app/directives/cypress-data.directive';
+import {CypressDataDirective} from './cypress-data.directive';
 
 @NgModule({
   imports: [],

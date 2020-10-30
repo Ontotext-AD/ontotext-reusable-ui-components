@@ -1,0 +1,33 @@
+<div class="search-component" appCypressData="search-component">
+  <div class="selection-list">
+    <mat-form-field class="state-selection-list">
+      <mat-chip-list #selectionList aria-label="Search selection">
+        <mat-chip
+          *ngFor="let state of statesList"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove($event, state)"
+          [ngClass]="state.label ? 'state-suggestion' : 'state-free-text'">
+          {{state.label || state}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="{{'ONTO_SEARCH.SEARCH_PLACEHOLDER' | transloco}}"
+          #statesInput
+          [formControl]="stateCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="selectionList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option class="state-option" *ngFor="let state of filteredStates | async" [value]="state">
+          <ng-container *ngTemplateOutlet="currentTemplate; context: {$implicit: state}">
+          </ng-container>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <button class="search-button" mat-raised-button (click)="search()"
+          appCypressData="search-button">{{'ONTO_SEARCH.BUTTON.SEARCH' | transloco}}</button>
+</div>

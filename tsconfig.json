@@ -9,17 +9,27 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "module": "es2020",
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "onto-search": [
+        "dist/onto-search/onto-search",
+        "dist/onto-search"
+      ]
+    }
   },
   "include": [
     "src",
     "types",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "projects",
+    "projects/**/*.ts"
   ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

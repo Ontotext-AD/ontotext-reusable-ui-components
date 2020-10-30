@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  httpLoaderPrefix: './assets/i18n/',
-  httpLoaderSuffix: '.json',
 };
 
 /*

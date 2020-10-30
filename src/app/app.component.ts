@@ -7,4 +7,7 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'ontotext-reusable-ui-components';
+
+  constructor() {
+  }
 }

@@ -1,0 +1,30 @@
+.search-component {
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center space-between;
+  align-items: center;
+
+  .selection-list {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .state-selection-list {
+    display: inherit;
+  }
+}
+
+button {
+  margin-left: 1em;
+}
+
+.state-option {
+  height: auto;
+  word-wrap: break-word;
+  line-height: 1.5em;
+  padding: 1em 0;
+}

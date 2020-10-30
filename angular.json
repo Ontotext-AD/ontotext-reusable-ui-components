@@ -28,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           },
@@ -120,6 +121,41 @@
             "production": {
               "devServerTarget": "ontotext-reusable-ui-components:serve:production"
             }
+          }
+        }
+      }
+    },
+    "onto-search": {
+      "projectType": "library",
+      "root": "projects/onto-search",
+      "sourceRoot": "projects/onto-search/src",
+      "prefix": "onto",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/onto-search/tsconfig.lib.json",
+            "project": "projects/onto-search/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/onto-search/tsconfig.lib.prod.json"
+            }
+          },
+          "assets": [
+            "projects/onto-search/src/assets"
+          ]
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/onto-search/tsconfig.lib.json",
+              "projects/onto-search/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
