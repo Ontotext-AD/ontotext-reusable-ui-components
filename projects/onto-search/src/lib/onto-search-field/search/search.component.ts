@@ -23,8 +23,13 @@ export class SearchComponent implements OnInit {
   @Input()
   public autocompleteOptionTemplate: TemplateRef<any>;
 
+  @Input()
+  private enableInnerAutocompleteFiltration: boolean;
+
   @Output()
   public onSearch: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  public onKeyPress: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('statesInput') statesInput: ElementRef<HTMLInputElement>;
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
@@ -39,17 +44,26 @@ export class SearchComponent implements OnInit {
   public separatorKeysCodes = SearchConfiguration.separatorKeysCodes;
 
   public ngOnInit(): void {
-    this.filteredStates = this.stateCtrl.valueChanges
-        .pipe(
-            startWith(''),
-            map((state: string | null) => state ? this.filterStates(state) : [...this.statesList]));
-
     this.states.subscribe((states) => {
       this._states = states;
     });
 
+    this.subscribeAutocompleteFilter();
+
     this.currentTemplate = this.autocompleteOptionTemplate;
     this.statesList = new Set<any>([...this.preselectedStatesList]);
+  }
+
+  private subscribeAutocompleteFilter(): void {
+    const enableAutocomplete = this.enableInnerAutocompleteFiltration || false;
+    if (enableAutocomplete) {
+      this.filteredStates = this.stateCtrl.valueChanges
+          .pipe(
+              startWith(''),
+              map((state: string | null) => state ? this.filterStates(state) : []));
+    } else {
+      this.filteredStates = this.states;
+    }
   }
 
   private filterStates(value: string): any[] {
@@ -73,13 +87,9 @@ export class SearchComponent implements OnInit {
     this.autocomplete.closePanel();
   }
 
-  public remove(event, state: any): void {
-    console.log(event);
-    event.preventDefault();
+  public remove(state: any): void {
     this.statesList.delete(state);
-    this.autocomplete.closePanel();
-
-    console.log(this.statesList);
+    this.stateCtrl.setValue(null);
   }
 
   public selected(event: MatAutocompleteSelectedEvent): void {
@@ -88,7 +98,11 @@ export class SearchComponent implements OnInit {
     this.stateCtrl.setValue(null);
   }
 
-  public search() {
+  public search(): void {
     this.onSearch.emit([...this.statesList]);
+  }
+
+  public onInputChange(value: any): void {
+    this.onKeyPress.emit(value);
   }
 }

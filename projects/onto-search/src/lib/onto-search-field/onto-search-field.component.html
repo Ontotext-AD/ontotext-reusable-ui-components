@@ -2,7 +2,8 @@
   [states]="states"
   [autocompleteOptionTemplate]="customTemplate || defaultTemplate"
   [preselectedStatesList]="getSelectedList()"
-  (onSearch)="onSearchEvent($event)"></app-search>
+  (onSearch)="onSearchEvent($event)"
+  (onKeyPress)="onKeyPressEvent($event)"></app-search>
 
   <ng-template #defaultTemplate let-state>
     <span class="state-label">{{state.label}}</span>
