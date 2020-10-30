@@ -2,14 +2,6 @@
   <span>{{title}} app is running!</span>
   <onto-search></onto-search>
   <router-outlet></router-outlet>
-  <div class="table-wrapper">
-    <onto-search-results [componentClass]="'table-class'" [datasource]="datasource"
-                         [config]="config"></onto-search-results>
-  </div>
 </div>
 
-<ng-template #template let-data>
-  <div class="template-class">
-    {{data.column4}}
-  </div>
-</ng-template>
+
