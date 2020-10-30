@@ -3,18 +3,18 @@ import SearchResultsSteps from '../steps/search-results-steps';
 describe('Onto Search Results Component', () => {
   it('Should find the component', () => {
     SearchResultsSteps.visit();
-    SearchResultsSteps.getOntoSearchResultsComponent();
+    SearchResultsSteps.getOntoSearchResultsComponent().should('be.visible');
   });
 
   it('Should have data loaded', () => {
     SearchResultsSteps.visit();
 
-    SearchResultsSteps.getDataRows();
-    SearchResultsSteps.getFooterRow();
+    SearchResultsSteps.getDataRows().should('have.length', '2');
+    SearchResultsSteps.getFooterRow().should('have.length', '1');
 
     SearchResultsSteps.getTableComponent().should('have.class', 'table-class');
 
-    SearchResultsSteps.getHeaderRow().find('[appCypressData="onto-table-header-cell"]')
+    SearchResultsSteps.getHeaderRow().should('have.length', '1').find('[appCypressData="onto-table-header-cell"]')
         .first().should('contain', 'User Name');
 
     SearchResultsSteps.getDataRows().find('.onto-table-column-column4 div')

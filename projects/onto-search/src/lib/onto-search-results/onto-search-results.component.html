@@ -19,7 +19,7 @@
       <ng-container *ngIf="config.showFooter">
         <td cdk-footer-cell class="onto-table-footer-cell {{'onto-table-column-' + columnConfig.name}}"
             *cdkFooterCellDef appCypressData="onto-table-footer-cell">
-          <div>{{columnConfig.footerFunction()}}</div>
+          <div>{{columnConfig.footerFunction(datasource, columnConfig)}}</div>
         </td>
       </ng-container>
     </ng-container>

@@ -26,25 +26,27 @@ export class SearchResultsComponent implements OnInit {
         {
           name: 'username',
           label: 'User Name',
-          dataFunction: (data) => 'Username: ' + data.username,
-          footerFunction: () => '5'
+          dataFunction: (data): string => 'Username: ' + data.username,
+          footerFunction: (): string => '5'
         },
         {
           name: 'name',
           label: 'Name',
-          dataFunction: (data) => 'Name: ' + data.name,
-          footerFunction: () => '5'
+          dataFunction: (data): string => 'Name: ' + data.name,
+          footerFunction: (): string => '5'
         },
         {
           name: 'column3',
           label: 'column 3 Label',
-          footerFunction: () => '5',
-          dataFunction: (data) => data.column3
+          footerFunction: (datasource, columnConfig): string => {
+            return datasource.map((data: any) => data[columnConfig.name]).reduce((previousValue, currentValue) => previousValue + currentValue);
+          },
+          dataFunction: (data): string => data.column3
         },
         {
           name: 'column4',
           label: 'column 4 Label',
-          footerFunction: () => '5',
+          footerFunction: (): string => '5',
           dataTemplate: this.template
         }
       ],
@@ -52,8 +54,8 @@ export class SearchResultsComponent implements OnInit {
     };
 
     this.datasource = [
-      {username: 'user1', name: 'user 1', column3: 'column 3', column4: 'column 41'},
-      {username: 'user2', name: 'user 2', column3: 'column 3', column4: 'column 42'},
+      {username: 'user1', name: 'user 1', column3: 13, column4: 'column 41'},
+      {username: 'user2', name: 'user 2', column3: 18, column4: 'column 42'},
     ];
   }
 }
