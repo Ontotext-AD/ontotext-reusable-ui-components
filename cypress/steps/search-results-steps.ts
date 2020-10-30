@@ -1,5 +1,5 @@
 export default class SearchResultsSteps {
-  static visit() {
+  static visit(waitLoader: boolean = true) {
     cy.visit('/search-results');
   }
 
