@@ -32,8 +32,8 @@ jobs:
         - npm run test
         - npm run cy:ci
       if: type = pull_request
-    - stage: npm release
-      script: npm run build:prod
+    - stage: npm release onto-search
+      script: npm run build:onto-search-prod
       if: tag IS present
       deploy:
         - provider: npm

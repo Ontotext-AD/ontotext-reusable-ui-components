@@ -1,12 +1,12 @@
 {
   "name": "ontotext-reusable-ui-components",
-  "version": "0.0.1-TR1",
+  "version": "0.0.1-TR2",
   "description": "Unified reusable UI components designed for the Ontotext ecosystem.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --prod",
+    "build:onto-search-prod": "ng build onto-search --prod",
     "test": "npx jest",
     "cy:open": "cypress open",
     "start:ci": "lite-server",
