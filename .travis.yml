@@ -32,3 +32,13 @@ jobs:
         - npm run test
         - npm run cy:ci
       if: type = pull_request
+    - stage: npm release
+      script: npm run build:prod
+      if: tag IS present
+      deploy:
+        - provider: npm
+          skip_cleanup: true
+          email:  $NPM_MAIL
+          api_key: $NPM_TOKEN
+          on:
+            tags: true

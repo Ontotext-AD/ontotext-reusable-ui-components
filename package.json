@@ -1,10 +1,12 @@
 {
   "name": "ontotext-reusable-ui-components",
-  "version": "0.0.0",
+  "version": "0.0.1-TR1",
+  "description": "Unified reusable UI components designed for the Ontotext ecosystem.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "test": "npx jest",
     "cy:open": "cypress open",
     "start:ci": "lite-server",
@@ -15,7 +17,38 @@
     "compodoc": "npx compodoc --tsconfig tsconfig.json src",
     "pack-onto": "npm run lint:fix && ng build onto-search && npm run cy:run && cd dist/onto-search && npm pack"
   },
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ontotext-AD/ontotext-reusable-ui-components.git"
+  },
+  "keywords": [
+    "graphdb",
+    "ontotext",
+    "reusable components"
+  ],
+  "author": {
+    "name": "\"Sirma AI\" JSC, trading as Ontotext",
+    "url": "https://www.ontotext.com/"
+  },
+  "contributors": [
+    {
+      "name": "Svilen Velikov",
+      "email": "svilen.velikov@ontotext.com"
+    },
+    {
+      "name": "Teodossi Dossev",
+      "email": "teodossi.dossev@ontotext.com"
+    },
+    {
+      "name": "Yordan Alexandrov",
+      "email": "yordan.alexandrov@ontotext.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Ontotext-AD/ontotext-reusable-ui-components/issues"
+  },
+  "homepage": "https://github.com/Ontotext-AD/ontotext-reusable-ui-components#readme",
   "dependencies": {
     "@angular/animations": "^10.1.6",
     "@angular/cdk": "^10.2.5",
