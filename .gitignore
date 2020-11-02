@@ -51,3 +51,6 @@ Thumbs.db
 /cypress/videos/*
 /cypress/logs/*
 /.nyc_output/*
+
+# component compiled output
+/onto-search/
