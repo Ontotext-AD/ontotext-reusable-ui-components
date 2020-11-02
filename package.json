@@ -1,6 +1,6 @@
 {
   "name": "ontotext-reusable-ui-components",
-  "version": "0.0.1-TR2",
+  "version": "0.0.1-TR4",
   "description": "Unified reusable UI components designed for the Ontotext ecosystem.",
   "scripts": {
     "ng": "ng",
@@ -17,6 +17,9 @@
     "compodoc": "npx compodoc --tsconfig tsconfig.json src",
     "pack-onto": "npm run lint:fix && ng build onto-search && npm run cy:run && cd dist/onto-search && npm pack"
   },
+  "files": [
+    "dist/onto-search"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Ontotext-AD/ontotext-reusable-ui-components.git"

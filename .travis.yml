@@ -35,8 +35,6 @@ jobs:
     - stage: npm release onto-search
       script: npm run build:onto-search-prod
       if: tag IS present
-      before_deploy:
-        - cd /home/travis/build/Ontotext-AD/ontotext-reusable-ui-components/dist/onto-search
       deploy:
         - provider: npm
           skip_cleanup: true
