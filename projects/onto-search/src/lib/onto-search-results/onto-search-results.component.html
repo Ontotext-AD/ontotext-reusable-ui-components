@@ -1,0 +1,36 @@
+<div class="table-component" [ngClass]="componentClass" appCypressData="table-component">
+  <table *ngIf="config && datasource" cdk-table [dataSource]="datasource" class="onto-table onto-table-fixed-layout"
+         appCypressData="onto-table">
+    <ng-container *ngFor="let columnConfig of config.columnConfigurations" cdkColumnDef="{{columnConfig.name}}">
+      <th cdk-header-cell class="onto-table-header-cell {{'onto-table-column-' + columnConfig.name}}" *cdkHeaderCellDef
+          appCypressData="onto-table-header-cell">
+        <div>{{columnConfig.label}}</div>
+      </th>
+      <td cdk-cell class="onto-table-cell {{'onto-table-column-' + columnConfig.name}}" *cdkCellDef="let row"
+          appCypressData="onto-table-cell">
+        <div>
+          <ng-container *ngIf="columnConfig.dataFunction; else cellTemplate">
+            {{columnConfig.dataFunction(row)}}
+          </ng-container>
+          <ng-template #cellTemplate [ngTemplateOutlet]="columnConfig.dataTemplate"
+                       [ngTemplateOutletContext]="{$implicit: row}"></ng-template>
+        </div>
+      </td>
+      <ng-container *ngIf="config.showFooter">
+        <td cdk-footer-cell class="onto-table-footer-cell {{'onto-table-column-' + columnConfig.name}}"
+            *cdkFooterCellDef appCypressData="onto-table-footer-cell">
+          <div>{{columnConfig.footerFunction(datasource, columnConfig)}}</div>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <tr cdk-header-row class="onto-table-header-row" appCypressData="onto-table-header-row"
+        *cdkHeaderRowDef="displayColumns"></tr>
+    <tr cdk-row class="onto-table-row" appCypressData="onto-table-row"
+        *cdkRowDef="let row; columns: displayColumns"></tr>
+    <ng-container *ngIf="config.showFooter">
+      <tr cdk-footer-row class="onto-table-footer-row" appCypressData="onto-table-footer-row"
+          *cdkFooterRowDef="displayColumns"></tr>
+    </ng-container>
+  </table>
+</div>

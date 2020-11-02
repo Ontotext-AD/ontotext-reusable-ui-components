@@ -48,3 +48,5 @@ Thumbs.db
 # cypress
 /cypress/screenshots/*
 /cypress/videos/*
+/cypress/logs/*
+/.nyc_output/*

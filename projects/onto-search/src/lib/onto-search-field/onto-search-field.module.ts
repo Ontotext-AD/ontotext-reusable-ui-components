@@ -12,8 +12,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule, TranslocoService} from '@ngneat/transloco';
-import {DirectivesModule} from '../directives/directives.module';
 import en from './i18n/en.json';
+import {DirectivesModule} from '../directives/directives.module';
 
 const translocoConfiguration: TranslocoConfig = {
   availableLangs: ['en'],

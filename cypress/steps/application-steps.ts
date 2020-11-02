@@ -1,5 +1,5 @@
 export default class ApplicationSteps {
-  static visit(waitLoader: boolean = true) {
+  static visit() {
     cy.visit('/');
   }
 

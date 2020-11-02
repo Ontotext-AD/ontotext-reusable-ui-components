@@ -1,0 +1,10 @@
+<div class="table-wrapper">
+  <onto-search-results [componentClass]="'table-class'" [datasource]="datasource"
+                       [config]="config" appCypressData="onto-search-results"></onto-search-results>
+</div>
+
+<ng-template #template let-data>
+  <div class="template-class" appCypressData="onto-search-results-template">
+    {{data.column4}}
+  </div>
+</ng-template>
