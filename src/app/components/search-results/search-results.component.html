@@ -1,5 +1,7 @@
 <div class="table-wrapper">
   <onto-search-results [componentClass]="'table-class'" [datasource]="datasource"
+                       (sortData)="sortChanged($event)"
+                       [sort]="tableSort"
                        [config]="config" appCypressData="onto-search-results"></onto-search-results>
 </div>
 

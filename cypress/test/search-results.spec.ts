@@ -31,4 +31,25 @@ describe('Onto Search Results Component', () => {
         .filter('.onto-table-cell').should('have.length', '2')
         .first().should('contain', 'Username: user1');
   });
+
+  it('Should sort table correctly', () => {
+    SearchResultsSteps.visit();
+    // Should not be able to sort by column with enableSort: false;
+    SearchResultsSteps.getDataRows().find('.onto-table-column-column3').should('contain', 13);
+    SearchResultsSteps.getHeaderRow().find('.onto-table-column-column3').click();
+    SearchResultsSteps.getDataRows().find('.onto-table-column-column3').should('contain', 13);
+
+    // Should not be able to sort by column with enableSort not set;
+    SearchResultsSteps.getDataRows().find('.onto-table-column-column4').should('contain', 'column 41');
+    SearchResultsSteps.getHeaderRow().find('.onto-table-column-column4').click();
+    SearchResultsSteps.getDataRows().find('.onto-table-column-column4').should('contain', 'column 41');
+
+    // Before sorting
+    SearchResultsSteps.getDataRows().find('.onto-table-column-name')
+        .first().should('contain', 'Name: user 1');
+    SearchResultsSteps.getHeaderRow().find('.onto-table-column-name').click();
+    // After sorting
+    SearchResultsSteps.getDataRows().find('.onto-table-column-name')
+        .first().should('contain', 'Name: user 2');
+  });
 });
