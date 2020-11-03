@@ -9,7 +9,7 @@ describe('Onto Search Results Component', () => {
   it('Should have data loaded', () => {
     SearchResultsSteps.visit();
 
-    SearchResultsSteps.getDataRows().should('have.length', '2');
+    SearchResultsSteps.getDataRows().should('have.length', '10');
     SearchResultsSteps.getFooterRow().should('have.length', '1');
 
     SearchResultsSteps.getTableComponent().should('have.class', 'table-class');
@@ -24,12 +24,12 @@ describe('Onto Search Results Component', () => {
     SearchResultsSteps.getTableFooterCells().should('have.length', '4');
 
     SearchResultsSteps.getTableColumnByName('username')
-        .should('have.length', '4')
+        .should('have.length', '12')
         .and('have.css', 'background-color', 'rgb(76, 174, 76)');
 
     SearchResultsSteps.getTableColumnByName('username')
-        .filter('.onto-table-cell').should('have.length', '2')
-        .first().should('contain', 'Username: user1');
+        .filter('.onto-table-cell').should('have.length', '10')
+        .first().should('contain', 'Username: user0');
   });
 
   it('Should sort table correctly', () => {
