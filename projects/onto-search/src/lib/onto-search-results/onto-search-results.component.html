@@ -1,5 +1,5 @@
 <div class="table-component" [ngClass]="componentClass" appCypressData="table-component">
-  <table *ngIf="config && datasource" cdk-table [dataSource]="datasource"
+  <table *ngIf="config" cdk-table [dataSource]="datasource"
          matSort (matSortChange)="sortData.next($event)"
          [matSortDisabled]="!config.enableSort" [matSortDisableClear]="true"
          [matSortActive]="sort?.active" [matSortDirection]="sort?.direction"

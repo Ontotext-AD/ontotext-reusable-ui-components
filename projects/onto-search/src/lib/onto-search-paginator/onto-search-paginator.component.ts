@@ -5,9 +5,10 @@ import {
   Input,
   KeyValueChanges,
   KeyValueDiffer,
-  KeyValueDiffers, OnChanges,
-  OnInit,
-  Output, SimpleChanges
+  KeyValueDiffers,
+  OnChanges,
+  Output,
+  SimpleChanges
 } from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {PageData, PaginatorData} from './models/onto-search-paginator-models';
@@ -17,7 +18,7 @@ import {PageData, PaginatorData} from './models/onto-search-paginator-models';
   templateUrl: './onto-search-paginator.component.html',
   styleUrls: ['./onto-search-paginator.component.scss']
 })
-export class OntoSearchPaginatorComponent implements OnInit, OnChanges, DoCheck {
+export class OntoSearchPaginatorComponent implements OnChanges, DoCheck {
   /**
    * Paginator data
    */
@@ -48,21 +49,15 @@ export class OntoSearchPaginatorComponent implements OnInit, OnChanges, DoCheck 
   constructor(private keyValueDiffer: KeyValueDiffers) {
   }
 
-  ngOnInit(): void {
-    this.length = this.paginatorData.length;
-    this.pageSize = this.paginatorData.pageSize;
-    this.pageSizeOptions = this.pageOptions;
-    this.pageIndex = this.paginatorData.pageIndex;
-    this.paginatorDataDiff = this.keyValueDiffer.find(this.paginatorData).create();
-  }
-
   /**
    * Takes care of change detection in pageOptions properties
    */
   ngDoCheck(): void {
-    const changes = this.paginatorDataDiff.diff(this.paginatorData);
-    if (changes) {
-      this.configurationChanged(changes);
+    if (this.paginatorDataDiff) {
+      const changes = this.paginatorDataDiff.diff(this.paginatorData);
+      if (changes) {
+        this.configurationChanged(changes);
+      }
     }
   }
 
@@ -71,7 +66,11 @@ export class OntoSearchPaginatorComponent implements OnInit, OnChanges, DoCheck 
    * @param changes - input changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.pageOptions.currentValue) {
+    if (changes.paginatorData && changes.paginatorData.currentValue) {
+      this.paginatorDataDiff = this.keyValueDiffer.find(this.paginatorData).create();
+      this.setInternalPaginatorDataProperties(this.paginatorData);
+    }
+    if (changes.pageOptions && changes.pageOptions.currentValue) {
       this.pageSizeOptions = changes.pageOptions.currentValue;
     }
   }
@@ -89,6 +88,18 @@ export class OntoSearchPaginatorComponent implements OnInit, OnChanges, DoCheck 
    * @param changes - contains changes of pageOption properties
    */
   private configurationChanged(changes: KeyValueChanges<string, any>): void {
-    changes.forEachChangedItem((change) => this[change.key] = change.currentValue);
+    changes.forEachChangedItem((change) => {
+      this.setClassProperty(change.key, change.currentValue);
+    });
+  }
+
+  private setInternalPaginatorDataProperties(paginatorData): void {
+    Object.keys(paginatorData).forEach((key) => {
+      this.setClassProperty(key, paginatorData[key]);
+    });
+  }
+
+  private setClassProperty(key, value): void {
+    this[key] = value;
   }
 }
