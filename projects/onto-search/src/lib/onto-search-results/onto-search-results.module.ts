@@ -4,6 +4,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {CommonModule} from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import {DirectivesModule} from '../directives/directives.module';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [OntoSearchResultsComponent],
@@ -13,6 +14,7 @@ import {DirectivesModule} from '../directives/directives.module';
     CommonModule,
     DirectivesModule,
     MatTableModule,
+    MatSortModule,
   ],
 })
 export class OntoSearchResultsModule {}

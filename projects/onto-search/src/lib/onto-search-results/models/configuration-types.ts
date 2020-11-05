@@ -5,10 +5,12 @@ import {TemplateRef} from '@angular/core';
  *
  * @param {ColumnConfig[]} columnConfigurations - an array containing configuration for each column
  * @param {boolean} showFooter - will show footer row if true
+ * @param {boolean} enableSort - enables sorting of columns
  */
 export type TableConfig = {
   columnConfigurations: ColumnConfig[];
   showFooter: boolean;
+  enableSort: boolean;
 };
 
 /**
@@ -31,6 +33,7 @@ export type TableConfig = {
  * @param {DataFunction} [dataFunction] - function for displaying value in data cell of column
  * @param {TemplateRef<*>} [dataTemplate] - template for displaying value in data cell of column
  * @param {FooterFunction} [footerFunction] - function for displaying value in footer cell of column
+ * @param {boolean} [enableSort] - sorting by this column is enabled if true
  */
 export type ColumnConfig = {
   name: string;
@@ -38,4 +41,5 @@ export type ColumnConfig = {
   dataFunction?: (args) => string;
   dataTemplate?: TemplateRef<any>;
   footerFunction?: (dataSource: any[], columnConfig: ColumnConfig) => string;
+  enableSort?: boolean;
 };
