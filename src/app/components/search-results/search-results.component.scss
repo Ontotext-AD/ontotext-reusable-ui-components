@@ -20,7 +20,7 @@
   }
 
   .onto-table-column-column3 {
-    flex: 0 0 40% ;
+    flex: 0 0 30% ;
     min-width: 5% !important;
   }
 
@@ -29,4 +29,10 @@
     min-width: 5% !important;
     background-color: #9a9a9a;
   }
+
+  .onto-table-column-id {
+    flex: 0 0 10% ;
+    min-width: 5% !important;
+  }
+
 }

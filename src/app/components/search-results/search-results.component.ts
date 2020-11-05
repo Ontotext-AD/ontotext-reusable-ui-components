@@ -37,6 +37,7 @@ export class SearchResultsComponent implements OnInit {
   initDatasource(): void {
     for (let i = 0; i < 50; i++) {
       this.datasource.push({
+        id: i,
         username: `user${i}`,
         name: `user ${i}`,
         column3: i * 10,
@@ -72,6 +73,12 @@ export class SearchResultsComponent implements OnInit {
           enableSort: false
         },
         {
+          name: 'id',
+          label: 'Id',
+          dataFunction: (data): string => data.id,
+          footerFunction: (): string => null,
+        },
+        {
           name: 'column4',
           label: 'column 4 Label',
           footerFunction: (): string => '5',
@@ -82,10 +89,9 @@ export class SearchResultsComponent implements OnInit {
       enableSort: true,
     };
     this.tableSort = {
-      active: 'name',
+      active: 'id',
       direction: 'asc'
     };
-    this.sortChanged(this.tableSort);
   }
 
   sortChanged($event: Sort): void {
@@ -106,6 +112,7 @@ export class SearchResultsComponent implements OnInit {
       return;
     });
     this.datasource = [...this.datasource];
+    this.getPagedView(this.paginatorData);
   }
 
   onPageChanged(pageData: PageData): void {
