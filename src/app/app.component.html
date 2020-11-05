@@ -1,5 +1,9 @@
 <div class="content" appCypressData="home-page">
   <span>{{title}} app is running!</span>
+  <mat-toolbar>
+    <button mat-raised-button color="primary" class="nav-button" routerLink="/">Homepage</button>
+    <button mat-raised-button color="primary" routerLink="/search-results">Search results</button>
+  </mat-toolbar>
   <onto-search-field></onto-search-field>
   <router-outlet></router-outlet>
 </div>

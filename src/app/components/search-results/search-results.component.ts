@@ -1,6 +1,10 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TableConfig} from '../../../../projects/onto-search/src/lib/onto-search-results/models/configuration-types';
 import {Sort} from '@angular/material/sort';
+import {
+  PageData,
+  PaginatorData
+} from '../../../../projects/onto-search/src/lib/onto-search-paginator/models/onto-search-paginator-models';
 
 @Component({
   selector: 'app-search-results',
@@ -11,19 +15,39 @@ export class SearchResultsComponent implements OnInit {
   @ViewChild('template', {static: true}) template: TemplateRef<any>;
 
 
-  datasource: any[];
-  config: TableConfig;
+  private datasource: any[] = [];
+  pagedViewDatasource: any[];
+
+  tableConfig: TableConfig;
+
+  paginatorData: PaginatorData;
+  pageSizeOptions = [5, 10, 20];
+
   tableSort: Sort;
 
   constructor() {
   }
 
   ngOnInit(): void {
+    this.initDatasource();
     this.initTable();
+    this.getPagedView({pageIndex: 0, pageSize: 10});
   }
 
-  private initTable(): void {
-    this.config = {
+  initDatasource(): void {
+    for (let i = 0; i < 50; i++) {
+      this.datasource.push({
+        id: i,
+        username: `user${i}`,
+        name: `user ${i}`,
+        column3: i * 10,
+        column4: `column 4-${i}`,
+      });
+    }
+  }
+
+  initTable(): void {
+    this.tableConfig = {
       columnConfigurations: [
         {
           name: 'username',
@@ -49,6 +73,12 @@ export class SearchResultsComponent implements OnInit {
           enableSort: false
         },
         {
+          name: 'id',
+          label: 'Id',
+          dataFunction: (data): string => data.id,
+          footerFunction: (): string => null,
+        },
+        {
           name: 'column4',
           label: 'column 4 Label',
           footerFunction: (): string => '5',
@@ -58,17 +88,10 @@ export class SearchResultsComponent implements OnInit {
       showFooter: true,
       enableSort: true,
     };
-
-    this.datasource = [
-      {username: 'user1', name: 'user 1', column3: 13, column4: 'column 41'},
-      {username: 'user2', name: 'user 2', column3: 18, column4: 'column 42'},
-    ];
-
     this.tableSort = {
-      active: 'name',
+      active: 'id',
       direction: 'asc'
     };
-    this.sortChanged(this.tableSort);
   }
 
   sortChanged($event: Sort): void {
@@ -89,5 +112,23 @@ export class SearchResultsComponent implements OnInit {
       return;
     });
     this.datasource = [...this.datasource];
+    this.getPagedView(this.paginatorData);
+  }
+
+  onPageChanged(pageData: PageData): void {
+    this.pagedViewDatasource = this.datasource.slice(pageData.pageIndex * pageData.pageSize, (pageData.pageIndex + 1) * pageData.pageSize);
+    this.paginatorData.pageIndex = pageData.pageIndex;
+  }
+
+  private getPagedView(pageData?: PageData): void {
+    this.paginatorData = {
+      pageIndex: pageData.pageIndex,
+      length: this.datasource.length,
+      pageSize: pageData.pageSize,
+    };
+    // Return paged view of datasource
+    this.pagedViewDatasource = this.datasource
+        .slice(this.paginatorData.pageIndex * this.paginatorData.pageSize,
+            (this.paginatorData.pageIndex + 1) * this.paginatorData.pageSize);
   }
 }

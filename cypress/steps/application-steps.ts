@@ -6,5 +6,4 @@ export default class ApplicationSteps {
   static getHomePage() {
     return cy.find('[appCypressData="home-page"]');
   }
-
 }

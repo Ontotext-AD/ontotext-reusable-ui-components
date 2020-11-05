@@ -1,8 +1,9 @@
 <div class="table-wrapper">
-  <onto-search-results [componentClass]="'table-class'" [datasource]="datasource"
+  <onto-search-results [componentClass]="'table-class'" [datasource]="pagedViewDatasource"
                        (sortData)="sortChanged($event)"
                        [sort]="tableSort"
-                       [config]="config" appCypressData="onto-search-results"></onto-search-results>
+                       [config]="tableConfig" appCypressData="onto-search-results"></onto-search-results>
+  <onto-search-paginator [paginatorData]="paginatorData" [pageOptions]="pageSizeOptions" (pageChanged)="onPageChanged($event)"></onto-search-paginator>
 </div>
 
 <ng-template #template let-data>
