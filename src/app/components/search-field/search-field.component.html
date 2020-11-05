@@ -1,0 +1,17 @@
+<onto-search-field
+  [autocompleteData]="states"
+  [customTemplate]="useCustomTemplate() ? customTemplate : null"
+  [selectedList]="getSelectedList()"
+  [enableInnerAutocompleteFiltration]="enableInnerAutocompleteFiltration()"
+  (onSearch)="onSearchEvent($event)"
+  (onKeyPress)="onKeyPressEvent($event)"></onto-search-field>
+
+<div *ngFor="let phrase of searchPhrase; let index = index" [attr.appCypressData]="'phrase-' + index">{{phrase.label}}</div>
+<div appCypressData="keypress">{{keyPressed}}</div>
+
+
+<ng-template #customTemplate let-item>
+  <span [attr.appCypressData]="'custom-state-label-' + item.index" class="state-label">{{item.state.label}}</span>
+  <span [attr.appCypressData]="'custom-state-type-' + item.index" class="state-type">{{item.state.type}}</span> <br/>
+  <span [attr.appCypressData]="'custom-state-labels-' + item.index" class="state-labels"><small>{{item.state.labels}}</small></span>
+</ng-template>

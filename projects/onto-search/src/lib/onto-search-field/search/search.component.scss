@@ -1,4 +1,4 @@
-.search-component {
+.search-field-component {
   width: 100%;
   height: 100%;
   flex-direction: row;
@@ -18,7 +18,7 @@
   }
 }
 
-button {
+button.search-field-button {
   margin-left: 1em;
 }
 

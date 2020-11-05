@@ -1,12 +1,13 @@
 <app-search
   [states]="states"
   [autocompleteOptionTemplate]="customTemplate || defaultTemplate"
-  [preselectedStatesList]="getSelectedList()"
+  [preselectedStatesList]="selectedList || []"
+  [enableInnerAutocompleteFiltration]="enableInnerAutocompleteFiltration"
   (onSearch)="onSearchEvent($event)"
   (onKeyPress)="onKeyPressEvent($event)"></app-search>
 
-  <ng-template #defaultTemplate let-state>
-    <span class="state-label">{{state.label}}</span>
-    <span class="state-type">{{state.type}}</span> <br/>
-    <span class="state-labels"><small>{{state.labels}}</small></span>
+  <ng-template #defaultTemplate let-item>
+    <span [attr.appCypressData]="'state-label-' + item.index" class="state-label">{{item.state.label}}</span>
+    <span [attr.appCypressData]="'state-type-' + item.index" class="state-type">{{item.state.type}}</span> <br/>
+    <span [attr.appCypressData]="'state-labels-' + item.index" class="state-labels"><small>{{item.state.labels}}</small></span>
 </ng-template>

@@ -1,15 +1,16 @@
-<div class="search-component" appCypressData="search-component">
+<div class="search-field-component" appCypressData="search-field-component">
   <div class="selection-list">
     <mat-form-field class="state-selection-list">
-      <mat-chip-list #selectionList aria-label="Search selection">
+      <mat-chip-list #selectionList aria-label="Search selection" appCypressData="search-field-selection">
         <mat-chip
-          *ngFor="let state of statesList"
+          *ngFor="let state of statesList; let index = index"
           [selectable]="selectable"
           [removable]="removable"
           (removed)="remove(state)"
-          [ngClass]="state.label ? 'state-suggestion' : 'state-free-text'">
+          [ngClass]="state.label ? 'state-suggestion' : 'state-free-text'"
+          [attr.appCypressData]="'state-selection-' + index">
           {{state.label || state}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          <mat-icon matChipRemove *ngIf="removable" [attr.appCypressData]="'state-cancel-' + index">cancel</mat-icon>
         </mat-chip>
         <input
           placeholder="{{'ONTO_SEARCH.SEARCH_PLACEHOLDER' | transloco}}"
@@ -19,16 +20,17 @@
           [matChipInputFor]="selectionList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           (matChipInputTokenEnd)="add($event)"
-          (input)="onInputChange($event.target.value)">
+          (input)="onInputChange($event.target.value)"
+          appCypressData="search-field-input">
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option class="state-option" *ngFor="let state of filteredStates | async" [value]="state">
-          <ng-container *ngTemplateOutlet="currentTemplate; context: {$implicit: state}">
+        <mat-option class="state-option" *ngFor="let state of filteredStates | async; let index = index" [value]="state">
+          <ng-container *ngTemplateOutlet="currentTemplate; context: {$implicit: {state: state, index: index}}">
           </ng-container>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </div>
-  <button class="search-button" mat-raised-button (click)="search()"
-          appCypressData="search-button">{{'ONTO_SEARCH.BUTTON.SEARCH' | transloco}}</button>
+  <button class="search-field-button" mat-raised-button (click)="search()"
+          appCypressData="search-field-button">{{'ONTO_SEARCH.BUTTON.SEARCH' | transloco}}</button>
 </div>

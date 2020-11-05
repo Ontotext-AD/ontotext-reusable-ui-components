@@ -20,14 +20,24 @@ export class SearchComponent implements OnInit {
   @Input()
   private preselectedStatesList: any[];
 
+  /**
+   * Custom template reference.
+   */
   @Input()
   public autocompleteOptionTemplate: TemplateRef<any>;
 
   @Input()
   private enableInnerAutocompleteFiltration: boolean;
 
+  /**
+   * On search event emitter.
+   */
   @Output()
   public onSearch: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * On key press emitter.
+   */
   @Output()
   public onKeyPress: EventEmitter<any> = new EventEmitter<any>();
 

@@ -14,7 +14,6 @@ import {
 export class SearchResultsComponent implements OnInit {
   @ViewChild('template', {static: true}) template: TemplateRef<any>;
 
-
   private datasource: any[] = [];
   pagedViewDatasource: any[];
 
