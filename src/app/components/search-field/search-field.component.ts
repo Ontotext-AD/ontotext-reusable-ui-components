@@ -111,23 +111,36 @@ export class SearchFieldComponent implements OnInit {
     'labels': ['Deoxyribonuclease I', 'rhDNase', 'DNase I', 'Deoxyribonuclease-1 precursor', 'DNase'],
   }];
   public states: BehaviorSubject<SearchFieldModel[]> = new BehaviorSubject<SearchFieldModel[]>([]);
-  private customTemplate: boolean = false;
-  private internalFilter: boolean = false;
+  public useCustomTemplate: boolean = false;
+  public useInternalFilter: boolean = false;
+  public useCustomFunction: boolean = false;
+  public useSelectedList: boolean = false;
+
   public searchPhrase: any;
   public keyPressed: string;
+  public customFunction: any = () => 'Darth';
+  public selectedList = [
+    'free text',
+    {
+      'uri': {
+        'namespace': 'http://linkedlifedata.com/resource/drugbank/drug/',
+        'localName': 'DB00003',
+      },
+      'label': 'Dornase Alfa',
+      'type': 'biotech',
+      'score': 1.1766968,
+      'definition': 'Dornase alfa is a biosynthetic form of human deoxyribunuclease I (DNase I) enzyme. It is produced in genetically modified Chinese hamster ovary (CHO) cells using recombinant DNA technology. The 260-amino acid sequence of dornase alfa is identical to the endogenous human enzyme. Dornase alfa cleaves extracellular DNA to 5´-phosphodinucleotide and 5´-phosphooligonucleotide end products without affecting intracellular DNA. In individuals with cystic fibrosis, extracellular DNA, which is an extremely viscous anion, is released by degenerating leukocytes that accumulate during inflammatory responses to infections. Enzymatic breakdown of this extracellular DNA appears to reduce sputum viscosity and viscoelasticity.',
+      'labels': ['Deoxyribonuclease I', 'rhDNase', 'DNase I', 'Deoxyribonuclease-1 precursor', 'DNase'],
+    }
+  ];
+
   constructor(private routeParams: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.customTemplate = this.routeParams.snapshot.queryParams['useCustomTemplate'];
-    this.internalFilter = this.routeParams.snapshot.queryParams['internalFilter'];
-  }
-
-  public useCustomTemplate(): boolean {
-    return this.customTemplate;
-  }
-
-  public getSelectedList(): [] {
-    return [];
+    this.useCustomTemplate = this.routeParams.snapshot.queryParams['useCustomTemplate'];
+    this.useInternalFilter = this.routeParams.snapshot.queryParams['internalFilter'];
+    this.useCustomFunction = this.routeParams.snapshot.queryParams['useCustomFunction'];
+    this.useSelectedList = this.routeParams.snapshot.queryParams['useSelectedList'];
   }
 
   public onSearchEvent($event): void {
@@ -135,13 +148,9 @@ export class SearchFieldComponent implements OnInit {
   }
 
   public onKeyPressEvent($event): any {
-    if (!this.internalFilter || !this.keyPressed) {
+    if (!this.useInternalFilter || !this.keyPressed) {
       this.states.next(this.statesRespond);
     }
     this.keyPressed = $event;
-  }
-
-  public enableInnerAutocompleteFiltration(): boolean {
-    return this.internalFilter;
   }
 }

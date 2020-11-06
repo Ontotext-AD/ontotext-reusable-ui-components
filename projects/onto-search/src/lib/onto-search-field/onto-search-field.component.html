@@ -3,6 +3,7 @@
   [autocompleteOptionTemplate]="customTemplate || defaultTemplate"
   [preselectedStatesList]="selectedList || []"
   [enableInnerAutocompleteFiltration]="enableInnerAutocompleteFiltration"
+  [searchResultMappingFunction]="searchResultMappingFunction"
   (onSearch)="onSearchEvent($event)"
   (onKeyPress)="onKeyPressEvent($event)"></app-search>
 

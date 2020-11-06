@@ -11,6 +11,13 @@ import {SearchFieldModel} from './models/search-field-model';
 export class OntoSearchFieldComponent implements OnInit {
   /**
    * Custom template reference. Will override the template used in autocomplete dropdown.
+   * When creating the custom template, a variable must be declared in order to access the object and its properties.
+   * The variable holds the index number of the element in it's index parameter, and the element in it's state parameter.
+   *
+   * For example, if you name you variable item:
+   * <ng-template #customTemplate let-item>
+   * <span [attr.appCypressData]="'custom-state-label-' + item.index" class="state-label">{{item.state.label}}</span>
+   * </ng-template>
    */
   @Input()
   customTemplate?: TemplateRef<any>;
@@ -34,6 +41,18 @@ export class OntoSearchFieldComponent implements OnInit {
    */
   @Input()
   enableInnerAutocompleteFiltration: boolean;
+
+  /**
+   * A custom function that applies to each of the selected search objects, which is not free text.
+   * The function is applied to the selected search phrases when Search button is pressed.
+   *
+   * If not specified, the component returns the selected object unmodified.
+   *
+   * Example:
+   * this.searchResultMappingFunction = (data) => data.label;
+   */
+  @Input()
+  public searchResultMappingFunction: any;
 
   /**
    * Emits selected search phrases on search button press.

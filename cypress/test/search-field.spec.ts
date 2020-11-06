@@ -91,4 +91,27 @@ describe('Onto Search Field Component', () => {
       SearchFieldSteps.getAutocompleteLabel(0).should('contain', 'Doxycycline');
     })
   });
+
+  it('Should apply custom search result mapping function', () => {
+    SearchFieldSteps.visitWithCustomFunction();
+    SearchFieldSteps.typeSearchPhrase('D');
+    SearchFieldSteps.selectOption(0);
+    SearchFieldSteps.getStateSelection(0).should('be.visible').and('contain', 'Dehydroepiandrosterone');
+
+    SearchFieldSteps.completeSearchPhrase('Vaider');
+    SearchFieldSteps.getStateSelection(1).should('be.visible').and('contain', 'Vaider');
+    
+    SearchFieldSteps.clickSearchButton();
+
+    SearchFieldSteps.getMappedSearchPhrase(0).should('contain', 'Darth');
+    SearchFieldSteps.getMappedSearchPhrase(1).should('contain', 'Vaider');
+  });
+
+  it('Should preview preselected search phrases', () => {
+    SearchFieldSteps.visitWithPreselectedList();
+    SearchFieldSteps.getSelectedPhrases().should('have.length', 2);
+
+    SearchFieldSteps.getStateSelection(0).should('be.visible').and('contain', 'free text');
+    SearchFieldSteps.getStateSelection(1).should('be.visible').and('contain', 'Dornase Alfa');
+  });
 });

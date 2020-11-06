@@ -29,6 +29,9 @@ export class SearchComponent implements OnInit {
   @Input()
   private enableInnerAutocompleteFiltration: boolean;
 
+  @Input()
+  private searchResultMappingFunction: any;
+
   /**
    * On search event emitter.
    */
@@ -53,6 +56,8 @@ export class SearchComponent implements OnInit {
   public removable: boolean = SearchFieldConfiguration.removable;
   public separatorKeysCodes = SearchFieldConfiguration.separatorKeysCodes;
 
+  private defaultSearchResultMappingFunction: any = (data) => data;
+
   public ngOnInit(): void {
     this.states.subscribe((states) => {
       this._states = states;
@@ -62,6 +67,7 @@ export class SearchComponent implements OnInit {
 
     this.currentTemplate = this.autocompleteOptionTemplate;
     this.statesList = new Set<any>([...this.preselectedStatesList]);
+    this.searchResultMappingFunction = this.searchResultMappingFunction || this.defaultSearchResultMappingFunction;
   }
 
   private subscribeAutocompleteFilter(): void {
@@ -109,7 +115,18 @@ export class SearchComponent implements OnInit {
   }
 
   public search(): void {
-    this.onSearch.emit([...this.statesList]);
+    console.log([...this.statesList].map((state) => {
+      if (state.label) {
+        return this.searchResultMappingFunction(state);
+      }
+      return state;
+    }));
+    this.onSearch.emit([...this.statesList].map((state) => {
+      if (state.label) {
+        return this.searchResultMappingFunction(state);
+      }
+      return state;
+    }));
   }
 
   public onInputChange(value: any): void {

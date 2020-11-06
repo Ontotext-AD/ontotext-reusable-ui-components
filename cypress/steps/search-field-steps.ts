@@ -11,6 +11,14 @@ export default class SearchFieldSteps {
     cy.visit('/search-field?internalFilter=true');
   }
 
+  static visitWithCustomFunction() {
+    cy.visit('/search-field?useCustomFunction=true');
+  }
+
+  static visitWithPreselectedList() {
+    cy.visit('/search-field?useSelectedList=true');
+  }
+
   static getSearchFieldComponent() {
     return cy.get('[appCypressData="search-field-component"]');
   }
@@ -78,7 +86,11 @@ export default class SearchFieldSteps {
   }
 
   static getSelectedPhrases() {
-    return cy.get('[appCypressData="search-field-selection"]');
+    return cy.get('[appCypressData="search-field-selection"]').find('mat-chip');
+  }
+
+  static getMappedSearchPhrase(index: number) {
+    return cy.get(`[appCypressData="custom-function-item-${index}"]`);
   }
 
 }
