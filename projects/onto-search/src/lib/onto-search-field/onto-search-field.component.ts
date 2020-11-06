@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {SearchFieldModel} from 'projects/onto-search/src/lib/onto-search-field/models/search-field-model';
+import {SearchFieldModel} from './models/search-field-model';
 
 
 @Component({
