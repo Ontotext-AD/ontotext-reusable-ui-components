@@ -4,8 +4,8 @@ import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {SearchConfiguration} from './../models/search-configuration';
-import {SearchModel} from './../models/search-model';
+import {SearchFieldConfiguration} from './../models/search-field-configuration';
+import {SearchFieldModel} from './../models/search-field-model';
 
 @Component({
   selector: 'app-search',
@@ -14,20 +14,33 @@ import {SearchModel} from './../models/search-model';
 })
 export class SearchComponent implements OnInit {
   @Input()
-  private states: Observable<SearchModel[]>;
-  private _states: SearchModel[];
+  private states: Observable<SearchFieldModel[]>;
+  private _states: SearchFieldModel[];
 
   @Input()
   private preselectedStatesList: any[];
 
+  /**
+   * Custom template reference.
+   */
   @Input()
   public autocompleteOptionTemplate: TemplateRef<any>;
 
   @Input()
   private enableInnerAutocompleteFiltration: boolean;
 
+  @Input()
+  private searchResultMappingFunction: any;
+
+  /**
+   * On search event emitter.
+   */
   @Output()
   public onSearch: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * On key press emitter.
+   */
   @Output()
   public onKeyPress: EventEmitter<any> = new EventEmitter<any>();
 
@@ -39,9 +52,11 @@ export class SearchComponent implements OnInit {
   public filteredStates: Observable<any[]>;
   public currentTemplate: TemplateRef<any>;
 
-  public selectable: boolean = SearchConfiguration.selectable;
-  public removable: boolean = SearchConfiguration.removable;
-  public separatorKeysCodes = SearchConfiguration.separatorKeysCodes;
+  public selectable: boolean = SearchFieldConfiguration.selectable;
+  public removable: boolean = SearchFieldConfiguration.removable;
+  public separatorKeysCodes = SearchFieldConfiguration.separatorKeysCodes;
+
+  private defaultSearchResultMappingFunction: any = (data) => data;
 
   public ngOnInit(): void {
     this.states.subscribe((states) => {
@@ -52,6 +67,7 @@ export class SearchComponent implements OnInit {
 
     this.currentTemplate = this.autocompleteOptionTemplate;
     this.statesList = new Set<any>([...this.preselectedStatesList]);
+    this.searchResultMappingFunction = this.searchResultMappingFunction || this.defaultSearchResultMappingFunction;
   }
 
   private subscribeAutocompleteFilter(): void {
@@ -99,7 +115,12 @@ export class SearchComponent implements OnInit {
   }
 
   public search(): void {
-    this.onSearch.emit([...this.statesList]);
+    this.onSearch.emit([...this.statesList].map((state) => {
+      if (state.label) {
+        return this.searchResultMappingFunction(state);
+      }
+      return state;
+    }));
   }
 
   public onInputChange(value: any): void {
