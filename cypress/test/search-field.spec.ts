@@ -37,7 +37,7 @@ describe('Onto Search Field Component', () => {
     SearchFieldSteps.deleteStateSelection(0);
 
     SearchFieldSteps.getStateSelection(0).should('be.visible')
-      .should('contain', 'free text')
+      .should('contain', 'free text');
 
     SearchFieldSteps.getStateSelection(1).should('not.be.visible');
   });

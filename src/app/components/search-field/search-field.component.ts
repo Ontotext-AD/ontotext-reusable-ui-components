@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {SearchModel} from 'projects/onto-search/src/lib/onto-search-field/models/search-model';
+import {SearchFieldModel} from 'projects/onto-search/src/lib/onto-search-field/models/search-field-model';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -110,7 +110,7 @@ export class SearchFieldComponent implements OnInit {
     'definition': 'Dornase alfa is a biosynthetic form of human deoxyribunuclease I (DNase I) enzyme. It is produced in genetically modified Chinese hamster ovary (CHO) cells using recombinant DNA technology. The 260-amino acid sequence of dornase alfa is identical to the endogenous human enzyme. Dornase alfa cleaves extracellular DNA to 5´-phosphodinucleotide and 5´-phosphooligonucleotide end products without affecting intracellular DNA. In individuals with cystic fibrosis, extracellular DNA, which is an extremely viscous anion, is released by degenerating leukocytes that accumulate during inflammatory responses to infections. Enzymatic breakdown of this extracellular DNA appears to reduce sputum viscosity and viscoelasticity.',
     'labels': ['Deoxyribonuclease I', 'rhDNase', 'DNase I', 'Deoxyribonuclease-1 precursor', 'DNase'],
   }];
-  public states: BehaviorSubject<SearchModel[]> = new BehaviorSubject<SearchModel[]>([]);
+  public states: BehaviorSubject<SearchFieldModel[]> = new BehaviorSubject<SearchFieldModel[]>([]);
   private customTemplate: boolean = false;
   private internalFilter: boolean = false;
   public searchPhrase: any;

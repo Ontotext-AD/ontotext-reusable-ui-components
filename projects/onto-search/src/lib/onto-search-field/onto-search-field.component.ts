@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {SearchModel} from './models/search-model';
+import {SearchFieldModel} from 'projects/onto-search/src/lib/onto-search-field/models/search-field-model';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class OntoSearchFieldComponent implements OnInit {
    * Observable of data that is provides autocomplete options
    */
   @Input()
-  private autocompleteData: Observable<SearchModel[]>;
+  private autocompleteData: Observable<SearchFieldModel[]>;
 
   /**
    * If the results for the autocomplete are obtained at once and the component is responsible for filtering them,
@@ -47,7 +47,7 @@ export class OntoSearchFieldComponent implements OnInit {
   @Output()
   public onKeyPress: EventEmitter<any> = new EventEmitter<any>();
 
-  public states: Observable<SearchModel[]>;
+  public states: Observable<SearchFieldModel[]>;
 
   ngOnInit(): void {
     this.states = this.autocompleteData || of([]);
