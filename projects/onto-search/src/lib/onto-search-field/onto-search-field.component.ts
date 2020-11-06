@@ -52,7 +52,7 @@ export class OntoSearchFieldComponent implements OnInit {
    * this.searchResultMappingFunction = (data) => data.label;
    */
   @Input()
-  public searchResultMappingFunction: any;
+  public searchResultMappingFunction: (args: SearchFieldModel) => any;
 
   /**
    * Emits selected search phrases on search button press.

@@ -115,12 +115,6 @@ export class SearchComponent implements OnInit {
   }
 
   public search(): void {
-    console.log([...this.statesList].map((state) => {
-      if (state.label) {
-        return this.searchResultMappingFunction(state);
-      }
-      return state;
-    }));
     this.onSearch.emit([...this.statesList].map((state) => {
       if (state.label) {
         return this.searchResultMappingFunction(state);
