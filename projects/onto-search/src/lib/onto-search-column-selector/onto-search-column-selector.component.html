@@ -1,0 +1,21 @@
+<div class="onto-column-selector-component" appCypressData="onto-column-selector-component">
+  <button class="column-reset-button" mat-raised-button appCypressData="column-reset-button"
+          color="primary"
+          (click)="resetColumns()">{{'ONTO_COLUMN_SELECTOR.BUTTON.RESET' | transloco}}</button>
+  <div class="column-select">
+    <mat-form-field class="form-field">
+      <mat-label>{{'ONTO_COLUMN_SELECTOR.COLUMN_SELECTOR_PLACEHOLDER' | transloco}}</mat-label>
+      <mat-select multiple (selectionChange)="selectionChangedInternal($event)"
+                  [formControl]="selectCtrl" [compareWith]="compareColumnsByLabel"
+                  (closed)="onClosed()" appCypressData="column-selection-dropdown">
+        <mat-optgroup *ngFor="let columnGroup of columnGroups, let index = index"
+                      [label]="columnGroup.label" [attr.appCypressData]="'column-group-' + index">
+          <mat-option *ngFor="let column of columnGroup.columns, let index = index" [value]="column"
+                      [attr.appCypressData]="'column-option-' + index">
+            {{column.label}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.column-selector-component {
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center flex-start;
+  align-items: center;
+
+  .column-select {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .form-field {
+    display: inherit;
+  }
+}
+
+button.column-reset-button {
+  margin-right: 1em;
+}
