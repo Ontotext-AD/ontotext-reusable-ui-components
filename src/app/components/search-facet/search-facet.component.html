@@ -1,0 +1,23 @@
+<onto-search-facet
+  [data]="data"
+  [type]="type"
+  [customFacetTitleTemplate]="useCustomTemplate ? customTitleTemplate : null"
+  [customBasicFacetTemplate]="useCustomTemplate ? customFacetTemplate : null"
+  (onSelectionChange)="onSelectedEvent($event)">
+</onto-search-facet>
+
+<div appCypressData="facet-list">
+  <span *ngFor="let facet of selected; let index = index">
+    <div [attr.appCypressData]="'facet-selection-' + index">{{facet}}</div>
+  </span>
+</div>
+
+<button appCypressData="deselect-button" (click)="deselect()">DESELECT</button>
+
+<ng-template #customFacetTemplate let-item>
+  Darth Vader was here.
+</ng-template>
+
+<ng-template #customTitleTemplate>
+  I am your father!
+</ng-template>

@@ -12,6 +12,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {OntoSearchFieldModule} from '../../projects/onto-search/src/lib/onto-search-field/onto-search-field.module';
 import {OntoSearchColumnSelectorModule} from '../../projects/onto-search/src/lib/onto-search-column-selector/onto-search-column-selector.module';
 import {SearchColumnSelectorComponent} from './search-column-selector/search-column-selector.component';
+import {SearchFacetComponent} from './components/search-facet/search-facet.component';
+import {OntoSearchFacetModule} from 'projects/onto-search/src/lib/onto-search-facet/onto-search-facet.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import {SearchColumnSelectorComponent} from './search-column-selector/search-col
     SearchResultsComponent,
     SearchFieldComponent,
     SearchColumnSelectorComponent,
+    SearchFacetComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import {SearchColumnSelectorComponent} from './search-column-selector/search-col
     MatButtonModule,
     MatToolbarModule,
     OntoSearchColumnSelectorModule,
+    OntoSearchFacetModule,
   ],
   bootstrap: [AppComponent],
   exports: [],
