@@ -5,8 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-search-column-selector',
-  templateUrl: './search-column-selector.component.html',
-  styleUrls: ['./search-column-selector.component.scss']
+  templateUrl: './search-column-selector.component.html'
 })
 export class SearchColumnSelectorComponent implements OnInit {
   defaultColumns: SelectionColumn[] = [{label: 'Username'}];

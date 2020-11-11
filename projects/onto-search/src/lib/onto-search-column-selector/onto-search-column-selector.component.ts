@@ -39,16 +39,11 @@ export class OntoSearchColumnSelector implements OnChanges {
   @Output()
   selectionChanged: EventEmitter<SelectionColumn[]> = new EventEmitter<SelectionColumn[]>();
 
-  constructor() {
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     const defaultColumns = changes?.defaultColumns?.currentValue;
     const selectedColumns = changes?.selectedColumns?.currentValue;
-    if (defaultColumns) {
-      if (!this.selectedColumns) {
-        this.setFormColumnSelection(defaultColumns);
-      }
+    if (defaultColumns && defaultColumns.length > 0 && !this.selectedColumns) {
+      this.setFormColumnSelection(defaultColumns);
     }
     if (selectedColumns) {
       this.setFormColumnSelection(selectedColumns);

@@ -1,4 +1,4 @@
-.column-selector-component {
+.onto-column-selector-component {
   width: 100%;
   height: 100%;
   flex-direction: row;
@@ -16,8 +16,9 @@
   .form-field {
     display: inherit;
   }
+
+  .column-reset-button {
+    margin-right: 1em;
+  }
 }
 
-button.column-reset-button {
-  margin-right: 1em;
-}

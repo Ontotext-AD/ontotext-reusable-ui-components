@@ -1,3 +1,4 @@
+
 export class SearchColumnSelectorSteps {
   static visit() {
     cy.visit('/search-column-select');
@@ -25,6 +26,10 @@ export class SearchColumnSelectorSteps {
 
   static getColumnGroups() {
     return cy.get('mat-optgroup');
+  }
+
+  static getColumnGroupByIndex(index: number) {
+    return this.getColumnGroups().filter(`[appCypressData=column-group-${index}]`);
   }
 
   static getColumnOptions() {

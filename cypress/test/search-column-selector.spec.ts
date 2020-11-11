@@ -20,13 +20,12 @@ describe('Onto Search Column Selector Component', () => {
     // And they should contain 'Default Columns' and 'Other Columns'
     step.getColumnGroups().should('contain', 'Default Columns').and('contain', 'Other Columns');
     // When I look at 'Default Columns Group' I should see columns 'Username' and 'Name'
-    step.getColumnGroups().filter('[appCypressData=column-group-0]')
-        .find('mat-option').should('contain', 'Username').and('contain', 'Name');
+    step.getColumnGroupByIndex(0).find('mat-option').should('contain', 'Username').and('contain', 'Name');
     // And 'Username' should be selected
-    step.getColumnGroups().filter('[appCypressData=column-group-0]')
+    step.getColumnGroupByIndex(0)
         .find('mat-option').filter('[appCypressData=column-option-0]').should('have.class', 'mat-selected');
     // When I select column 'Name'
-    step.getColumnGroups().filter('[appCypressData=column-group-0]')
+    step.getColumnGroupByIndex(0)
         .find('mat-option').filter('[appCypressData=column-option-1]').click();
     // And close the selector dropdown
     cy.get('.cdk-overlay-backdrop').click(-50, -50, {force: true});
