@@ -1,13 +1,24 @@
 /**
- * Interface defining the minimal search facet group parameters.
- * Search facet groups must implement this interface in order facet's data to be processed.
+ * Interface that determines the minimum properties of a single facet.
  */
 export interface SearchFacetModel {
-  facetGroupName: string;
-  facetGroup: Map<number, any>;
+  /**
+   * Display label
+   */
+  label: string,
 
   /**
-   * Array of selected facets
+   * Additional data of the facet. Can be used for further processing of the facet.
    */
-  selected: string[];
+  facetData: any,
+
+  /**
+   * Found results count
+   */
+  count: number | string,
+
+  /**
+   * Facet selectred status
+   */
+  selected: boolean
 }

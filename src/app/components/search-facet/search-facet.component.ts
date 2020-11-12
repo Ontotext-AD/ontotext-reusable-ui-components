@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchFacetType} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-type';
-import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
+import {SearchFacetGroupModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-group-model';
 import {ActivatedRoute} from '@angular/router';
+import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
 
 @Component({
   selector: 'app-search-facet',
   templateUrl: './search-facet.component.html'
 })
 export class SearchFacetComponent implements OnInit {
-  public data: SearchFacetModel = {facetGroupName: '', facetGroup: null, selected: []};
+  public data: SearchFacetGroupModel = {facetGroupName: '', facetGroup: null, selected: []};
   public type: SearchFacetType;
   public selected: string[];
   public facetGroup: any;
@@ -50,7 +51,7 @@ export class SearchFacetComponent implements OnInit {
     this.selected = $event;
   }
 
-  transformToMap(facets:any): Map<number, any> {
+  transformToMap(facets:any): Map<number, SearchFacetModel> {
     const transformed = new Map<number, any>();
 
     let index = 0;

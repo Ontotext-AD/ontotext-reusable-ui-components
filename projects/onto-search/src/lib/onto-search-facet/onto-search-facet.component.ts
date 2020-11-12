@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
-import {SearchFacetModel} from './models/search-facet-model';
+import {SearchFacetGroupModel} from './models/search-facet-group-model';
 import {SearchFacetType} from './models/search-facet-type';
 
 @Component({
@@ -12,7 +12,7 @@ export class OntoSearchFacetComponent implements OnInit {
    * Holds the facet group data.
    */
   @Input()
-  public data: SearchFacetModel;
+  public data: SearchFacetGroupModel;
 
   /**
    * Used do define the facet type.
