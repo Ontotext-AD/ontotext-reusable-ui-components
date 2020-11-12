@@ -8,11 +8,11 @@ export default class SearchFacetSteps {
   }
 
   static getFacets() {
-    return cy.get('[appCypressData="basic-facet-list"]').find('mat-checkbox');
+    return cy.get('[appCypressData="checkbox-facet-list"]').find('mat-checkbox');
   }
 
   static getFacet(index: number) {
-    return cy.get(`[appCypressData="facet-checkbox-${index}"]`);
+    return cy.get(`[appCypressData="checkbox-facet-${index}"]`);
   }
 
   static clickFacet(index: number) {
@@ -28,7 +28,7 @@ export default class SearchFacetSteps {
   }
 
   static getFacetsTitle() {
-    return cy.get('[appCypressData="basic-facet-title"');
+    return cy.get('[appCypressData="checkbox-facet-title"');
   }
 
   static getDeselectButton() {

@@ -6,7 +6,8 @@ import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-se
 
 @Component({
   selector: 'app-search-facet',
-  templateUrl: './search-facet.component.html'
+  templateUrl: './search-facet.component.html',
+  styleUrls: ['./search-facet.component.scss']
 })
 export class SearchFacetComponent implements OnInit {
   public data: SearchFacetGroupModel = {facetGroupName: '', facetGroup: null, selected: []};
@@ -18,7 +19,6 @@ export class SearchFacetComponent implements OnInit {
 
   constructor(private routeParams: ActivatedRoute) {
   }
-
 
   ngOnInit(): void {
     this.data.facetGroupName = 'Status';
@@ -39,7 +39,7 @@ export class SearchFacetComponent implements OnInit {
       'Suspended': 3
     };
     this.data.selected = ['Recruiting'];
-    this.type = SearchFacetType.BASIC;
+    this.type = SearchFacetType.CHECKBOX;
     this.selected = this.data.selected;
 
     this.useCustomTemplate = this.routeParams.snapshot.queryParams['useCustomTemplate'];

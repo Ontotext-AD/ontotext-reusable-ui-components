@@ -1,9 +1,9 @@
-<div *ngIf="type === BASIC">
-  <onto-basic-facet
+<div *ngIf="type === CHECKBOX">
+  <onto-checkbox-facet
     [data]="data"
     [type]="type"
     [facetTitleTemplate]="facetTitleTemplate"
     [facetTemplate]="facetTemplate"
     (onSelectionChange)="onSelectionEvent()">
-  </onto-basic-facet>
+  </onto-checkbox-facet>
 </div>

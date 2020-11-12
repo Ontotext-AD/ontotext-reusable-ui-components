@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {SearchFacetGroupModel} from './models/search-facet-group-model';
 import {SearchFacetType} from './models/search-facet-type';
+import {SearchFacetModel} from './models/search-facet-model';
 
 @Component({
   selector: 'onto-search-facet',
@@ -28,7 +29,7 @@ export class OntoSearchFacetComponent implements OnInit {
    * e.q. "Facet Label" => {count: 5, selected: true}
    *
    * For example, if you name you variable item:
-   * <ng-template #basicFacetTemplate let-item>
+   * <ng-template #checkboxFacetTemplate let-item>
    * <span class="facet-label">{{item.key}}</span>
    * <span class="facet-count">({{item.value.count}})</span>
    * </ng-template>
@@ -54,9 +55,9 @@ export class OntoSearchFacetComponent implements OnInit {
   @Output()
   public onSelectionChange: EventEmitter<any> = new EventEmitter<any>();
 
-  public BASIC: SearchFacetType = SearchFacetType.BASIC;
-  public facetGroup: Map<number, any>;
-  public facetGroupName: string | Date | number;
+  public CHECKBOX: SearchFacetType = SearchFacetType.CHECKBOX;
+  public facetGroup: Map<number, SearchFacetModel>;
+  public facetGroupName: string;
   public selected: string[];
 
   ngOnInit(): void {

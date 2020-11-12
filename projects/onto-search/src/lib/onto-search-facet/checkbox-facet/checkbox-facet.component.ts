@@ -2,10 +2,10 @@ import {Component, Input, TemplateRef} from '@angular/core';
 import {OntoSearchFacetComponent} from '../onto-search-facet.component';
 
 @Component({
-  selector: 'onto-basic-facet',
-  templateUrl: './basic-facet.component.html'
+  selector: 'onto-checkbox-facet',
+  templateUrl: './checkbox-facet.component.html'
 })
-export class BasicFacetComponent extends OntoSearchFacetComponent {
+export class CheckboxFacetComponent extends OntoSearchFacetComponent {
   @Input()
   public facetTemplate: TemplateRef<any>;
 

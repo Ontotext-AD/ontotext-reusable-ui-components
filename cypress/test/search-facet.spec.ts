@@ -2,16 +2,16 @@ import SearchFacetSteps from "../steps/search-facet-steps";
 
 describe('Search facet', () => {
 
-  context('Basic facet', () => {
+  context('Checkbox facet', () => {
     beforeEach(() => {
       SearchFacetSteps.visit();
     });
 
-    it('Should load basic facets', () => {
+    it('Should load checkbox facets', () => {
       SearchFacetSteps.getFacets().should('have.length', 14);
     });
 
-    it('Should check preselected basic facets', () => {
+    it('Should check preselected checkbox facets', () => {
       SearchFacetSteps.getFacet(0).should('contain', 'Recruiting(176)');
     });
 
