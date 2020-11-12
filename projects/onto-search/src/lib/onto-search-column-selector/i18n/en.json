@@ -1,0 +1,8 @@
+{
+  "ONTO_COLUMN_SELECTOR": {
+    "BUTTON": {
+      "RESET": "Reset"
+    },
+    "COLUMN_SELECTOR_PLACEHOLDER": "Search results columns"
+  }
+}

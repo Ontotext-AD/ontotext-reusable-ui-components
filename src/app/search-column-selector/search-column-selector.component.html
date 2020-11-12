@@ -1,0 +1,10 @@
+<div class="toolbar">
+  <button (click)="changeSelection()" appCypressData="change-selection-button">Change selection
+  </button>
+  <onto-search-column-selector [defaultColumns]="defaultColumns"
+                               (selectionChanged)="onColumnSelection($event)"
+                               [columnGroups]="columnGroups"
+                               [selectedColumns]="outsideSelection"></onto-search-column-selector>
+  <div *ngFor="let column of selectedColumns" appCypressData="selected-columns">{{column.label}}
+  </div>
+</div>
