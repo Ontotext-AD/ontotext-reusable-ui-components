@@ -1,8 +1,8 @@
 <onto-search-facet
   [data]="data"
   [type]="type"
-  [customFacetTitleTemplate]="useCustomTemplate ? customTitleTemplate : null"
-  [customBasicFacetTemplate]="useCustomTemplate ? customFacetTemplate : null"
+  [facetTitleTemplate]="useCustomTemplate ? customTitleTemplate : facetTitleTemplate"
+  [basicFacetTemplate]="useCustomTemplate ? customFacetTemplate : basicFacetTemplate"
   (onSelectionChange)="onSelectedEvent($event)">
 </onto-search-facet>
 
@@ -13,6 +13,18 @@
 </div>
 
 <button appCypressData="deselect-button" (click)="deselect()">DESELECT</button>
+
+<ng-template #basicFacetTemplate let-item>
+  <span class="facet-label">{{item.value.label}}</span>
+  <span class="facet-count">({{item.value.count}})</span>
+</ng-template>
+
+<ng-template #facetTitleTemplate>
+  <div class="basic-facet-title">
+    <strong>{{data.facetGroupName}}</strong>
+  </div>
+</ng-template>
+
 
 <ng-template #customFacetTemplate let-item>
   Darth Vader was here.

@@ -1,13 +1,11 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SearchFacetType} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-type';
 import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-search-facet',
-  templateUrl: './search-facet.component.html',
-  styleUrls: ['./search-facet.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './search-facet.component.html'
 })
 export class SearchFacetComponent implements OnInit {
   public data: SearchFacetModel = {facetGroupName: '', facetGroup: null, selected: []};

@@ -2,19 +2,8 @@
   <onto-basic-facet
     [data]="data"
     [type]="type"
-    [facetTitleTemplate]="customFacetTitleTemplate || facetTitleTemplate"
-    [basicFacetTemplate]="customBasicFacetTemplate || basicFacetTemplate"
+    [facetTitleTemplate]="facetTitleTemplate"
+    [basicFacetTemplate]="basicFacetTemplate"
     (onSelectionChange)="onSelectionEvent()">
   </onto-basic-facet>
 </div>
-
-<ng-template #basicFacetTemplate let-item>
-  <span class="facet-label">{{item.value.label}}</span>
-  <span class="facet-count">({{item.value.count}})</span>
-</ng-template>
-
-<ng-template #facetTitleTemplate>
-  <div class="basic-facet-title">
-    <strong>{{facetGroupName}}</strong>
-  </div>
-</ng-template>

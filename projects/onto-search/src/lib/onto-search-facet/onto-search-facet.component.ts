@@ -34,7 +34,7 @@ export class OntoSearchFacetComponent implements OnInit {
    * </ng-template>
    */
   @Input()
-  public customBasicFacetTemplate?: TemplateRef<any>;
+  public basicFacetTemplate?: TemplateRef<any>;
 
   /**
    * Custom template reference. Will override the template used in facet name preview.
@@ -46,7 +46,7 @@ export class OntoSearchFacetComponent implements OnInit {
    * </ng-template>
    */
   @Input()
-  public customFacetTitleTemplate?: TemplateRef<any>;
+  public facetTitleTemplate?: TemplateRef<any>;
 
   /**
    * Emits selected search facets on selection change.
