@@ -7,7 +7,7 @@ import {OntoSearchFacetComponent} from '../onto-search-facet.component';
 })
 export class BasicFacetComponent extends OntoSearchFacetComponent {
   @Input()
-  public basicFacetTemplate: TemplateRef<any>;
+  public facetTemplate: TemplateRef<any>;
 
   @Input()
   public facetTitleTemplate: TemplateRef<any>;

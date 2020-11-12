@@ -9,7 +9,7 @@
           [(ngModel)]="facet.value.selected"
           (ngModelChange)="updateAllSelected(facet.value.label)"
           [attr.appCypressData]="'facet-checkbox-' + index">
-          <ng-container *ngTemplateOutlet="basicFacetTemplate; context: {$implicit: facet}">
+          <ng-container *ngTemplateOutlet="facetTemplate; context: {$implicit: facet}">
           </ng-container>
         </mat-checkbox>
       </div>
