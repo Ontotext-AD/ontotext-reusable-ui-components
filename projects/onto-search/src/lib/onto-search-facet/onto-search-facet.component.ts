@@ -1,4 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef
+} from '@angular/core';
 import {SearchFacetGroupModel} from './models/search-facet-group-model';
 import {SearchFacetType} from './models/search-facet-type';
 import {SearchFacetModel} from './models/search-facet-model';
@@ -56,17 +63,15 @@ export class OntoSearchFacetComponent implements OnInit {
   public onSelectionChange: EventEmitter<any> = new EventEmitter<any>();
 
   public CHECKBOX: SearchFacetType = SearchFacetType.CHECKBOX;
-  public facetGroup: Map<number, SearchFacetModel>;
+  public facetGroup: SearchFacetModel[];
   public facetGroupName: string;
-  public selected: string[];
 
   ngOnInit(): void {
     this.facetGroupName = this.data.facetGroupName;
-    this.selected = this.data.selected;
-    this.facetGroup = this.data.facetGroup;
+    this.facetGroup = [...this.data.facetGroup.values()];
   }
 
-  public onSelectionEvent(): void {
-    this.onSelectionChange.emit(this.selected);
+  public onSelectionEvent($event): void {
+    this.onSelectionChange.emit($event);
   }
 }

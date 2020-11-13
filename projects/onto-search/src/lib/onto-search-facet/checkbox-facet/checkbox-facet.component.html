@@ -4,10 +4,10 @@
     </ng-container>
   </div>
  <div class="checkbox-facet-list" appCypressData="checkbox-facet-list">
-      <div *ngFor="let facet of facetGroup | keyvalue; let index = index">
+      <div *ngFor="let facet of facetGroup; let index = index">
         <mat-checkbox
-          [(ngModel)]="facet.value.selected"
-          (ngModelChange)="updateAllSelected(facet.value.label)"
+          [(ngModel)]="facet.selected"
+          (ngModelChange)="updateAllSelected(facet)"
           [attr.appCypressData]="'checkbox-facet-' + index">
           <ng-container *ngTemplateOutlet="facetTemplate; context: {$implicit: facet}">
           </ng-container>

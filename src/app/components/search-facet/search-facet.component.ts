@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchFacetType} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-type';
 import {SearchFacetGroupModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-group-model';
-import {ActivatedRoute} from '@angular/router';
 import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
 
 @Component({
@@ -10,19 +9,20 @@ import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-se
   styleUrls: ['./search-facet.component.scss']
 })
 export class SearchFacetComponent implements OnInit {
-  public data: SearchFacetGroupModel = {facetGroupName: '', facetGroup: null, selected: []};
+  public data: SearchFacetGroupModel;
   public type: SearchFacetType;
-  public selected: string[];
-  public facetGroup: any;
+  public apiGroupResponse: any;
+  public apiGroupNameResponse: any;
+  public apiSelectedResponse: any;
 
-  public useCustomTemplate: boolean = false;
-
-  constructor(private routeParams: ActivatedRoute) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.data.facetGroupName = 'Status';
-    this.facetGroup = {
+    this.data = {facetGroupName: '', facetGroup: null, selected: []};
+
+    this.apiGroupNameResponse = 'Status';
+    this.apiGroupResponse = {
       'Recruiting': 176,
       'Temporarily not available': 0,
       'Enrolling by invitation': 13,
@@ -38,17 +38,17 @@ export class SearchFacetComponent implements OnInit {
       'Unknown status': 221,
       'Suspended': 3
     };
-    this.data.selected = ['Recruiting'];
+    this.apiSelectedResponse = ['Recruiting'];
+
+    this.data.facetGroupName = this.apiGroupNameResponse;
+    this.data.facetGroup = this.transformToMap(this.apiGroupResponse);
+
     this.type = SearchFacetType.CHECKBOX;
-    this.selected = this.data.selected;
-
-    this.useCustomTemplate = this.routeParams.snapshot.queryParams['useCustomTemplate'];
-
-    this.data.facetGroup = this.transformToMap(this.facetGroup);
   }
 
+  // eslint-disable-next-line  @typescript-eslint/no-unused-vars
   public onSelectedEvent($event: any): void {
-    this.selected = $event;
+    // not implemented
   }
 
   transformToMap(facets:any): Map<number, SearchFacetModel> {
@@ -56,18 +56,26 @@ export class SearchFacetComponent implements OnInit {
 
     let index = 0;
     Object.keys(facets).forEach((key) => {
-      transformed.set(index++, {
+      const position = this.apiSelectedResponse.indexOf(key);
+      const isSelected = position !== -1;
+
+      const facet = {
         label: key,
         count: facets[key],
-        selected: this.selected.includes(key)
-      });
+        selected: isSelected
+      };
+      transformed.set(index++, facet);
+
+      if (isSelected) {
+        this.data.selected.push(facet);
+      }
     });
 
     return transformed;
   }
 
   public deselect(): void {
-    this.selected = [];
+    this.data.selected = [];
     this.data.facetGroup.forEach((v) => v.selected = false);
   }
 }

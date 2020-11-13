@@ -3,10 +3,6 @@ export default class SearchFacetSteps {
     cy.visit('/search-facet');
   }
 
-  static visitWithCustomTemplate() {
-    cy.visit('/search-facet?useCustomTemplate=true');
-  }
-
   static getFacets() {
     return cy.get('[appCypressData="checkbox-facet-list"]').find('mat-checkbox');
   }

@@ -11,5 +11,5 @@ export interface SearchFacetGroupModel {
   /**
    * Array of selected facets
    */
-  selected: string[];
+  selected: SearchFacetModel[];
 }

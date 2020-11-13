@@ -1,35 +1,26 @@
 <onto-search-facet
   [data]="data"
   [type]="type"
-  [facetTitleTemplate]="useCustomTemplate ? customTitleTemplate : facetTitleTemplate"
-  [facetTemplate]="useCustomTemplate ? customFacetTemplate : checkboxFacetTemplate"
+  [facetTitleTemplate]="facetTitleTemplate"
+  [facetTemplate]="checkboxFacetTemplate"
   (onSelectionChange)="onSelectedEvent($event)">
 </onto-search-facet>
 
 <div appCypressData="facet-list">
-  <span *ngFor="let facet of selected; let index = index">
-    <div [attr.appCypressData]="'facet-selection-' + index">{{facet}}</div>
+  <span *ngFor="let facet of data.selected; let index = index">
+    <div [attr.appCypressData]="'facet-selection-' + index">{{facet.label}}</div>
   </span>
 </div>
 
 <button appCypressData="deselect-button" (click)="deselect()">DESELECT</button>
 
 <ng-template #checkboxFacetTemplate let-item>
-  <span class="facet-label">{{item.value.label}}</span>
-  <span class="facet-count">({{item.value.count}})</span>
+  <span class="facet-label">{{item.label}}</span>
+  <span class="facet-count">({{item.count}})</span>
 </ng-template>
 
 <ng-template #facetTitleTemplate>
   <div class="checkbox-facet-title">
     <strong>{{data.facetGroupName}}</strong>
   </div>
-</ng-template>
-
-
-<ng-template #customFacetTemplate let-item>
-  Darth Vader was here.
-</ng-template>
-
-<ng-template #customTitleTemplate>
-  I am your father!
 </ng-template>

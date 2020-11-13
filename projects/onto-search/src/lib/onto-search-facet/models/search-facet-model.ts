@@ -10,12 +10,12 @@ export interface SearchFacetModel {
   /**
    * Additional data of the facet. Can be used for further processing of the facet.
    */
-  facetData: any,
+  facetData?: any,
 
   /**
    * Found results count
    */
-  count: number | string,
+  count: number,
 
   /**
    * Facet selectred status

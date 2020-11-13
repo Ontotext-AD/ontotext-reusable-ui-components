@@ -36,12 +36,6 @@ describe('Search facet', () => {
       SearchFacetSteps.getSelectedFacetList().should('have.length', 0);
     });
 
-    it('Should use custom template if passed', () => {
-      SearchFacetSteps.visitWithCustomTemplate();
-      SearchFacetSteps.getFacetsTitle().should('contain', 'I am your father!');
-      SearchFacetSteps.getFacet(0).should('contain', 'Darth Vader was here');
-    });
-
     it('Should deselect all facets outside component', () => {
       SearchFacetSteps.visit();
       SearchFacetSteps.clickFacet(1);
