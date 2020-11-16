@@ -14,13 +14,12 @@ export class SearchFacetComponent implements OnInit {
   public apiGroupResponse: any;
   public apiGroupNameResponse: any;
   public apiSelectedResponse: any;
+  public selected: SearchFacetModel[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.data = {facetGroupName: '', facetGroup: null, selected: []};
-
     this.apiGroupNameResponse = 'Status';
     this.apiGroupResponse = {
       'Recruiting': 176,
@@ -40,34 +39,33 @@ export class SearchFacetComponent implements OnInit {
     };
     this.apiSelectedResponse = ['Recruiting'];
 
-    this.data.facetGroupName = this.apiGroupNameResponse;
-    this.data.facetGroup = this.transformToMap(this.apiGroupResponse);
+    this.data = {
+      facetGroupName: this.apiGroupNameResponse,
+      selected: this.selected,
+      facetGroup: this.transformToFacetModel(this.apiGroupResponse)
+    };
 
     this.type = SearchFacetType.CHECKBOX;
   }
 
-  // eslint-disable-next-line  @typescript-eslint/no-unused-vars
   public onSelectedEvent($event: any): void {
-    // not implemented
+    this.selected = $event;
   }
 
-  transformToMap(facets:any): Map<number, SearchFacetModel> {
-    const transformed = new Map<number, any>();
-
-    let index = 0;
+  transformToFacetModel(facets:any): SearchFacetModel[] {
+    const transformed = [];
     Object.keys(facets).forEach((key) => {
-      const position = this.apiSelectedResponse.indexOf(key);
-      const isSelected = position !== -1;
+      const isSelected = this.apiSelectedResponse.indexOf(key) !== -1;
 
       const facet = {
         label: key,
         count: facets[key],
         selected: isSelected
       };
-      transformed.set(index++, facet);
+      transformed.push(facet);
 
       if (isSelected) {
-        this.data.selected.push(facet);
+        this.selected.push(facet);
       }
     });
 
@@ -75,7 +73,8 @@ export class SearchFacetComponent implements OnInit {
   }
 
   public deselect(): void {
-    this.data.selected = [];
-    this.data.facetGroup.forEach((v) => v.selected = false);
+    this.selected = [];
+    this.data.facetGroup.forEach((facet) => facet.selected = false);
+    this.data.selected = this.selected;
   }
 }
