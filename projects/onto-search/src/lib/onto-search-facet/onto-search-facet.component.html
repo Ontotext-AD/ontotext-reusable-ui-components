@@ -7,3 +7,13 @@
     (onSelectionChange)="onSelectionEvent($event)">
   </onto-checkbox-facet>
 </div>
+
+<div *ngIf="type === DATEPICKER">
+  <onto-daterange-facet
+      [data]="data"
+      [type]="type"
+      [facetTitleTemplate]="facetTitleTemplate"
+      [facetTemplate]="facetTemplate"
+      (onSelectionChange)="onSelectionEvent($event)">>
+  </onto-daterange-facet>
+</div>

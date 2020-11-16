@@ -14,8 +14,11 @@
     "@angular/router": "^10.1.6"
   },
   "dependencies": {
+    "@angular/material-moment-adapter": "^10.0.0",
     "@ngneat/transloco": "^2.19.1",
+    "@w11k/ngx-componentdestroyed": "^5.0.2",
     "material-design-icons": "^3.0.1",
+    "moment": "^2.29.1",
     "rxjs": "^6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"

@@ -9,13 +9,14 @@ import {
 import {SearchFacetGroupModel} from './models/search-facet-group-model';
 import {SearchFacetType} from './models/search-facet-type';
 import {SearchFacetModel} from './models/search-facet-model';
+import {OnDestroyMixin} from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'onto-search-facet',
   templateUrl: './onto-search-facet.component.html',
   styleUrls: ['./onto-search-facet.component.scss']
 })
-export class OntoSearchFacetComponent implements OnInit {
+export class OntoSearchFacetComponent extends OnDestroyMixin implements OnInit {
   /**
    * Holds the facet group data.
    */
@@ -63,12 +64,17 @@ export class OntoSearchFacetComponent implements OnInit {
   public onSelectionChange: EventEmitter<any> = new EventEmitter<any>();
 
   public CHECKBOX: SearchFacetType = SearchFacetType.CHECKBOX;
+  public DATEPICKER: SearchFacetType = SearchFacetType.DATE_RANGE;
   public facetGroup: SearchFacetModel[];
   public facetGroupName: string;
 
   ngOnInit(): void {
     this.facetGroupName = this.data.facetGroupName;
     this.facetGroup = this.data.facetGroupData;
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   public onSelectionEvent($event): void {

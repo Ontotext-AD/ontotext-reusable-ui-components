@@ -18,7 +18,7 @@ export interface SearchFacetModel {
   count: number,
 
   /**
-   * Facet selectred status
+   * Facet selected status
    */
   selected: boolean
 }

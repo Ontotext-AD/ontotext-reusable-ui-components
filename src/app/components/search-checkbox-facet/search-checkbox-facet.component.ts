@@ -4,11 +4,11 @@ import {SearchFacetGroupModel} from '../../../../projects/onto-search/src/lib/on
 import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
 
 @Component({
-  selector: 'app-search-facet',
-  templateUrl: './search-facet.component.html',
-  styleUrls: ['./search-facet.component.scss']
+  selector: 'app-search-checkbox-facet',
+  templateUrl: './search-checkbox-facet.component.html',
+  styleUrls: ['./search-checkbox-facet.component.scss']
 })
-export class SearchFacetComponent implements OnInit {
+export class SearchCheckboxFacetComponent implements OnInit {
   public data: SearchFacetGroupModel;
   public type: SearchFacetType;
   public apiGroupResponse: any;

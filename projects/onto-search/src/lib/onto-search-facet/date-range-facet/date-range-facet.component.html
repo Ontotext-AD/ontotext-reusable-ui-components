@@ -1,0 +1,27 @@
+<div class="onto-date-range-facet" appCypressData="onto-date-range-facet">
+  <div appCypressData="onto-date-range-facet-title">
+    <ng-container *ngTemplateOutlet="facetTitleTemplate">
+    </ng-container>
+  </div>
+  <div class="onto-date-range-facet-picker" appCypressData="onto-date-range-facet-picker">
+    <mat-form-field>
+      <mat-label>{{datePickerPlaceholder}}</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRangeGroup">
+        <input matInput matStartDate formControlName="start" (dateChange)="inputChange(picker)">
+        <input matInput matEndDate formControlName="end" (dateChange)="inputChange(picker)">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"
+                             appCypressData="onto-date-range-picker-toggle"></mat-datepicker-toggle>
+      <mat-date-range-picker panelClass="onto-date-range-picker" #picker
+                             (closed)="calendarClosed()"
+                             (opened)="calendarOpened()"
+                             appCypressData="onto-date-range-picker"></mat-date-range-picker>
+    </mat-form-field>
+    <ng-container *ngTemplateOutlet="facetTemplate; context: {$implicit: data.selectedRange}">
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #toolTipTemplate let-count>
+    <span class="onto-date-range-facet-tooltiptext">{{count}}</span>
+</ng-template>
