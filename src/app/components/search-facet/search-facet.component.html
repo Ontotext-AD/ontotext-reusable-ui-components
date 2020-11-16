@@ -1,0 +1,26 @@
+<onto-search-facet
+  [data]="data"
+  [type]="type"
+  [facetTitleTemplate]="facetTitleTemplate"
+  [facetTemplate]="checkboxFacetTemplate"
+  (onSelectionChange)="onSelectedEvent($event)">
+</onto-search-facet>
+
+<div appCypressData="facet-list">
+  <span *ngFor="let facet of selected; let index = index">
+    <div [attr.appCypressData]="'facet-selection-' + index">{{facet.label}}</div>
+  </span>
+</div>
+
+<button appCypressData="deselect-button" (click)="deselect()">DESELECT</button>
+
+<ng-template #checkboxFacetTemplate let-item>
+  <span class="facet-label">{{item.label}}</span>
+  <span class="facet-count">({{item.count}})</span>
+</ng-template>
+
+<ng-template #facetTitleTemplate>
+  <div class="checkbox-facet-title">
+    <strong>{{data.facetGroupName}}</strong>
+  </div>
+</ng-template>

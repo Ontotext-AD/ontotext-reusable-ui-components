@@ -14,3 +14,9 @@ export * from './lib/onto-search-results/onto-search-results.component';
 export * from './lib/onto-search-paginator/models/onto-search-paginator-models';
 export * from './lib/onto-search-paginator/onto-search-paginator.module';
 export * from './lib/onto-search-paginator/onto-search-paginator.component';
+
+export * from './lib/onto-search-facet/onto-search-facet.module';
+export * from './lib/onto-search-facet/onto-search-facet.component';
+export * from './lib/onto-search-facet/models/search-facet-model';
+export * from './lib/onto-search-facet/models/search-facet-group-model';
+export * from './lib/onto-search-facet/models/search-facet-type';

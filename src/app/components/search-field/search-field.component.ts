@@ -5,8 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-search-field',
-  templateUrl: './search-field.component.html',
-  styleUrls: ['./search-field.component.scss']
+  templateUrl: './search-field.component.html'
 })
 export class SearchFieldComponent implements OnInit {
   statesRespond: any[] = [{

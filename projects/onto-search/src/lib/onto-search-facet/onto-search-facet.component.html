@@ -1,0 +1,9 @@
+<div *ngIf="type === CHECKBOX">
+  <onto-checkbox-facet
+    [data]="data"
+    [type]="type"
+    [facetTitleTemplate]="facetTitleTemplate"
+    [facetTemplate]="facetTemplate"
+    (onSelectionChange)="onSelectionEvent($event)">
+  </onto-checkbox-facet>
+</div>
