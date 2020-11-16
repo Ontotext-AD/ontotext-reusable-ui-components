@@ -6,7 +6,7 @@ import {SearchFacetModel} from './search-facet-model';
  */
 export interface SearchFacetGroupModel {
   facetGroupName: string;
-  facetGroup: SearchFacetModel[];
+  facetGroupData: SearchFacetModel[];
 
   /**
    * Array of selected facets

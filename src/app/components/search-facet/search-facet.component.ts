@@ -42,7 +42,7 @@ export class SearchFacetComponent implements OnInit {
     this.data = {
       facetGroupName: this.apiGroupNameResponse,
       selected: this.selected,
-      facetGroup: this.transformToFacetModel(this.apiGroupResponse)
+      facetGroupData: this.transformToFacetModel(this.apiGroupResponse)
     };
 
     this.type = SearchFacetType.CHECKBOX;
@@ -74,7 +74,7 @@ export class SearchFacetComponent implements OnInit {
 
   public deselect(): void {
     this.selected = [];
-    this.data.facetGroup.forEach((facet) => facet.selected = false);
+    this.data.facetGroupData.forEach((facet) => facet.selected = false);
     this.data.selected = this.selected;
   }
 }

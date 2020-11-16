@@ -21,7 +21,7 @@ export class CheckboxFacetComponent extends OntoSearchFacetComponent {
   public onSelectionChange: EventEmitter<any>;
 
   public updateAllSelected(facet: SearchFacetModel): void {
-    const index = this.data.selected.indexOf(facet);
+    const index = this.data.selected && this.data.selected.indexOf(facet);
     if (index > -1) {
       this.data.selected.splice(index, 1);
     } else if (facet.selected) {

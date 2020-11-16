@@ -68,7 +68,7 @@ export class OntoSearchFacetComponent implements OnInit {
 
   ngOnInit(): void {
     this.facetGroupName = this.data.facetGroupName;
-    this.facetGroup = this.data.facetGroup;
+    this.facetGroup = this.data.facetGroupData;
   }
 
   public onSelectionEvent($event): void {
