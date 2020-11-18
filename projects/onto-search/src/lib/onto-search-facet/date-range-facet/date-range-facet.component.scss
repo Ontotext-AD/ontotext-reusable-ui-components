@@ -1,0 +1,38 @@
+::ng-deep {
+
+  // Style for the calendar cell that has a tooltip and is not today or selected cell in calendar
+  .onto-date-range-facet-tooltip:not(.mat-calendar-body-selected):not(.mat-calendar-body-today) {
+    border-color: rgba(0, 0, 0, .38);
+    border-style: dashed;
+    background-color: aliceblue;
+  }
+
+  // Style of the tooltip that show over the cell
+  .onto-date-range-facet-tooltip .onto-date-range-facet-tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+  }
+
+  // Style of the tooltip arrow that points to the cell
+  .onto-date-range-facet-tooltip:hover::after {
+    content: "";
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+
+  .onto-date-range-facet-tooltip:hover .onto-date-range-facet-tooltiptext {
+    visibility: visible;
+  }
+}

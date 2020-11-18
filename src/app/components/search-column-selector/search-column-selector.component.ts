@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {SelectionColumnGroup} from '../../../projects/onto-search/src/lib/onto-search-column-selector/models/selection-column-group';
-import {SelectionColumn} from '../../../projects/onto-search/src/lib/onto-search-column-selector/models/selection-column';
+import {SelectionColumnGroup} from '../../../../projects/onto-search/src/lib/onto-search-column-selector/models/selection-column-group';
+import {SelectionColumn} from '../../../../projects/onto-search/src/lib/onto-search-column-selector/models/selection-column';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

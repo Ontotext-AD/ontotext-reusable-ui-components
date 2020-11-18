@@ -20,3 +20,7 @@ export * from './lib/onto-search-facet/onto-search-facet.component';
 export * from './lib/onto-search-facet/models/search-facet-model';
 export * from './lib/onto-search-facet/models/search-facet-group-model';
 export * from './lib/onto-search-facet/models/search-facet-type';
+
+export * from './lib/onto-search-facet/date-range-facet/models/search-date-facet-group-model';
+export * from './lib/onto-search-facet/date-range-facet/models/search-date-facet-model';
+export * from './lib/onto-search-facet/date-range-facet/models/search-date-facet-range';

@@ -11,9 +11,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {OntoSearchFieldModule} from '../../projects/onto-search/src/lib/onto-search-field/onto-search-field.module';
 import {OntoSearchColumnSelectorModule} from '../../projects/onto-search/src/lib/onto-search-column-selector/onto-search-column-selector.module';
-import {SearchColumnSelectorComponent} from './search-column-selector/search-column-selector.component';
-import {SearchFacetComponent} from './components/search-facet/search-facet.component';
-import {OntoSearchFacetModule} from 'projects/onto-search/src/lib/onto-search-facet/onto-search-facet.module';
+import {SearchColumnSelectorComponent} from './components/search-column-selector/search-column-selector.component';
+import {SearchDatepickerFacetComponent} from './components/search-datepicker-facet/search-datepicker-facet.component';
+import {OntoSearchFacetModule} from '../../projects/onto-search/src/lib/onto-search-facet/onto-search-facet.module';
+import {SearchCheckboxFacetComponent} from './components/search-checkbox-facet/search-checkbox-facet.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {OntoSearchFacetModule} from 'projects/onto-search/src/lib/onto-search-fa
     SearchResultsComponent,
     SearchFieldComponent,
     SearchColumnSelectorComponent,
-    SearchFacetComponent,
+    SearchCheckboxFacetComponent,
+    SearchDatepickerFacetComponent,
   ],
   imports: [
     BrowserModule,

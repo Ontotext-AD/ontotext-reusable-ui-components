@@ -1,6 +1,6 @@
-export default class SearchFacetSteps {
+export default class SearchCheckboxFacetSteps {
   static visit() {
-    cy.visit('/search-facet');
+    cy.visit('/search-checkbox-facet');
   }
 
   static getFacets() {

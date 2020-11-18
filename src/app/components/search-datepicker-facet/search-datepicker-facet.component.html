@@ -1,0 +1,29 @@
+<onto-search-facet *ngIf="data"
+                   [data]="data"
+                   [type]="type"
+                   [facetTitleTemplate]="facetTitleTemplate"
+                   [facetTemplate]="basicFacetTemplate"
+                   (onSelectionChange)="onSelectedEvent($event)">
+</onto-search-facet>
+
+<button appCypressData="deselect-button" (click)="deselect()">DESELECT</button>
+
+<ng-template #facetTitleTemplate>
+  <div class="basic-facet-title">
+    <strong>{{data?.facetGroupName}}</strong>
+  </div>
+</ng-template>
+
+<ng-template #basicFacetTemplate let-item>
+  <div appCypressData="date-range-template">
+    <div appCypressData="template-range">Range: {{item?.dateRange.start.toDateString() + ' - '
+    + item?.dateRange.end.toDateString()}}</div>
+    <div appCypressData="template-count">Count: {{item?.count}}</div>
+  </div>
+</ng-template>
+
+<div appCypressData="selected-range">
+  Range: {{selected?.dateRange.start.toDateString() + ' - ' + selected?.dateRange.end.toDateString()}}
+</div>
+<div appCypressData="selected-count">Count: {{selected?.count}}</div>
+
