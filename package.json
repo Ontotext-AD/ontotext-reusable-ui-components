@@ -1,6 +1,6 @@
 {
   "name": "ontotext-reusable-ui-components",
-  "version": "0.0.1-TR7",
+  "version": "0.0.1-TR8",
   "description": "Unified reusable UI components designed for the Ontotext ecosystem.",
   "scripts": {
     "ng": "ng",
