@@ -38,7 +38,6 @@ jobs:
       deploy:
         - provider: npm
           skip_cleanup: true
-          email:  $NPM_MAIL
           api_key: $NPM_TOKEN
           on:
             tags: true
