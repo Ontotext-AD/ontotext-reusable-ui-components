@@ -24,10 +24,6 @@ cache:
   directories:
     - ~/.cache
 
-install:
-  - npm install
-  - npm run install:onto-search-deps
-
 jobs:
   include:
     - stage: test
