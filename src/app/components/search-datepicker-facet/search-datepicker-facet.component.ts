@@ -14,7 +14,7 @@ import {SearchDateFacetRange} from '../../../../projects/onto-search/src/lib/ont
 export class SearchDatepickerFacetComponent implements OnInit {
   public data: SearchDateFacetGroupModel;
   public type: SearchFacetType;
-  public selected: SearchDateFacetRange;
+  public selection: SearchDateFacetRange;
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
@@ -32,11 +32,11 @@ export class SearchDatepickerFacetComponent implements OnInit {
   }
 
   public onSelectedEvent($event: any): void {
-    this.selected = $event;
+    this.selection = $event;
   }
 
   public deselect(): void {
-    this.selected = undefined;
+    this.selection = undefined;
     this.data.selectedRange = null;
   }
 
@@ -64,7 +64,8 @@ export class SearchDatepickerFacetComponent implements OnInit {
   private getPreselectRange(): SearchDateFacetRange {
     if (this.activatedRoute.snapshot.queryParams['usePreselectedRange']) {
       return {
-        dateRange: new DateRange<Date>(new Date('11 1 2020'), new Date('11 27 2020'))
+        name: apiResponse._name,
+        selected: new DateRange<Date>(new Date('11 1 2020'), new Date('11 27 2020'))
       };
     }
     return null;

@@ -62,9 +62,9 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
   }
 
   ngDoCheck(): void {
-    if (!this.selectedRangeOld && this.data.selectedRange && this.data.selectedRange.dateRange) {
-      this.selectedRangeOld = this.data.selectedRange && this.data.selectedRange.dateRange;
-    } else if (this.selectedRangeOld && (!this.data.selectedRange || !this.data.selectedRange.dateRange)) {
+    if (!this.selectedRangeOld && this.data.selectedRange && this.data.selectedRange.selected) {
+      this.selectedRangeOld = this.data.selectedRange && this.data.selectedRange.selected;
+    } else if (this.selectedRangeOld && (!this.data.selectedRange || !this.data.selectedRange.selected)) {
       this.selectedRangeOld = null;
       const momentDateRange = new DateRange<Moment>(null, null);
       this.dateRangeGroup.setValue(momentDateRange);
@@ -73,7 +73,6 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
     this.mapFacetDates(this.data.facetGroupData);
 
     this.datePickerPlaceholder = this.data.placeholder;
@@ -170,7 +169,7 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
   }
 
   private setSelectedRange(selectedRange: SearchDateFacetRange): void {
-    const momentDateRange = new DateRange<Moment>(moment(selectedRange.dateRange.start), moment(selectedRange.dateRange.end));
+    const momentDateRange = new DateRange<Moment>(moment(selectedRange.selected.start), moment(selectedRange.selected.end));
     this.dateRangeGroup.setValue(momentDateRange);
     this.dateRangeGroup.updateValueAndValidity();
     this.data.selectedRange = this.getSearchDateFacetRange();
@@ -181,7 +180,8 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
     const end: Moment = this.dateRangeGroup.get('end').value;
 
     return {
-      dateRange: {
+      name: this.facetGroupName,
+      selected: {
         start: start.toDate(),
         end: end.toDate()
       } as DateRange<Date>,

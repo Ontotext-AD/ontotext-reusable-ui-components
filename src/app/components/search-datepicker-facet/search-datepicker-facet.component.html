@@ -16,14 +16,14 @@
 
 <ng-template #basicFacetTemplate let-item>
   <div appCypressData="date-range-template">
-    <div appCypressData="template-range">Range: {{item?.dateRange.start.toDateString() + ' - '
-    + item?.dateRange.end.toDateString()}}</div>
+    <div appCypressData="template-range">Range: {{item?.selected.start.toDateString() + ' - '
+    + item?.selected.end.toDateString()}}</div>
     <div appCypressData="template-count">Count: {{item?.count}}</div>
   </div>
 </ng-template>
 
 <div appCypressData="selected-range">
-  Range: {{selected?.dateRange.start.toDateString() + ' - ' + selected?.dateRange.end.toDateString()}}
+  Range: {{selection?.selected.start.toDateString() + ' - ' + selection?.selected.end.toDateString()}}
 </div>
-<div appCypressData="selected-count">Count: {{selected?.count}}</div>
+<div appCypressData="selected-count">Count: {{selection?.count}}</div>
 

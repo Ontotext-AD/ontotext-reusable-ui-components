@@ -1,13 +1,13 @@
 <div class="checkbox-facet">
   <div appCypressData="checkbox-facet-title">
-    <ng-container *ngTemplateOutlet="facetTitleTemplate">
+    <ng-container *ngTemplateOutlet="facetTitleTemplate; context: {$implicit: facetGroupName}">
     </ng-container>
   </div>
  <div class="checkbox-facet-list" appCypressData="checkbox-facet-list">
       <div *ngFor="let facet of facetGroup; let index = index">
         <mat-checkbox
-          [(ngModel)]="facet.selected"
-          (ngModelChange)="updateAllSelected(facet)"
+          [checked]="facet.selected"
+          (change)="updateAllSelected(facet)"
           [attr.appCypressData]="'checkbox-facet-' + index">
           <ng-container *ngTemplateOutlet="facetTemplate; context: {$implicit: facet}">
           </ng-container>

@@ -2,21 +2,23 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
+  OnChanges,
   Output,
+  SimpleChanges,
   TemplateRef
 } from '@angular/core';
 import {SearchFacetGroupModel} from './models/search-facet-group-model';
 import {SearchFacetType} from './models/search-facet-type';
 import {SearchFacetModel} from './models/search-facet-model';
 import {OnDestroyMixin} from '@w11k/ngx-componentdestroyed';
+import {SearchFacetSelection} from './models/search-facet-selection';
 
 @Component({
   selector: 'onto-search-facet',
   templateUrl: './onto-search-facet.component.html',
   styleUrls: ['./onto-search-facet.component.scss']
 })
-export class OntoSearchFacetComponent extends OnDestroyMixin implements OnInit {
+export class OntoSearchFacetComponent extends OnDestroyMixin implements OnChanges {
   /**
    * Holds the facet group data.
    */
@@ -61,16 +63,20 @@ export class OntoSearchFacetComponent extends OnDestroyMixin implements OnInit {
    * Emits selected search facets on selection change.
    */
   @Output()
-  public onSelectionChange: EventEmitter<any> = new EventEmitter<any>();
+  public onSelectionChange: EventEmitter<SearchFacetSelection> = new EventEmitter<SearchFacetSelection>();
 
   public CHECKBOX: SearchFacetType = SearchFacetType.CHECKBOX;
   public DATEPICKER: SearchFacetType = SearchFacetType.DATE_RANGE;
   public facetGroup: SearchFacetModel[];
   public facetGroupName: string;
+  public selected: SearchFacetModel[];
 
-  ngOnInit(): void {
-    this.facetGroupName = this.data.facetGroupName;
-    this.facetGroup = this.data.facetGroupData;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.data && changes.data.currentValue) {
+      this.facetGroupName = this.data.facetGroupName;
+      this.facetGroup = this.data.facetGroupData;
+      this.selected = this.data.selected;
+    }
   }
 
   ngOnDestroy(): void {
