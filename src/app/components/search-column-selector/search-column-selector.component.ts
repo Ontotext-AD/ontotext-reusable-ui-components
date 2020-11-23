@@ -17,7 +17,7 @@ export class SearchColumnSelectorComponent implements OnInit {
       columns: [...this.defaultColumns, {label: 'Name'}]
     },
     {
-      label: 'Other Columns',
+      label: 'Another Group Of Columns',
       columns: [{label: 'Other Column'}]
     }]
   outsideSelection: SelectionColumn[];
@@ -32,7 +32,7 @@ export class SearchColumnSelectorComponent implements OnInit {
     }
   }
 
-  onColumnSelection(selectedColumns: SelectionColumn): void {
+  onColumnSelection(selectedColumns: SelectionColumn[]): void {
     this.selectedColumns = selectedColumns;
   }
 

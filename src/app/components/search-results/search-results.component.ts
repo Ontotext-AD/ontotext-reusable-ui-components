@@ -53,14 +53,18 @@ export class SearchResultsComponent implements OnInit {
           label: 'User Name',
           dataFunction: (data): string => 'Username: ' + data.username,
           footerFunction: (): string => '5',
-          enableSort: true
+          enableSort: true,
+          permanent: true,
+          order: 1
         },
         {
           name: 'name',
           label: 'Name',
           dataFunction: (data): string => 'Name: ' + data.name,
           footerFunction: (): string => '5',
-          enableSort: true
+          enableSort: true,
+          permanent: true,
+          order: 0
         },
         {
           name: 'column3',
@@ -69,7 +73,8 @@ export class SearchResultsComponent implements OnInit {
             return datasource.map((data: any) => data[columnConfig.name]).reduce((previousValue, currentValue) => previousValue + currentValue);
           },
           dataFunction: (data): string => data.column3,
-          enableSort: false
+          enableSort: false,
+          order: 44,
         },
         {
           name: 'id',
@@ -81,7 +86,8 @@ export class SearchResultsComponent implements OnInit {
           name: 'column4',
           label: 'column 4 Label',
           footerFunction: (): string => '5',
-          dataTemplate: this.template
+          dataTemplate: this.template,
+          order: 22
         }
       ],
       showFooter: true,

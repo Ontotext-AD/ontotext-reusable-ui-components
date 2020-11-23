@@ -34,6 +34,9 @@ export type TableConfig = {
  * @param {TemplateRef<*>} [dataTemplate] - template for displaying value in data cell of column
  * @param {FooterFunction} [footerFunction] - function for displaying value in footer cell of column
  * @param {boolean} [enableSort] - sorting by this column is enabled if true
+ * @param {boolean} [hidden] - denotes if the column should be hidden
+ * @param {boolean} [permanent] - denotes if the column should displayed always despite hidden value
+ * @param {number} [order] - sets order for columns to be displayed initially
  */
 export type ColumnConfig = {
   name: string;
@@ -42,4 +45,7 @@ export type ColumnConfig = {
   dataTemplate?: TemplateRef<any>;
   footerFunction?: (dataSource: any[], columnConfig: ColumnConfig) => string;
   enableSort?: boolean;
+  hidden?: boolean;
+  permanent?: boolean
+  order?: number;
 };
