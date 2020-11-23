@@ -24,3 +24,8 @@ export * from './lib/onto-search-facet/models/search-facet-type';
 export * from './lib/onto-search-facet/date-range-facet/models/search-date-facet-group-model';
 export * from './lib/onto-search-facet/date-range-facet/models/search-date-facet-model';
 export * from './lib/onto-search-facet/date-range-facet/models/search-date-facet-range';
+
+export * from './lib/onto-search-column-selector/onto-search-column-selector.module';
+export * from './lib/onto-search-column-selector/onto-search-column-selector.component';
+export * from './lib/onto-search-column-selector/models/selection-column-group';
+export * from './lib/onto-search-column-selector/models/selection-column';

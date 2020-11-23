@@ -10,9 +10,6 @@ import {SelectionColumnGroup} from './models/selection-column-group';
   styleUrls: ['./onto-search-column-selector.component.scss']
 })
 export class OntoSearchColumnSelector implements OnChanges {
-  selection: SelectionColumn[] = [];
-  selectCtrl = new FormControl();
-
   /**
    * The groups of columns information for the dropdown select
    */
@@ -39,27 +36,40 @@ export class OntoSearchColumnSelector implements OnChanges {
   @Output()
   selectionChanged: EventEmitter<SelectionColumn[]> = new EventEmitter<SelectionColumn[]>();
 
+  selectCtrl = new FormControl();
+  private selection: SelectionColumn[] = [];
+  private isSelectionChanged = false;
+
   ngOnChanges(changes: SimpleChanges): void {
     const defaultColumns = changes?.defaultColumns?.currentValue;
     const selectedColumns = changes?.selectedColumns?.currentValue;
+    const columnGroups = changes?.columnGroups?.currentValue;
+
     if (defaultColumns && defaultColumns.length > 0 && !this.selectedColumns) {
       this.setFormColumnSelection(defaultColumns);
     }
     if (selectedColumns) {
       this.setFormColumnSelection(selectedColumns);
     }
+    if (columnGroups?.length) {
+      this.columnGroups.sort(this.compareColumnsByLabel);
+    }
   }
 
   selectionChangedInternal($event: MatSelectChange): void {
+    this.isSelectionChanged = true;
     this.selection = $event.value;
   }
 
   onClosed(): void {
-    this.selectionChanged.next(this.selection);
+    if (this.isSelectionChanged) {
+      this.isSelectionChanged = false;
+      this.selectionChanged.next(this.selection);
+    }
   }
 
-  compareColumnsByLabel(column1: SelectionColumn, column2: SelectionColumn): boolean {
-    return column1.label === column2.label;
+  compareColumnsLabels(columnA: SelectionColumn, columnB: SelectionColumn): boolean {
+    return columnA.label === columnB.label;
   }
 
   resetColumns(): void {
@@ -70,6 +80,16 @@ export class OntoSearchColumnSelector implements OnChanges {
     this.selectCtrl.setValue([...columns]);
     this.selectCtrl.updateValueAndValidity();
     this.selection = columns;
+    this.isSelectionChanged = true;
     this.onClosed();
+  }
+
+  private compareColumnsByLabel(columnA: SelectionColumn, columnB: SelectionColumn): number {
+    if (columnA.label > columnB.label) {
+      return 1;
+    } else if (columnB.label > columnA.label) {
+      return -1;
+    }
+    return 0;
   }
 }

@@ -6,7 +6,7 @@
     <mat-form-field class="form-field">
       <mat-label>{{'ONTO_COLUMN_SELECTOR.COLUMN_SELECTOR_PLACEHOLDER' | transloco}}</mat-label>
       <mat-select multiple (selectionChange)="selectionChangedInternal($event)"
-                  [formControl]="selectCtrl" [compareWith]="compareColumnsByLabel"
+                  [formControl]="selectCtrl" [compareWith]="compareColumnsLabels"
                   (closed)="onClosed()" appCypressData="column-selection-dropdown">
         <mat-optgroup *ngFor="let columnGroup of columnGroups, let index = index"
                       [label]="columnGroup.label" [attr.appCypressData]="'column-group-' + index">
