@@ -45,7 +45,15 @@ export class OntoSearchResultsComponent implements OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.config && changes.config.currentValue) {
-      this.displayColumns = this.config.columnConfigurations.map((column) => column.name);
+      const permanentColumns = [...this.config.columnConfigurations
+          .filter((column) => column.permanent)]
+          .map((column) => column.name);
+
+      const dynamicColumns = [...this.config.columnConfigurations
+          .filter((column) => !column.permanent && !column.hidden)]
+          .map((column) => column.name);
+
+      this.displayColumns = [...permanentColumns, ...dynamicColumns];
     }
   }
 }
