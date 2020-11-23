@@ -1,18 +1,29 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {SearchFieldConfiguration} from './../models/search-field-configuration';
-import {SearchFieldModel} from './../models/search-field-model';
+import {SearchFieldConfiguration} from '../models/search-field-configuration';
+import {SearchFieldModel} from '../models/search-field-model';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnChanges {
   @Input()
   private states: Observable<SearchFieldModel[]>;
   private _states: SearchFieldModel[];
@@ -66,8 +77,13 @@ export class SearchComponent implements OnInit {
     this.subscribeAutocompleteFilter();
 
     this.currentTemplate = this.autocompleteOptionTemplate;
-    this.statesList = new Set<any>([...this.preselectedStatesList]);
     this.searchResultMappingFunction = this.searchResultMappingFunction || this.defaultSearchResultMappingFunction;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.preselectedStatesList?.currentValue) {
+      this.statesList = new Set<any>([...this.preselectedStatesList]);
+    }
   }
 
   private subscribeAutocompleteFilter(): void {
