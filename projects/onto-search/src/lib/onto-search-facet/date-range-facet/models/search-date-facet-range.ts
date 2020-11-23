@@ -1,12 +1,14 @@
 import {DateRange} from '@angular/material/datepicker';
 
 /**
- * Return from date range OntoSearchFaced and used to pass preselection to facet
+ * Return from date range OntoSearchFacet and used to pass preselection to facet
  *
- * @param {DateRange<Date>} dateRange - contains date range start and end Date
+ * @param {string} name - name of the facet group
+ * @param {DateRange<Date>} selected - contains date range with start and end Date
  * @param {number} count - contains a sum of all 'hit' counts for that date range
  */
 export type SearchDateFacetRange = {
-  dateRange: DateRange<Date>;
+  name: string
+  selected: DateRange<Date>;
   count?: number;
 };

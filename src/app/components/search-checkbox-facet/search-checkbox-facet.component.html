@@ -7,7 +7,7 @@
 </onto-search-facet>
 
 <div appCypressData="facet-list">
-  <span *ngFor="let facet of selected; let index = index">
+  <span *ngFor="let facet of selection?.selected; let index = index">
     <div [attr.appCypressData]="'facet-selection-' + index">{{facet.label}}</div>
   </span>
 </div>
@@ -19,8 +19,8 @@
   <span class="facet-count">({{item.count}})</span>
 </ng-template>
 
-<ng-template #facetTitleTemplate>
+<ng-template #facetTitleTemplate let-title>
   <div class="checkbox-facet-title">
-    <strong>{{data.facetGroupName}}</strong>
+    <strong>{{title}}</strong>
   </div>
 </ng-template>

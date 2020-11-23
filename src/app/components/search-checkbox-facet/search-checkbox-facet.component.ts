@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SearchFacetType} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-type';
 import {SearchFacetGroupModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-group-model';
 import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
+import {SearchFacetSelection} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-selection';
 
 @Component({
   selector: 'app-search-checkbox-facet',
@@ -14,9 +15,9 @@ export class SearchCheckboxFacetComponent implements OnInit {
   public apiGroupResponse: any;
   public apiGroupNameResponse: any;
   public apiSelectedResponse: any;
-  public selected: SearchFacetModel[] = [];
+  public selection: SearchFacetSelection;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -38,10 +39,14 @@ export class SearchCheckboxFacetComponent implements OnInit {
       'Suspended': 3
     };
     this.apiSelectedResponse = ['Recruiting'];
+    this.selection = {
+      name: this.apiGroupNameResponse,
+      selected: [],
+    };
 
     this.data = {
       facetGroupName: this.apiGroupNameResponse,
-      selected: this.selected,
+      selected: this.selection.selected,
       facetGroupData: this.transformToFacetModel(this.apiGroupResponse)
     };
 
@@ -49,10 +54,10 @@ export class SearchCheckboxFacetComponent implements OnInit {
   }
 
   public onSelectedEvent($event: any): void {
-    this.selected = $event;
+    this.selection = $event;
   }
 
-  transformToFacetModel(facets:any): SearchFacetModel[] {
+  transformToFacetModel(facets: any): SearchFacetModel[] {
     const transformed = [];
     Object.keys(facets).forEach((key) => {
       const isSelected = this.apiSelectedResponse.indexOf(key) !== -1;
@@ -65,7 +70,7 @@ export class SearchCheckboxFacetComponent implements OnInit {
       transformed.push(facet);
 
       if (isSelected) {
-        this.selected.push(facet);
+        this.selection.selected.push(facet);
       }
     });
 
@@ -73,8 +78,12 @@ export class SearchCheckboxFacetComponent implements OnInit {
   }
 
   public deselect(): void {
-    this.selected = [];
-    this.data.facetGroupData.forEach((facet) => facet.selected = false);
-    this.data.selected = this.selected;
+    this.selection = null;
+    this.data = {
+      facetGroupName: this.data.facetGroupName,
+      selected: [],
+      facetGroupData: this.data.facetGroupData,
+    };
+    this.changeDetectorRef.detectChanges();
   }
 }
