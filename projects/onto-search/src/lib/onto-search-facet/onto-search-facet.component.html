@@ -17,3 +17,13 @@
       (onSelectionChange)="onSelectionEvent($event)">>
   </onto-daterange-facet>
 </div>
+
+<div *ngIf="type === TOGGLE">
+  <onto-toggle-facet
+      [data]="data"
+      [type]="type"
+      [facetTitleTemplate]="facetTitleTemplate"
+      [facetTemplate]="facetTemplate"
+      (onSelectionChange)="onSelectionEvent($event)">>
+  </onto-toggle-facet>
+</div>
