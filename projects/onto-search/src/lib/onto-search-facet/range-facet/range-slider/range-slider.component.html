@@ -1,0 +1,18 @@
+<div class="range-wrap">
+  <div class="range-slider">
+    <div class="min-max-slider" #minMaxSlider>
+      <input id="min" class="min range-slider-range" name="min" type="range" min="0" max="1000" #minSlider/>
+      <input id="max" class="max range-slider-range" name="max" type="range" min="0" max="1000" #maxSlider/>
+    </div>
+  </div>
+  <div class="range-values">
+    <div class="range-slider-value value-min">{{min}}</div>
+    <div class="range-slider-value value-max">{{max}}</div>
+  </div>
+  <div class="range-selecton">
+  <div>{{'ONTO_RANGE_FACET.SELECTED' | transloco}} {{sum}}</div>
+  <div>{{'ONTO_RANGE_FACET.SELECTED_MIN' | transloco}} {{selectedMin}}</div>
+  <div>{{'ONTO_RANGE_FACET.SELECTED_MAX' | transloco}} {{selectedMax}}</div>
+  </div>
+</div>
+

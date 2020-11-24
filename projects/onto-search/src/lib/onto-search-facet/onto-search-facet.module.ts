@@ -13,6 +13,9 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
 import {ToggleFacetComponent} from './toggle-facet/toggle-facet.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {RangeFacetModule} from './range-facet/range-facet.module';
+import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule, TranslocoService} from '@ngneat/transloco';
+import en from './i18n/en.json';
 
 const CUSTOM_MAT_DATE_FORMATS = {
   parse: {
@@ -23,6 +26,19 @@ const CUSTOM_MAT_DATE_FORMATS = {
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
+
+const translocoConfiguration: TranslocoConfig = {
+  availableLangs: ['en'],
+  fallbackLang: ['en'],
+  defaultLang: 'en',
+  prodMode: true,
+  reRenderOnLangChange: true,
+  missingHandler: {
+    useFallbackTranslation: true,
+    logMissingKey: true,
   },
 };
 
@@ -39,6 +55,8 @@ const CUSTOM_MAT_DATE_FORMATS = {
     MatMomentDateModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    RangeFacetModule,
+    TranslocoModule
   ],
   exports: [OntoSearchFacetComponent],
   providers: [
@@ -46,7 +64,14 @@ const CUSTOM_MAT_DATE_FORMATS = {
       provide: MAT_DATE_FORMATS,
       useValue: CUSTOM_MAT_DATE_FORMATS
     },
+    {
+      provide: TRANSLOCO_CONFIG,
+      useValue: translocoConfiguration,
+    },
   ],
 })
 export class OntoSearchFacetModule {
+  constructor(private translocoService: TranslocoService) {
+    this.translocoService.setTranslation(en, 'en');
+  }
 }

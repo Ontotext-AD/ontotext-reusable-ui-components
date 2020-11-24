@@ -1,0 +1,7 @@
+<onto-search-facet *ngIf="data"
+                   [data]="data"
+                   [type]="type"
+                   [facetTitleTemplate]="facetTitleTemplate"
+                   [facetTemplate]="basicFacetTemplate"
+                   (onSelectionChange)="onSelectedEvent($event)">
+</onto-search-facet>
