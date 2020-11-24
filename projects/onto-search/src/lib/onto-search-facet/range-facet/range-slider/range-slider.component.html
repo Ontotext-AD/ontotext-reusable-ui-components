@@ -1,8 +1,8 @@
 <div class="range-wrap">
   <div class="range-slider">
     <div class="min-max-slider" #minMaxSlider>
-      <input id="min" class="min range-slider-range" name="min" type="range" min="0" max="1000" #minSlider/>
-      <input id="max" class="max range-slider-range" name="max" type="range" min="0" max="1000" #maxSlider/>
+      <input id="min" class="min range-slider-range" name="min" type="range" min="0" max="1000" #minSlider appCypressData="min-range"/>
+      <input id="max" class="max range-slider-range" name="max" type="range" min="0" max="1000" #maxSlider appCypressData="max-range"/>
     </div>
   </div>
   <div class="range-values">
@@ -10,9 +10,9 @@
     <div class="range-slider-value value-max">{{max}}</div>
   </div>
   <div class="range-selecton">
-  <div>{{'ONTO_RANGE_FACET.SELECTED' | transloco}} {{sum}}</div>
-  <div>{{'ONTO_RANGE_FACET.SELECTED_MIN' | transloco}} {{selectedMin}}</div>
-  <div>{{'ONTO_RANGE_FACET.SELECTED_MAX' | transloco}} {{selectedMax}}</div>
+  <div class="selected-sum" appCypressData="selected-sum">{{'ONTO_RANGE_FACET.SELECTED' | transloco}}{{sum}}</div>
+    <div class="selected-min" appCypressData="selected-min">{{'ONTO_RANGE_FACET.SELECTED_MIN' | transloco}}<span appCypressData="selected-min-value">{{selectedMin}}</span></div>
+    <div class="selected-max" appCypressData="selected-max">{{'ONTO_RANGE_FACET.SELECTED_MAX' | transloco}}<span appCypressData="selected-max-value">{{selectedMax}}</span></div>
   </div>
 </div>
 

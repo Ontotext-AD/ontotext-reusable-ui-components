@@ -37,12 +37,12 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.facetData = JSON.parse(JSON.stringify(this.data.facetGroupData));
     this.facetData.sort((a, b) => parseInt(a.label) - parseInt(b.label));
-    this.sum = this.sumRange();
     this.min = this.facetData[0].label;
     this.max = this.facetData[this.facetData.length-1].label;
     this.selectedMin = this.min;
     this.selectedMax = this.max;
 
+    this.sum = this.sumRange();
     this.updateSelection();
   }
 
@@ -75,9 +75,6 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
 
     max.value = max.getAttribute('data-value');
     min.value = min.getAttribute('data-value');
-
-    this.selectedMin = min.value;
-    this.selectedMax = max.value;
   }
 
   init(): void {
@@ -117,6 +114,9 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
     min.setAttribute('data-value', minvalue);
     max.setAttribute('data-value', maxvalue);
 
+    this.selectedMin = minvalue;
+    this.selectedMax = maxvalue;
+
     this.updateSelection();
     this.sum = this.sumRange();
 
@@ -127,7 +127,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
 
   private sumRange(): number {
     let sum = 0;
-    this.facetData.forEach((facet) => {
+    this.data.facetGroupData.forEach((facet) => {
       if (this.isInRange(facet)) {
         sum += facet.count;
       }
@@ -151,6 +151,6 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
 
   private isInRange(facet: SearchFacetModel): boolean {
     const value = parseInt(facet.label);
-    return value >= this.selectedMin && value <= this.selectedMax;
+    return value >= parseInt(this.selectedMin) && value <= parseInt(this.selectedMax);
   }
 }

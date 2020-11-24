@@ -1,4 +1,4 @@
-<div class="range-facet">
+<div class="range-facet" appCypressData="onto-range-facet">
 <onto-range-histogram *ngIf="data.showHistogram" [data]="data" [containerWidth]="containerWidth"></onto-range-histogram>
 <onto-range-slider [data]="data" (sliderWidth)="onSliderWidth($event)" (selectionChange)="onSelectionEvent($event)"></onto-range-slider>
 </div>

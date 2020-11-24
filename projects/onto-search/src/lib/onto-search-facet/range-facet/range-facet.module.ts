@@ -5,6 +5,7 @@ import {RangeFacetComponent} from './range-facet.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {RangeHistogramComponent} from './range-histogram/range-histogram.component';
 import {TranslocoModule} from '@ngneat/transloco';
+import {DirectivesModule} from '../../directives/directives.module';
 
 @NgModule({
   declarations: [RangeFacetComponent, RangeSliderComponent, RangeHistogramComponent],
@@ -12,6 +13,7 @@ import {TranslocoModule} from '@ngneat/transloco';
     CommonModule,
     MatSliderModule,
     TranslocoModule,
+    DirectivesModule,
 
   ],
   exports: [RangeFacetComponent]

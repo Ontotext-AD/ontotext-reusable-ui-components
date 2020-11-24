@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SearchFacetType} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-type';
 import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
 import {SearchRangeFacetGroupModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/range-facet/models/search-range-facet-group-model';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-search-facet-range',
@@ -14,9 +15,10 @@ export class SearchRangeFacetComponent implements OnInit {
   public apiGroupResponse: any;
   public apiGroupNameResponse: any;
   public apiSelectedResponse: any;
-  public selected: SearchFacetModel[] = [];
+  public selected: SearchFacetModel[];
   public facetTitleTemplate: any = null;
   public basicFacetTemplate: any = null;
+  public selectedFasets: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor() { }
 
@@ -120,10 +122,12 @@ export class SearchRangeFacetComponent implements OnInit {
 
     this.apiSelectedResponse = [];
 
+    this.selected = this.transformToFacetModel(this.apiGroupResponse);
+
     this.data = {
       facetGroupName: this.apiGroupNameResponse,
       selected: this.selected,
-      facetGroupData: this.transformToFacetModel(this.apiGroupResponse),
+      facetGroupData: this.selected,
       showHistogram: true
     };
 
@@ -151,6 +155,6 @@ export class SearchRangeFacetComponent implements OnInit {
   }
 
   public onSelectedEvent($event: any): void {
-    console.log($event);
+    this.selected =$event;
   }
 }
