@@ -3,14 +3,12 @@
     <ng-container [ngTemplateOutlet]="facetTitleTemplate"
                   [ngTemplateOutletContext]="{$implicit: facetGroupName}"></ng-container>
   </div>
-  <div>
-    <mat-slide-toggle appCypressData="toggle-facet-slide" class="toggle-facet-slide"
-                      [color]="color"
-                      (change)="onToggle($event)"
-                      [(ngModel)]="currentValue">
-      <ng-container [ngTemplateOutlet]="facetTemplate"
-                    [ngTemplateOutletContext]="{$implicit: currentSelection}">
-      </ng-container>
-    </mat-slide-toggle>
-  </div>
+  <mat-slide-toggle appCypressData="toggle-facet-slide" class="toggle-facet-slide"
+                    [color]="color"
+                    (change)="onToggle($event)"
+                    [(ngModel)]="currentValue">
+    <ng-container [ngTemplateOutlet]="facetTemplate"
+                  [ngTemplateOutletContext]="{$implicit: currentSelection}">
+    </ng-container>
+  </mat-slide-toggle>
 </div>
