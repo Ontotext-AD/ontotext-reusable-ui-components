@@ -11,6 +11,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {DateRangeFacetComponent} from './date-range-facet/date-range-facet.component';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
+import {ToggleFacetComponent} from './toggle-facet/toggle-facet.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const CUSTOM_MAT_DATE_FORMATS = {
   parse: {
@@ -25,7 +27,7 @@ const CUSTOM_MAT_DATE_FORMATS = {
 };
 
 @NgModule({
-  declarations: [OntoSearchFacetComponent, CheckboxFacetComponent, DateRangeFacetComponent],
+  declarations: [OntoSearchFacetComponent, CheckboxFacetComponent, DateRangeFacetComponent, ToggleFacetComponent],
   imports: [
     CommonModule,
     MatCheckboxModule,
@@ -36,6 +38,7 @@ const CUSTOM_MAT_DATE_FORMATS = {
     MatDatepickerModule,
     MatMomentDateModule,
     ReactiveFormsModule,
+    MatSlideToggleModule,
   ],
   exports: [OntoSearchFacetComponent],
   providers: [

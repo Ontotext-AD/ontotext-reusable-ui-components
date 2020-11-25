@@ -2,5 +2,5 @@
  * List of supported facet types
  */
 export enum SearchFacetType {
-  CHECKBOX, DATE_RANGE
+  CHECKBOX, DATE_RANGE, TOGGLE
 }

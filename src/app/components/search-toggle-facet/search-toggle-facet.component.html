@@ -1,0 +1,26 @@
+<div appCypressData="dualValueToggleFacet">
+  <onto-search-facet (onSelectionChange)="onSelectionChanged($event)"
+                     [data]="groupModel"
+                     [type]="toggleFacetType"
+                     [facetTemplate]="template"
+                     [facetTitleTemplate]="titleTemplate"></onto-search-facet>
+</div>
+
+<div appCypressData="singleValueToggleFacet">
+  <onto-search-facet (onSelectionChange)="onSelectionChanged($event)"
+                     [data]="groupModelSingleValue"
+                     [type]="toggleFacetType"
+                     [facetTemplate]="template"
+                     [facetTitleTemplate]="titleTemplate"></onto-search-facet>
+</div>
+<div *ngIf="selectedFilter && selectedFilter.selected">
+  <div appCypressData="toggle-facet-selection">{{selectedFilter.selected.label + ' - ' + selectedFilter.count}}</div>
+  <div appCypressData="toggle-facet-selection-value">{{selectedFilter.selected.selected}}</div>
+</div>
+
+<ng-template #titleTemplate let-context>
+  <div appCypressData="template-title">{{context}}</div>
+</ng-template>
+<ng-template #template let-context>
+  <div appCypressData="template-data">Selected: {{context.label + ' - ' + context.count}}</div>
+</ng-template>
