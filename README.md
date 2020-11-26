@@ -28,3 +28,7 @@ When a newer version needs to be published:
 * Increase the version in the `package.json` by following the semantic versioning approach.
 * Create a new MR and a tag through Github. Beware the version to follow the pattern /v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$/ as defined in .travis.yml. Any discrepancies will result in version being rejected as appropriate for publish in the NPM.
 * If the build is successful which can be seen in https://travis-ci.com/github/Ontotext-AD/ontotext-reusable-ui-components.
+
+## Documentation
+
+[Documentation](https://ontotext-ad.github.io/ontotext-reusable-ui-components/) for this library is generated with [Compodoc](https://compodoc.app/) in `/docs` folder. Manually it can be generated with `npm run compodoc`.
