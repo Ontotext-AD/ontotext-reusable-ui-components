@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'search-column-select', component: SearchColumnSelectorComponent},
   {path: 'search-checkbox-facet', component: SearchCheckboxFacetComponent},
   {path: 'search-date-range-facet', component: SearchDatepickerFacetComponent},
-  {path: 'search-toggle-facet', component: SearchToggleFacetComponent}
+  {path: 'search-toggle-facet', component: SearchToggleFacetComponent},
   {path: 'search-range-facet', component: SearchRangeFacetComponent},
 
 ];
