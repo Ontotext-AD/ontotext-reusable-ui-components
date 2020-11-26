@@ -6,7 +6,7 @@ import {
   HostListener,
   Input, OnDestroy,
   OnInit,
-  Output,
+  Output, TemplateRef,
   ViewChild
 } from '@angular/core';
 import {SearchFacetModel} from '../../models/search-facet-model';
@@ -21,6 +21,8 @@ import {SearchRangeFacetGroupModel} from '../models/search-range-facet-group-mod
 export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   public data: SearchRangeFacetGroupModel;
+  @Input()
+  public facetTemplate: TemplateRef<any>;
 
   @ViewChild('minMaxSlider')
   public slider: ElementRef;
@@ -151,7 +153,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  private sumRange(): number {
+  public sumRange(): number {
     let sum = 0;
     this.data.facetGroupData.forEach((facet) => {
       if (this.isInRange(facet)) {
