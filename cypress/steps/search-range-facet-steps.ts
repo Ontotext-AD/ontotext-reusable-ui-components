@@ -7,8 +7,12 @@ export default class SearchRangeFacetSteps {
     return cy.get('[appCypressData="onto-range-facet"]');
   }
 
-  static getSelectedRangeFacetCount() {
-    return cy.get('[appCypressData="selected-facets-count"]');
+  static getSelectedRangeFacetMin() {
+    return cy.get('[appCypressData="selected-facets-min"]');
+  }
+
+  static getSelectedRangeFacetMax() {
+    return cy.get('[appCypressData="selected-facets-max"]');
   }
 
   static getRangeSum() {

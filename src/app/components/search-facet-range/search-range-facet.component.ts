@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SearchFacetType} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-type';
 import {SearchFacetModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/models/search-facet-model';
 import {SearchRangeFacetGroupModel} from '../../../../projects/onto-search/src/lib/onto-search-facet/range-facet/models/search-range-facet-group-model';
-import {BehaviorSubject} from 'rxjs';
+import {SelectedRange} from '../../../../projects/onto-search/src/lib/onto-search-facet/range-facet/models/selected-range';
 
 @Component({
   selector: 'app-search-facet-range',
@@ -15,12 +15,13 @@ export class SearchRangeFacetComponent implements OnInit {
   public apiGroupResponse: any;
   public apiGroupNameResponse: any;
   public apiSelectedResponse: any;
-  public selected: SearchFacetModel[];
+  public selectedRange: SelectedRange;
+  public selected: SearchFacetModel[]
   public facetTitleTemplate: any = null;
   public basicFacetTemplate: any = null;
-  public selectedFasets: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.apiGroupNameResponse = 'Enrollment';
@@ -122,19 +123,23 @@ export class SearchRangeFacetComponent implements OnInit {
 
     this.apiSelectedResponse = [];
 
-    this.selected = this.transformToFacetModel(this.apiGroupResponse);
+    this.selectedRange = {
+      start: '0',
+      end: '1000'
+    } as SelectedRange;
 
     this.data = {
       facetGroupName: this.apiGroupNameResponse,
-      selected: this.selected,
-      facetGroupData: this.selected,
-      showHistogram: true
+      selected: [],
+      facetGroupData: this.transformToFacetModel(this.apiGroupResponse),
+      showHistogram: true,
+      selectedRange: this.selectedRange
     };
 
     this.type = SearchFacetType.RANGE;
   }
 
-  transformToFacetModel(facets:any): SearchFacetModel[] {
+  transformToFacetModel(facets: any): SearchFacetModel[] {
     const transformed = [];
     Object.keys(facets).forEach((key) => {
       const isSelected = this.apiSelectedResponse.indexOf(key) !== -1;
@@ -155,6 +160,6 @@ export class SearchRangeFacetComponent implements OnInit {
   }
 
   public onSelectedEvent($event: any): void {
-    this.selected =$event;
+    this.selectedRange = $event;
   }
 }

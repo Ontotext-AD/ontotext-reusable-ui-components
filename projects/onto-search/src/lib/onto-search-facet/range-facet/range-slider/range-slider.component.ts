@@ -1,15 +1,26 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {SearchFacetGroupModel} from '../../models/search-facet-group-model';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input, OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {SearchFacetModel} from '../../models/search-facet-model';
+import {SelectedRange} from '../models/selected-range';
+import {SearchRangeFacetGroupModel} from '../models/search-range-facet-group-model';
 
 @Component({
   selector: 'onto-range-slider',
   templateUrl: './range-slider.component.html',
   styleUrls: ['./range-slider.component.scss']
 })
-export class RangeSliderComponent implements OnInit, AfterViewInit {
+export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
-  public data: SearchFacetGroupModel;
+  public data: SearchRangeFacetGroupModel;
 
   @ViewChild('minMaxSlider')
   public slider: ElementRef;
@@ -19,73 +30,84 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
   public maxSlider: ElementRef;
 
   @Output()
-  public sliderWidth: EventEmitter<any> = new EventEmitter<any>();
-
-  @Output()
   public selectionChange: EventEmitter<any> = new EventEmitter<any>();
 
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {}
 
   private facetData: SearchFacetModel[];
   public sum: number;
 
   private thumbsize = 14;
-  public min;
-  public max;
+  public minValue;
+  public maxValue;
   public selectedMin;
   public selectedMax;
+  public minElement;
+  public maxElement;
 
   ngOnInit(): void {
-    this.facetData = JSON.parse(JSON.stringify(this.data.facetGroupData));
-    this.facetData.sort((a, b) => parseInt(a.label) - parseInt(b.label));
-    this.min = this.facetData[0].label;
-    this.max = this.facetData[this.facetData.length-1].label;
-    this.selectedMin = this.min;
-    this.selectedMax = this.max;
+    this.facetData = [...this.data.facetGroupData];
+    this.facetData.sort((a, b) => {
+      try {
+        return this.parseInt(a.label) - this.parseInt(b.label);
+      } catch (e) {
+        throw new Error('Facet labels must represent numbers! ' + e.message);
+      }
+    });
+
+    this.minValue = this.facetData[0].label;
+    this.maxValue = this.facetData[this.facetData.length - 1].label;
+
+    this.selectedMin = this.minValue;
+    this.selectedMax = this.maxValue;
 
     this.sum = this.sumRange();
     this.updateSelection();
   }
 
   public ngAfterViewInit(): void {
+    this.minElement = this.minSlider.nativeElement;
+    this.maxElement = this.maxSlider.nativeElement;
+
     this.init();
-    this.sliderWidth.emit(this.slider.nativeElement.clientWidth);
+    this.onResize = (): void => this.update(this.parseInt(this.maxElement.getAttribute('max')));
   }
 
   draw(splitvalue: number): void {
-    const min = this.minSlider.nativeElement;
-    const max = this.maxSlider.nativeElement;
-    const thumbsize: any = parseInt(this.slider.nativeElement.getAttribute('data-thumbsize'));
+    const thumbsize: any = this.parseInt(this.slider.nativeElement.getAttribute('data-thumbsize'));
     const rangewidth = this.slider.nativeElement.clientWidth;
 
-    const rangemin = parseInt(this.slider.nativeElement.getAttribute('data-rangemin'));
-    const rangemax = parseInt(this.slider.nativeElement.getAttribute('data-rangemax'));
+    const rangemin = this.parseInt(this.slider.nativeElement.getAttribute('data-rangemin'));
+    const rangemax = this.parseInt(this.slider.nativeElement.getAttribute('data-rangemax'));
 
-    min.setAttribute('max', splitvalue);
-    max.setAttribute('min', splitvalue);
+    this.minElement.setAttribute('max', splitvalue);
+    this.maxElement.setAttribute('min', splitvalue);
 
-    min.style.width = parseInt(thumbsize + ((splitvalue - rangemin) / (rangemax - rangemin)) * (rangewidth - (2 * thumbsize))) + 'px';
-    max.style.width = parseInt(thumbsize + ((rangemax - splitvalue) / (rangemax - rangemin)) * (rangewidth - (2 * thumbsize))) + 'px';
-    min.style.left = '0px';
-    max.style.left = parseInt(min.style.width) + 'px';
+    this.minElement.style.width = this.parseInt(thumbsize + ((splitvalue - rangemin) / (rangemax - rangemin)) * (rangewidth - (2 * thumbsize))) + 'px';
+    this.maxElement.style.width = this.parseInt(thumbsize + ((rangemax - splitvalue) / (rangemax - rangemin)) * (rangewidth - (2 * thumbsize))) + 'px';
+    this.minElement.style.left = '0px';
+    this.maxElement.style.left = this.parseInt(this.minElement.style.width) + 'px';
 
     // correct for 1 off at the end of the max slider
-    if (max.value > (rangemax - 1)) {
-      max.setAttribute('data-value', rangemax);
+    if (this.maxElement.value > (rangemax - 1)) {
+      this.maxElement.setAttribute('data-value', rangemax);
     }
 
-    max.value = max.getAttribute('data-value');
-    min.value = min.getAttribute('data-value');
+    this.maxElement.value = this.maxElement.getAttribute('data-value');
+    this.minElement.value = this.minElement.getAttribute('data-value');
   }
 
   init(): void {
-    const min = this.minSlider.nativeElement;
-    const max = this.maxSlider.nativeElement;
-    const rangemin: any = parseInt(min.getAttribute('min'));
-    const rangemax: any = parseInt(max.getAttribute('max'));
+    this.minElement.removeEventListener('input', () => this.update);
+    this.maxElement.removeEventListener('input', () => this.update);
+
+    const rangemin: any = this.parseInt(this.minElement.getAttribute('min'));
+    const rangemax: any = this.parseInt(this.maxElement.getAttribute('max'));
     const avgvalue = (rangemin + rangemax) / 2;
 
-    min.setAttribute('data-value', rangemin);
-    max.setAttribute('data-value', rangemax);
+    this.minElement.setAttribute('data-value', rangemin);
+    this.maxElement.setAttribute('data-value', rangemax);
 
     this.slider.nativeElement.setAttribute('data-rangemin', rangemin);
     this.slider.nativeElement.setAttribute('data-rangemax', rangemax);
@@ -94,25 +116,29 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
 
     this.draw(avgvalue);
 
-    min.addEventListener('input', () => this.update(rangemax));
-    max.addEventListener('input', () => this.update(rangemax));
+    this.minElement.addEventListener('input', () => this.update(rangemax));
+    this.maxElement.addEventListener('input', () => this.update(rangemax));
   }
 
   update(rangemax: number): void {
-    const min = this.minSlider.nativeElement;
-    const max = this.maxSlider.nativeElement;
-    const minvalue = Math.floor(min.value);
+    // correction for min value calculation
+    let minvalue;
+    if (this.minElement.value > (rangemax - 1)) {
+      minvalue = Math.floor(this.minElement.value - 1);
+    } else {
+      minvalue = Math.floor(this.minElement.value);
+    }
 
     // correction for max value calculation
     let maxvalue;
-    if (max.value > (rangemax - 1)) {
-      maxvalue = Math.ceil(max.value);
+    if (this.maxElement.value > (rangemax - 1)) {
+      maxvalue = Math.ceil(this.maxElement.value);
     } else {
-      maxvalue = Math.floor(max.value);
+      maxvalue = Math.floor(this.maxElement.value);
     }
 
-    min.setAttribute('data-value', minvalue);
-    max.setAttribute('data-value', maxvalue);
+    this.minElement.setAttribute('data-value', minvalue);
+    this.maxElement.setAttribute('data-value', maxvalue);
 
     this.selectedMin = minvalue;
     this.selectedMax = maxvalue;
@@ -136,21 +162,33 @@ export class RangeSliderComponent implements OnInit, AfterViewInit {
   }
 
   public onSelectionChange(): void {
-    this.selectionChange.emit(this.data.selected);
+    this.selectionChange.emit(this.data.selectedRange);
   }
 
   private updateSelection(): void {
-    this.data.selected = [];
-    this.data.facetGroupData.forEach((facet) => {
-      if (this.isInRange(facet)) {
-        this.data.selected.push(facet);
-      }
-    });
+    this.data.selectedRange = {
+      start: this.selectedMin,
+      end: this.selectedMax
+    } as SelectedRange;
     this.onSelectionChange();
   }
 
   private isInRange(facet: SearchFacetModel): boolean {
-    const value = parseInt(facet.label);
-    return value >= parseInt(this.selectedMin) && value <= parseInt(this.selectedMax);
+    const value = this.parseInt(facet.label);
+    return value >= this.parseInt(this.selectedMin) && value <= this.parseInt(this.selectedMax);
+  }
+
+  private parseInt(value: string): number {
+    try {
+      return parseInt(value);
+    } catch (e) {
+      throw new Error(`Parsing ${value} to number failed! ` + e.message);
+    }
+  }
+
+  public ngOnDestroy(): void {
+    this.onResize = function(): void {};
+    this.minElement.removeEventListener('input', () => this.update);
+    this.maxElement.removeEventListener('input', () => this.update);
   }
 }

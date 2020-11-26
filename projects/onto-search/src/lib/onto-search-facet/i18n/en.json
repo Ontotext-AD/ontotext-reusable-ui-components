@@ -2,7 +2,7 @@
   "ONTO_RANGE_FACET": {
     "SELECTED": "Selected: ",
     "NO_CANVAS_SUPPORT": "Your browser does not support canvas.",
-    "SELECTED_MIN": "Selected min: ",
-    "SELECTED_MAX": "Selected max: "
+    "SELECTED_MIN": "Selected min:",
+    "SELECTED_MAX": "Selected max:"
   }
 }

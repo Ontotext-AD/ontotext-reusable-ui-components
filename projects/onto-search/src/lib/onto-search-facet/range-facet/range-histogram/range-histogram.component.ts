@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {SearchFacetGroupModel} from '../../models/search-facet-group-model';
 import {SearchFacetModel} from '../../models/search-facet-model';
-import {Observable} from 'rxjs';
 import {HistogramModel} from '../models/histogram-model';
 
 @Component({
@@ -10,36 +9,41 @@ import {HistogramModel} from '../models/histogram-model';
   styleUrls: ['./range-histogram.component.scss']
 })
 export class RangeHistogramComponent implements AfterViewInit {
+  /**
+   * Facet data holder.
+   */
   @Input()
   public data: SearchFacetGroupModel;
 
-  @Input()
-  public containerWidth: Observable<number>;
-
+  /**
+   * Histogram configuration.
+   *
+   */
   @Input()
   private histogramModel?: HistogramModel;
 
-  @ViewChild('canvas')
+  @ViewChild('rangeHistogramCanvas')
   private canvas: ElementRef;
 
   private ctx;
-  private width;
 
   public ngAfterViewInit(): void {
-    this.containerWidth.subscribe((width) => {
-      this.width = width;
-      this.init();
-    });
+    this.init();
   }
 
-  init():void {
+  init(): void {
     this.fitToContainer(this.canvas.nativeElement);
     this.ctx = this.canvas.nativeElement.getContext('2d');
 
-    this.data.facetGroupData.forEach((e) => e);
-    const data: any[] = JSON.parse(JSON.stringify(this.data.facetGroupData));
+    const data: SearchFacetModel[] = [...this.data.facetGroupData];
 
-    data.sort((a, b) => parseInt(a.label)- parseInt(b.label));
+    data.sort((a, b) => {
+      try {
+        return this.parseInt(a.label) - this.parseInt(b.label);
+      } catch (e) {
+        throw new Error('Facet labels must represent numbers! ' + e.message);
+      }
+    });
     this.drawHistogram(this.fillEmptyValues(data));
   }
 
@@ -53,17 +57,18 @@ export class RangeHistogramComponent implements AfterViewInit {
     const scale = this.histogramModel && this.histogramModel.scale || 0.5;
     const baseYPos = this.histogramModel && this.histogramModel.baseYPos || 100;
     const endAngle = this.histogramModel && this.histogramModel.endAngle || 2 * Math.PI;
+    const startAngle = this.histogramModel && this.histogramModel.endAngle || 0;
     const fillStyle = this.histogramModel && this.histogramModel.fillStyle || 'rgba(200, 200, 200, 0.2)';
 
     let posX = 0;
     let posY = 0;
     for (let i = 0; i < data.length; i++) {
       if (data[i].count > 0) {
-        const height = parseInt(data[i].count) * scale;
+        const height = this.parseInt(data[i].count) * scale;
         posX = i * space + i * width;
         posY = baseYPos - height;
         this.ctx.beginPath();
-        this.ctx.arc(posX, posY, data[i].count*scale, 0, endAngle);
+        this.ctx.arc(posX, posY, data[i].count * scale, startAngle, endAngle);
         this.ctx.fillStyle = fillStyle;
         this.ctx.fill();
         this.ctx.restore();
@@ -75,8 +80,8 @@ export class RangeHistogramComponent implements AfterViewInit {
 
   fitToContainer(canvas: any): void {
     // Make it visually fill the positioned parent
-    canvas.style.width = this.width + 'px';
-    canvas.style.height='100%';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
 
     // then set the internal size to match
     canvas.width = canvas.offsetWidth;
@@ -84,8 +89,8 @@ export class RangeHistogramComponent implements AfterViewInit {
   }
 
   compare(a: SearchFacetModel, b: SearchFacetModel): number {
-    const parsedA = parseInt(a.label);
-    const parsedB = parseInt(b.label);
+    const parsedA = this.parseInt(a.label);
+    const parsedB = this.parseInt(b.label);
     if (parsedA < parsedB) {
       return -1;
     }
@@ -99,11 +104,11 @@ export class RangeHistogramComponent implements AfterViewInit {
     const empty = {label: '0', count: 0};
     const filledArray = [];
 
-    data.forEach((value:SearchFacetModel, index) => {
+    data.forEach((value: SearchFacetModel, index) => {
       filledArray.push(value);
 
       if (data[index + 1]) {
-        let emptyValuesCount = parseInt(data[index + 1].label) - parseInt(data[index].label);
+        let emptyValuesCount = this.parseInt(data[index + 1].label) - this.parseInt(data[index].label);
         while (emptyValuesCount > 1) {
           filledArray.push(empty);
           emptyValuesCount--;
@@ -112,5 +117,13 @@ export class RangeHistogramComponent implements AfterViewInit {
     });
 
     return filledArray;
+  }
+
+  private parseInt(value: string): number {
+    try {
+      return parseInt(value);
+    } catch (e) {
+      throw new Error(`Parsing ${value} to number failed! ` + e.message);
+    }
   }
 }
