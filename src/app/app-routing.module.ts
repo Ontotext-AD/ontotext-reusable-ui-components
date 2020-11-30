@@ -7,6 +7,7 @@ import {SearchDatepickerFacetComponent} from './components/search-datepicker-fac
 import {SearchCheckboxFacetComponent} from './components/search-checkbox-facet/search-checkbox-facet.component';
 import {SearchRangeFacetComponent} from './components/search-facet-range/search-range-facet.component';
 import {SearchToggleFacetComponent} from './components/search-toggle-facet/search-toggle-facet.component';
+import {SearchDropdownMultiSelectFacetComponent} from './components/search-dropdown-multi-select-facet/search-dropdown-multi-select-facet.component';
 
 const routes: Routes = [
   {path: 'search-results', component: SearchResultsComponent},
@@ -16,7 +17,7 @@ const routes: Routes = [
   {path: 'search-date-range-facet', component: SearchDatepickerFacetComponent},
   {path: 'search-toggle-facet', component: SearchToggleFacetComponent},
   {path: 'search-range-facet', component: SearchRangeFacetComponent},
-
+  {path: 'search-dropdown-multi-select-facet', component: SearchDropdownMultiSelectFacetComponent}
 ];
 
 @NgModule({

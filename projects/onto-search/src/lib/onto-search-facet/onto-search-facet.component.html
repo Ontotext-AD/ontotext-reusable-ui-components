@@ -37,3 +37,13 @@
     (onSelectionChange)="onSelectionEvent($event)">>
   </onto-range-facet>
 </div>
+
+<div *ngIf="type === DROPDOWN_MULTI_SELECT">
+  <onto-dropdown-multi-select-facet
+    [data]="data"
+    [type]="type"
+    [facetTitleTemplate]="facetTitleTemplate"
+    [facetTemplate]="facetTemplate"
+    (onSelectionChange)="onSelectionEvent($event)">>
+  </onto-dropdown-multi-select-facet>
+</div>
