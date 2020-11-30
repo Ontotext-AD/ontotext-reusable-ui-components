@@ -1,10 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TableConfig} from '../../../../projects/onto-search/src/lib/onto-search-results/models/configuration-types';
 import {Sort} from '@angular/material/sort';
-import {
-  PageData,
-  PaginatorData
-} from '../../../../projects/onto-search/src/lib/onto-search-paginator/models/onto-search-paginator-models';
+import {PaginatorData} from '../../../../projects/onto-search/src/lib/onto-search-paginator/models/onto-search-paginator-models';
 
 @Component({
   selector: 'app-search-results',
@@ -30,7 +27,7 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit(): void {
     this.initDatasource();
     this.initTable();
-    this.getPagedView({pageIndex: 0, pageSize: 10});
+    this.getPagedView({pageIndex: 0, pageSize: 10, length: this.datasource.length});
   }
 
   initDatasource(): void {
@@ -120,17 +117,18 @@ export class SearchResultsComponent implements OnInit {
     this.getPagedView(this.paginatorData);
   }
 
-  onPageChanged(pageData: PageData): void {
+  onPageChanged(pageData: PaginatorData): void {
     this.pagedViewDatasource = this.datasource.slice(pageData.pageIndex * pageData.pageSize, (pageData.pageIndex + 1) * pageData.pageSize);
     this.paginatorData.pageIndex = pageData.pageIndex;
   }
 
-  private getPagedView(pageData?: PageData): void {
+  private getPagedView(pageData?: PaginatorData): void {
     this.paginatorData = {
       pageIndex: pageData.pageIndex,
-      length: this.datasource.length,
+      length: pageData.length,
       pageSize: pageData.pageSize,
     };
+
     // Return paged view of datasource
     this.pagedViewDatasource = this.datasource
         .slice(this.paginatorData.pageIndex * this.paginatorData.pageSize,

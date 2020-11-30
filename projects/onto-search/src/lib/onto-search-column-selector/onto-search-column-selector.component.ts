@@ -74,6 +74,7 @@ export class OntoSearchColumnSelector implements OnChanges {
 
   resetColumns(): void {
     this.setFormColumnSelection(this.defaultColumns);
+    this.onClosed();
   }
 
   private setFormColumnSelection(columns: SelectionColumn[]): void {
@@ -81,7 +82,6 @@ export class OntoSearchColumnSelector implements OnChanges {
     this.selectCtrl.updateValueAndValidity();
     this.selection = columns;
     this.isSelectionChanged = true;
-    this.onClosed();
   }
 
   private compareColumnsByLabel(columnA: SelectionColumn, columnB: SelectionColumn): number {
