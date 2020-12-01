@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {SearchFacetGroupModel} from '../../models/search-facet-group-model';
 import {SearchFacetModel} from '../../models/search-facet-model';
 import {HistogramModel} from '../models/histogram-model';
+import {SearchRangeFacetGroupModel} from '../models/search-range-facet-group-model';
 
 @Component({
   selector: 'onto-range-histogram',
@@ -13,22 +13,25 @@ export class RangeHistogramComponent implements AfterViewInit {
    * Facet data holder.
    */
   @Input()
-  public data: SearchFacetGroupModel;
-
-  /**
-   * Histogram configuration.
-   *
-   */
-  @Input()
-  private histogramModel?: HistogramModel;
+  public data: SearchRangeFacetGroupModel;
 
   @ViewChild('rangeHistogramCanvas')
   private canvas: ElementRef;
 
   private ctx;
+  private histogramModel: HistogramModel;
 
   public ngAfterViewInit(): void {
+    this.histogramModel = this.data.histogramConfiguration;
     this.init();
+
+    // An observer that monitors the resizing of the canvas element, causing it to redraw on changes.
+    // @ts-ignore
+    const observer = new ResizeObserver(() => {
+      this.init();
+    });
+
+    observer.observe(this.canvas.nativeElement);
   }
 
   init(): void {
@@ -53,12 +56,12 @@ export class RangeHistogramComponent implements AfterViewInit {
     const canvasWidth = this.canvas.nativeElement.getBoundingClientRect().width;
 
     const width = canvasWidth / data.length;
-    const space = this.histogramModel && this.histogramModel.space || 0;
-    const scale = this.histogramModel && this.histogramModel.scale || 0.5;
-    const baseYPos = this.histogramModel && this.histogramModel.baseYPos || 100;
-    const endAngle = this.histogramModel && this.histogramModel.endAngle || 2 * Math.PI;
-    const startAngle = this.histogramModel && this.histogramModel.endAngle || 0;
-    const fillStyle = this.histogramModel && this.histogramModel.fillStyle || 'rgba(200, 200, 200, 0.2)';
+    const space = this.histogramModel?.space || 0;
+    const scale = this.histogramModel?.scale || 0.5;
+    const baseYPos = this.histogramModel?.baseYPos || 100;
+    const endAngle = this.histogramModel?.endAngle || 2 * Math.PI;
+    const startAngle = this.histogramModel?.endAngle || 0;
+    const fillStyle = this.histogramModel?.fillStyle || 'rgba(200, 200, 200, 0.2)';
 
     let posX = 0;
     let posY = 0;

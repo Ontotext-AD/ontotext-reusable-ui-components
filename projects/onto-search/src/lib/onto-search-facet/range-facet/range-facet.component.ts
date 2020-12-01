@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
-import {SearchFacetType} from '../models/search-facet-type';
+import {Component, Input} from '@angular/core';
 import {OntoSearchFacetComponent} from '../onto-search-facet.component';
 import {SearchRangeFacetGroupModel} from './models/search-range-facet-group-model';
 
@@ -9,27 +8,9 @@ import {SearchRangeFacetGroupModel} from './models/search-range-facet-group-mode
   styleUrls: ['./range-facet.component.scss']
 })
 export class RangeFacetComponent extends OntoSearchFacetComponent {
-  @Input()
-  public facetTemplate: TemplateRef<any>;
-
-  @Input()
-  public facetTitleTemplate: TemplateRef<any>;
-
   /**
    * Holds the range facet group data.
    */
   @Input()
   public data: SearchRangeFacetGroupModel;
-
-  /**
-   * Facet type holder.
-   */
-  @Input()
-  public type: SearchFacetType;
-
-  /**
-   * On range selection change emitter.
-   */
-  @Output()
-  public selectionChange: EventEmitter<any> = new EventEmitter<any>();
 }

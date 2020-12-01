@@ -40,7 +40,9 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
   private facetData: SearchFacetModel[];
   public sum: number;
 
-  private thumbsize = 14;
+  // Size of the circle range slider button.
+  // It is used so that the both circles can hit each other without overlapping.
+  private rangeCircleSize = 14;
   public minValue;
   public maxValue;
   public selectedMin;
@@ -61,8 +63,8 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minValue = this.facetData[0].label;
     this.maxValue = this.facetData[this.facetData.length - 1].label;
 
-    this.selectedMin = this.minValue;
-    this.selectedMax = this.maxValue;
+    this.selectedMin = this.data.selectedRange.start || this.minValue;
+    this.selectedMax = this.data.selectedRange.end || this.maxValue;
 
     this.sum = this.sumRange();
     this.updateSelection();
@@ -72,7 +74,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minElement = this.minSlider.nativeElement;
     this.maxElement = this.maxSlider.nativeElement;
 
-    this.init();
+    this.init(this.selectedMin, this.selectedMax);
     this.onResize = (): void => this.update(this.parseInt(this.maxElement.getAttribute('max')));
   }
 
@@ -100,20 +102,24 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minElement.value = this.minElement.getAttribute('data-value');
   }
 
-  init(): void {
+  init(min: any, max: any): void {
     this.minElement.removeEventListener('input', () => this.update);
     this.maxElement.removeEventListener('input', () => this.update);
 
     const rangemin: any = this.parseInt(this.minElement.getAttribute('min'));
     const rangemax: any = this.parseInt(this.maxElement.getAttribute('max'));
-    const avgvalue = (rangemin + rangemax) / 2;
 
-    this.minElement.setAttribute('data-value', rangemin);
-    this.maxElement.setAttribute('data-value', rangemax);
+    const selectedMin = this.parseInt(min) || rangemin;
+    const selectedMax = this.parseInt(max) || rangemax;
+
+    const avgvalue = (selectedMin + selectedMax) / 2;
+
+    this.minElement.setAttribute('data-value', selectedMin);
+    this.maxElement.setAttribute('data-value', selectedMax);
 
     this.slider.nativeElement.setAttribute('data-rangemin', rangemin);
     this.slider.nativeElement.setAttribute('data-rangemax', rangemax);
-    this.slider.nativeElement.setAttribute('data-thumbsize', this.thumbsize);
+    this.slider.nativeElement.setAttribute('data-thumbsize', this.rangeCircleSize);
     this.slider.nativeElement.setAttribute('data-rangewidth', this.slider.nativeElement.offsetWidth);
 
     this.draw(avgvalue);
