@@ -40,6 +40,7 @@ describe('Onto Search Column Selector Component', () => {
     // And only 'Username' dropdown should be selected
     step.getColumnSelectDropdown().click();
     step.getSelectedOptions().should('have.length', 1).and('contain', 'Username');
+    step.closeColumnSelectDropdown();
   });
 
   it('Should test column selector functionality with columns passed from outside', () => {

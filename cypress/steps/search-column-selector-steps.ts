@@ -21,7 +21,7 @@ export class SearchColumnSelectorSteps {
   }
 
   static closeColumnSelectDropdown() {
-    cy.get('.cdk-overlay-backdrop').click(-50, -50, {force: true});
+    cy.get('.cdk-overlay-backdrop').first().click(-50, -50, {force: true});
   }
 
   static getSelectedOptions() {
