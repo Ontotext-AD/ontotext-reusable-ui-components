@@ -15,8 +15,6 @@ describe('Onto Search Column Selector Component', () => {
     step.visitWithDefaultOptions();
     // I should see the selector
     step.getColumnSelectDropdown().should('be.visible');
-    // And the selected columns should be the default ('Username')
-    step.getSelectedColumns().should('contain', 'Username');
     // When I press the select
     step.getColumnSelectDropdown().click();
     // I should see column groups
@@ -32,7 +30,7 @@ describe('Onto Search Column Selector Component', () => {
     step.getColumnGroupByIndex(1)
         .find('mat-option').filter('[appCypressData=column-option-1]').click();
     // And close the selector dropdown
-    cy.get('.cdk-overlay-backdrop').click(-50, -50, {force: true});
+    step.closeColumnSelectDropdown();
     // I selected columns should contain 'Username' and 'Name'
     step.getSelectedColumns().should('contain', 'Username').and('contain', 'Name');
     // When I press reset button
@@ -42,6 +40,7 @@ describe('Onto Search Column Selector Component', () => {
     // And only 'Username' dropdown should be selected
     step.getColumnSelectDropdown().click();
     step.getSelectedOptions().should('have.length', 1).and('contain', 'Username');
+    step.closeColumnSelectDropdown();
   });
 
   it('Should test column selector functionality with columns passed from outside', () => {
@@ -49,6 +48,7 @@ describe('Onto Search Column Selector Component', () => {
     step.getColumnSelectDropdown().click();
     // Only 'Name' dropdown option should be selected
     step.getSelectedOptions().should('have.length', 1).and('contain', 'Name');
+    step.closeColumnSelectDropdown();
     // And the selected columns should be the one passed to component ('Name')
     step.getSelectedColumns().should('contain', 'Name');
   });

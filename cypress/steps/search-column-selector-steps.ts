@@ -20,6 +20,10 @@ export class SearchColumnSelectorSteps {
     return cy.get('[appCypressData="column-selection-dropdown"]');
   }
 
+  static closeColumnSelectDropdown() {
+    cy.get('.cdk-overlay-backdrop').first().click(-50, -50, {force: true});
+  }
+
   static getSelectedOptions() {
     return cy.get('mat-option').filter('.mat-selected');
   }

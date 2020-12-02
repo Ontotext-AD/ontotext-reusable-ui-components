@@ -11,7 +11,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
-import {PageData, PaginatorData} from './models/onto-search-paginator-models';
+import {PaginatorData} from './models/onto-search-paginator-models';
 
 @Component({
   selector: 'onto-search-paginator',
@@ -33,10 +33,10 @@ export class OntoSearchPaginatorComponent implements OnChanges, DoCheck {
 
   /**
    * Fires when there is a change to page or page size.
-   * Emits an {@link PageData} object
+   * Emits an {@link PaginatorData} object
    */
   @Output()
-  pageChanged: EventEmitter<PageData> = new EventEmitter<PageData>();
+  pageChanged: EventEmitter<PaginatorData> = new EventEmitter<PaginatorData>();
 
   // Default and initial values
   length: number = 0;
@@ -76,9 +76,10 @@ export class OntoSearchPaginatorComponent implements OnChanges, DoCheck {
   }
 
   onPageChanged(pageEvent: PageEvent): void {
-    const pageData: PageData = {
+    const pageData: PaginatorData = {
       pageIndex: pageEvent.pageIndex,
-      pageSize: pageEvent.pageSize
+      pageSize: pageEvent.pageSize,
+      length: pageEvent.length
     };
     this.pageChanged.next(pageData);
   }

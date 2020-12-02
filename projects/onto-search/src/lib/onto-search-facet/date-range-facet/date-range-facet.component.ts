@@ -2,12 +2,13 @@ import {
   ApplicationRef,
   Component,
   ComponentFactoryResolver,
-  DoCheck,
   EventEmitter,
   Injector,
   Input,
+  OnChanges,
   Output,
   Renderer2,
+  SimpleChanges,
   TemplateRef,
   ViewChild,
   ViewContainerRef
@@ -32,7 +33,7 @@ const DATE_PATTERNS = {
   templateUrl: './date-range-facet.component.html',
   styleUrls: ['./date-range-facet.component.scss']
 })
-export class DateRangeFacetComponent extends OntoSearchFacetComponent implements DoCheck {
+export class DateRangeFacetComponent extends OntoSearchFacetComponent implements OnChanges {
   @ViewChild('toolTipTemplate') toolTipTemplate: TemplateRef<any>;
   @Input()
   public data: SearchDateFacetGroupModel;
@@ -49,7 +50,6 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
   private daysMap: Map<string, number> = new Map<string, number>();
   private monthsMap: Map<string, number> = new Map<string, number>();
   private yearsMap: Map<string, number> = new Map<string, number>();
-  private selectedRangeOld: DateRange<Date>;
 
   private buttonUnsubscribeFns: (() => void)[] = [];
 
@@ -61,18 +61,8 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
     super();
   }
 
-  ngDoCheck(): void {
-    if (!this.selectedRangeOld && this.data.selectedRange && this.data.selectedRange.selected) {
-      this.selectedRangeOld = this.data.selectedRange && this.data.selectedRange.selected;
-    } else if (this.selectedRangeOld && (!this.data.selectedRange || !this.data.selectedRange.selected)) {
-      this.selectedRangeOld = null;
-      const momentDateRange = new DateRange<Moment>(null, null);
-      this.dateRangeGroup.setValue(momentDateRange);
-      this.dateRangeGroup.updateValueAndValidity();
-    }
-  }
-
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
     this.mapFacetDates(this.data.facetGroupData);
 
     this.datePickerPlaceholder = this.data.placeholder;
