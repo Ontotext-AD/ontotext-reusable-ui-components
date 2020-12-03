@@ -66,9 +66,7 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
     this.mapFacetDates(this.data.facetGroupData);
 
     this.datePickerPlaceholder = this.data.placeholder;
-    if (this.data.selectedRange) {
-      this.setSelectedRange(this.data.selectedRange);
-    }
+    this.setSelectedRange(this.data.selectedRange);
   }
 
   ngOnDestroy(): void {
@@ -159,10 +157,16 @@ export class DateRangeFacetComponent extends OntoSearchFacetComponent implements
   }
 
   private setSelectedRange(selectedRange: SearchDateFacetRange): void {
-    const momentDateRange = new DateRange<Moment>(moment(selectedRange.selected.start), moment(selectedRange.selected.end));
+    let momentDateRange;
+    if (selectedRange) {
+      momentDateRange = new DateRange<Moment>(moment(selectedRange.selected.start), moment(selectedRange.selected.end));
+    } else {
+      momentDateRange = new DateRange(null, null);
+    }
+
     this.dateRangeGroup.setValue(momentDateRange);
     this.dateRangeGroup.updateValueAndValidity();
-    this.data.selectedRange = this.getSearchDateFacetRange();
+    this.data.selectedRange = selectedRange ? this.getSearchDateFacetRange() : null;
   }
 
   private getSearchDateFacetRange(): SearchDateFacetRange {
