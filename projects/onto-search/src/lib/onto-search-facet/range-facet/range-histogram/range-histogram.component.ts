@@ -41,11 +41,7 @@ export class RangeHistogramComponent implements AfterViewInit {
     const data: SearchFacetModel[] = [...this.data.facetGroupData];
 
     data.sort((a, b) => {
-      try {
-        return this.parseInt(a.label) - this.parseInt(b.label);
-      } catch (e) {
-        throw new Error('Facet labels must represent numbers! ' + e.message);
-      }
+      return this.parseInt(a.label) - this.parseInt(b.label);
     });
     this.drawHistogram(this.fillEmptyValues(data));
   }

@@ -80,8 +80,8 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.data && this.minElement && this.maxElement) {
-      this.selectedMin = this.data.selectedRange.start;
-      this.selectedMax = this.data.selectedRange.end;
+      this.selectedMin = this.data.selectedRange?.start || this.slider.nativeElement.getAttribute('data-rangemin');
+      this.selectedMax = this.data.selectedRange?.end || this.slider.nativeElement.getAttribute('data-rangemax');
       this.init(this.selectedMin, this.selectedMax);
       this.updateSelection();
     }
