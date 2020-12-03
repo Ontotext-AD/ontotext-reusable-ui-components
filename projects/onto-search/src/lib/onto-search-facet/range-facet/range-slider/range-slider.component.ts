@@ -4,9 +4,9 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
-  Input, OnDestroy,
+  Input, OnChanges, OnDestroy,
   OnInit,
-  Output, TemplateRef,
+  Output, SimpleChanges, TemplateRef,
   ViewChild
 } from '@angular/core';
 import {SearchFacetModel} from '../../models/search-facet-model';
@@ -18,7 +18,7 @@ import {SearchRangeFacetGroupModel} from '../models/search-range-facet-group-mod
   templateUrl: './range-slider.component.html',
   styleUrls: ['./range-slider.component.scss']
 })
-export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   @Input()
   public data: SearchRangeFacetGroupModel;
   @Input()
@@ -76,6 +76,15 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.init(this.selectedMin, this.selectedMax);
     this.onResize = (): void => this.update(this.parseInt(this.maxElement.getAttribute('max')));
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes.data && this.minElement && this.maxElement) {
+      this.selectedMin = this.data.selectedRange.start;
+      this.selectedMax = this.data.selectedRange.end;
+      this.init(this.selectedMin, this.selectedMax);
+      this.updateSelection();
+    }
   }
 
   draw(splitvalue: number): void {

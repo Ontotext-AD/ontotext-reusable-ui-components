@@ -1,5 +1,5 @@
-<div appCypressData="selected-facets-min">{{getSelectedRangeStart()}}</div>
-<div appCypressData="selected-facets-max">{{getSelectedRangeEnd()}}</div>
+<div appCypressData="selected-facets-min">{{selectedRange?.start}}</div>
+<div appCypressData="selected-facets-max">{{selectedRange?.end}}</div>
 
 <onto-search-facet *ngIf="data"
                    [data]="data"
