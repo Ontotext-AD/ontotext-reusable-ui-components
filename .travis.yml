@@ -39,5 +39,6 @@ jobs:
         - provider: npm
           skip_cleanup: true
           api_key: $NPM_TOKEN
+          email: $NPM_MAIL
           on:
             tags: true
