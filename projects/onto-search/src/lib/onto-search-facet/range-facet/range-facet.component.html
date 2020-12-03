@@ -1,5 +1,5 @@
 <div class="onto-range-facet" appCypressData="onto-range-facet">
-  <ng-container *ngTemplateOutlet="facetTitleTemplate">
+  <ng-container *ngTemplateOutlet="facetTitleTemplate; context: {$implicit: data.facetGroupName}">
   </ng-container>
 <onto-range-histogram *ngIf="data.showHistogram" [data]="data"></onto-range-histogram>
 <onto-range-slider [data]="data" [facetTemplate]="facetTemplate" (selectionChange)="onSelectionEvent($event)" ></onto-range-slider>

@@ -16,12 +16,8 @@ export class SearchRangeFacetComponent implements OnInit {
   public apiGroupNameResponse: any;
   public apiSelectedResponse: any;
   public selectedRange: SelectedRange;
-  public selected: SearchFacetModel[]
-  public facetTitleTemplate: any = null;
-  public basicFacetTemplate: any = null;
-
-  constructor() {
-  }
+  private selectedMin: number = 0;
+  private selectedMax: number = 0;
 
   ngOnInit(): void {
     this.apiGroupNameResponse = 'Enrollment';
@@ -143,6 +139,9 @@ export class SearchRangeFacetComponent implements OnInit {
     const transformed = [];
     Object.keys(facets).forEach((key) => {
       const isSelected = this.apiSelectedResponse.indexOf(key) !== -1;
+      const keyValue = parseInt(key);
+      this.selectedMin = this.selectedMin > keyValue ? keyValue : this.selectedMin;
+      this.selectedMax = this.selectedMax < keyValue ? keyValue : this.selectedMax;
 
       const facet = {
         label: key,
@@ -150,10 +149,6 @@ export class SearchRangeFacetComponent implements OnInit {
         selected: isSelected
       };
       transformed.push(facet);
-
-      if (isSelected) {
-        this.selected.push(facet);
-      }
     });
 
     return transformed;
@@ -161,5 +156,13 @@ export class SearchRangeFacetComponent implements OnInit {
 
   public onSelectedEvent($event: any): void {
     this.selectedRange = $event;
+  }
+
+  public getSelectedRangeStart(): string {
+    return this.selectedRange?.start || this.selectedMin.toString();
+  }
+
+  public getSelectedRangeEnd(): string {
+    return this.selectedRange?.end || this.selectedMax.toString();
   }
 }

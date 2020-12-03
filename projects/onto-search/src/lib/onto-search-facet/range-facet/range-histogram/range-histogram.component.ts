@@ -56,11 +56,8 @@ export class RangeHistogramComponent implements AfterViewInit {
     const canvasWidth = this.canvas.nativeElement.getBoundingClientRect().width;
 
     const width = canvasWidth / data.length;
-    const space = this.histogramModel?.space || 0;
     const scale = this.histogramModel?.scale || 0.5;
     const baseYPos = this.histogramModel?.baseYPos || 100;
-    const endAngle = this.histogramModel?.endAngle || 2 * Math.PI;
-    const startAngle = this.histogramModel?.endAngle || 0;
     const fillStyle = this.histogramModel?.fillStyle || 'rgba(200, 200, 200, 0.2)';
 
     let posX = 0;
@@ -68,10 +65,10 @@ export class RangeHistogramComponent implements AfterViewInit {
     for (let i = 0; i < data.length; i++) {
       if (data[i].count > 0) {
         const height = this.parseInt(data[i].count) * scale;
-        posX = i * space + i * width;
+        posX = i * width;
         posY = baseYPos - height;
         this.ctx.beginPath();
-        this.ctx.arc(posX, posY, data[i].count * scale, startAngle, endAngle);
+        this.ctx.arc(posX, posY, data[i].count * scale, 0, 2 * Math.PI);
         this.ctx.fillStyle = fillStyle;
         this.ctx.fill();
         this.ctx.restore();

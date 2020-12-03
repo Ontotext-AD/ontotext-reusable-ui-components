@@ -24,7 +24,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   public facetTemplate: TemplateRef<any>;
 
-  @ViewChild('minMaxSlider')
+  @ViewChild('slider')
   public slider: ElementRef;
   @ViewChild('minSlider')
   public minSlider: ElementRef;
@@ -63,8 +63,8 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minValue = this.facetData[0].label;
     this.maxValue = this.facetData[this.facetData.length - 1].label;
 
-    this.selectedMin = this.data.selectedRange.start || this.minValue;
-    this.selectedMax = this.data.selectedRange.end || this.maxValue;
+    this.selectedMin = this.data.selectedRange?.start || this.minValue;
+    this.selectedMax = this.data.selectedRange?.end || this.maxValue;
 
     this.sum = this.sumRange();
     this.updateSelection();
