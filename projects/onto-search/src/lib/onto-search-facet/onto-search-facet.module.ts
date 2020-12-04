@@ -15,6 +15,13 @@ import {ToggleFacetComponent} from './toggle-facet/toggle-facet.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {RangeFacetModule} from './range-facet/range-facet.module';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule, TranslocoService} from '@ngneat/transloco';
+import {DropdownMultiSelectFacetComponent} from './dropdown-multi-select-facet/dropdown-multi-select-facet.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {DropdownMultiSelectComponent} from './dropdown-multi-select-facet/dropdown-multi-select/dropdown-multi-select.component';
+import {MatChipsModule} from '@angular/material/chips';
 import en from './i18n/en.json';
 
 const CUSTOM_MAT_DATE_FORMATS = {
@@ -29,7 +36,6 @@ const CUSTOM_MAT_DATE_FORMATS = {
   },
 };
 
-
 const translocoConfiguration: TranslocoConfig = {
   availableLangs: ['en'],
   fallbackLang: ['en'],
@@ -43,7 +49,7 @@ const translocoConfiguration: TranslocoConfig = {
 };
 
 @NgModule({
-  declarations: [OntoSearchFacetComponent, CheckboxFacetComponent, DateRangeFacetComponent, ToggleFacetComponent],
+  declarations: [OntoSearchFacetComponent, CheckboxFacetComponent, DateRangeFacetComponent, ToggleFacetComponent, DropdownMultiSelectFacetComponent, DropdownMultiSelectComponent],
   imports: [
     CommonModule,
     MatCheckboxModule,
@@ -55,8 +61,14 @@ const translocoConfiguration: TranslocoConfig = {
     MatMomentDateModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
-    RangeFacetModule,
-    TranslocoModule
+    TranslocoModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    NoopAnimationsModule,
+    MatChipsModule,
+
+    RangeFacetModule
   ],
   exports: [OntoSearchFacetComponent],
   providers: [

@@ -1,0 +1,20 @@
+<div class="dropdown-multi-select" appCypressData="dropdown-multi-select">
+  <div appCypressData="facet-title">
+    <ng-container *ngTemplateOutlet="facetTitleTemplate; context: {$implicit: facetGroupName}">
+    </ng-container>
+  </div>
+  <mat-form-field>
+    <mat-select [formControl]="selectedFormControl"  multiple @.disabled (selectionChange)="onSelection($event)" (openedChange)="onOpenedChange($event)">
+      <mat-select-trigger appCypressData="dropdown-multi-select">
+        <span *ngFor="let facet of selectedFormControl.value; let index = index" appCypressData="selected-facets">
+          {{facet.label}}<span *ngIf="index < selectedFormControl.value.length - 1">{{'ONTO_DROPDOWN.DELIMITER' | transloco}}</span>
+        </span>
+      </mat-select-trigger>
+      <onto-dropdown-multi-select [formControl]="filteredFormControl"></onto-dropdown-multi-select>
+        <mat-option *ngFor="let item of filtered | async" [value]="item">
+        <ng-container *ngTemplateOutlet="facetTemplate; context: {$implicit: item}">
+        </ng-container>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -1,0 +1,21 @@
+<div class="mat-select-search-inner">
+  <input class="mat-select-search-input" appCypressData="mat-select-search-input"
+         #searchSelectInput
+         (keydown)="handleKeydown($event)"
+         (input)="onInputChange($event.target.value)"
+         (blur)="onBlur($event.target.value)"
+         placeholder="{{'ONTO_DROPDOWN.SEARCH_PLACEHOLDER' | transloco}}"
+         autocomplete="off"/>
+  <button mat-button *ngIf="searchValue"
+          mat-icon-button
+          aria-label="Clear"
+          (click)="reset(true)"
+          class="mat-select-search-clear-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div *ngIf="searchValue && options?.length === 0"
+     class="mat-select-search-no-found" appCypressData="mat-select-search-no-found">
+  {{'ONTO_DROPDOWN.NOT_FOUND' | transloco}}
+</div>

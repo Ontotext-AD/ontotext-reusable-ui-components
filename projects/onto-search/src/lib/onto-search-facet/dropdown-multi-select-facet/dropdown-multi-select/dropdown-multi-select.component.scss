@@ -1,0 +1,67 @@
+$mat-menu-side-padding: 16px !default;
+$scrollbar-width: 17px;
+$clear-button-width: 20px;
+$multiple-check-width: 33px;
+
+.mat-select-search-inner {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid #3f51b5;
+  background: white;
+  z-index: 100;
+  margin-right: 16px;
+}
+
+input {
+  border: 0px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+input:focus{
+  outline: none;
+}
+
+.mat-select-search-panel {
+  /* allow absolute positioning relative to outer options container */
+  transform: none !important;
+  max-height: 350px;
+  min-width: 100% !important;
+}
+
+.mat-select-search-input {
+  padding: $mat-menu-side-padding;
+  padding-right: $mat-menu-side-padding + $clear-button-width;
+  box-sizing: border-box;
+  width: calc(100% - 42px) !important;
+}
+
+.mat-select-search-no-found {
+  padding: $mat-menu-side-padding;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-select-search-clear-button {
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+
+/* correct translateY and padding-top so that the selected option is at below the select box when opening
+ * entrance animation added
+*/
+.cdk-overlay-pane {
+  margin-top: 50px !important;
+  padding-top: 50px !important;
+  transform: translateY(-15px) !important;
+  opacity: 1!important;
+  animation:fadeIn 0.2s ease-in!important;
+}
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+.mat-icon-button {
+  margin-bottom: 8px !important;
+}

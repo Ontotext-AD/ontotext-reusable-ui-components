@@ -4,5 +4,10 @@
     "NO_CANVAS_SUPPORT": "Your browser does not support canvas.",
     "SELECTED_MIN": "Selected min:",
     "SELECTED_MAX": "Selected max:"
+  },
+  "ONTO_DROPDOWN": {
+    "SEARCH_PLACEHOLDER": "Search...",
+    "NOT_FOUND": "No match found!",
+    "DELIMITER": ","
   }
 }

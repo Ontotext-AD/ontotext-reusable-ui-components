@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  TemplateRef
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef} from '@angular/core';
 import {SearchFacetGroupModel} from './models/search-facet-group-model';
 import {SearchFacetType} from './models/search-facet-type';
 import {SearchFacetModel} from './models/search-facet-model';
@@ -69,6 +61,7 @@ export class OntoSearchFacetComponent extends OnDestroyMixin implements OnChange
   public DATEPICKER: SearchFacetType = SearchFacetType.DATE_RANGE;
   public TOGGLE: SearchFacetType = SearchFacetType.TOGGLE;
   public RANGE: SearchFacetType = SearchFacetType.RANGE;
+  public DROPDOWN_MULTI_SELECT: SearchFacetType = SearchFacetType.DROPDOWN_MULTI_SELECT;
 
   public facetGroup: SearchFacetModel[];
   public facetGroupName: string;
@@ -80,10 +73,6 @@ export class OntoSearchFacetComponent extends OnDestroyMixin implements OnChange
       this.facetGroup = this.data.facetGroupData;
       this.selected = this.data.selected;
     }
-  }
-
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
   }
 
   public onSelectionEvent($event): void {

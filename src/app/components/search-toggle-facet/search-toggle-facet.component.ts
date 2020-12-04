@@ -53,6 +53,5 @@ export class SearchToggleFacetComponent {
 
   onSelectionChanged($event): void {
     this.selectedFilter = $event;
-    console.log($event);
   }
 }

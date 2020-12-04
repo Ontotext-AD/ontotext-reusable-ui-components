@@ -17,6 +17,7 @@ import {SearchCheckboxFacetComponent} from './components/search-checkbox-facet/s
 import {SearchToggleFacetComponent} from './components/search-toggle-facet/search-toggle-facet.component';
 import {OntoSearchFacetModule} from 'projects/onto-search/src/lib/onto-search-facet/onto-search-facet.module';
 import {SearchRangeFacetComponent} from './components/search-facet-range/search-range-facet.component';
+import {SearchDropdownMultiSelectFacetComponent} from './components/search-dropdown-multi-select-facet/search-dropdown-multi-select-facet.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {SearchRangeFacetComponent} from './components/search-facet-range/search-
     SearchCheckboxFacetComponent,
     SearchDatepickerFacetComponent,
     SearchToggleFacetComponent,
+    SearchDropdownMultiSelectFacetComponent,
   ],
   imports: [
     BrowserModule,
