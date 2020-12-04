@@ -15,7 +15,6 @@ import {ToggleFacetComponent} from './toggle-facet/toggle-facet.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {RangeFacetModule} from './range-facet/range-facet.module';
 import {TRANSLOCO_CONFIG, TranslocoConfig, TranslocoModule, TranslocoService} from '@ngneat/transloco';
-import en from './i18n/en.json';
 import {DropdownMultiSelectFacetComponent} from './dropdown-multi-select-facet/dropdown-multi-select-facet.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
@@ -24,7 +23,6 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DropdownMultiSelectComponent} from './dropdown-multi-select-facet/dropdown-multi-select/dropdown-multi-select.component';
 import {MatChipsModule} from '@angular/material/chips';
 import en from './i18n/en.json';
-import {TranslocoModule, TranslocoService} from '@ngneat/transloco';
 
 const CUSTOM_MAT_DATE_FORMATS = {
   parse: {
@@ -37,7 +35,6 @@ const CUSTOM_MAT_DATE_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-
 
 const translocoConfiguration: TranslocoConfig = {
   availableLangs: ['en'],
@@ -64,14 +61,14 @@ const translocoConfiguration: TranslocoConfig = {
     MatMomentDateModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
-    RangeFacetModule,
     TranslocoModule,
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
     NoopAnimationsModule,
     MatChipsModule,
-    TranslocoModule
+
+    RangeFacetModule
   ],
   exports: [OntoSearchFacetComponent],
   providers: [
