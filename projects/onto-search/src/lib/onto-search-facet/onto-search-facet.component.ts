@@ -68,6 +68,7 @@ export class OntoSearchFacetComponent extends OnDestroyMixin implements OnChange
   public CHECKBOX: SearchFacetType = SearchFacetType.CHECKBOX;
   public DATEPICKER: SearchFacetType = SearchFacetType.DATE_RANGE;
   public TOGGLE: SearchFacetType = SearchFacetType.TOGGLE;
+  public RANGE: SearchFacetType = SearchFacetType.RANGE;
 
   public facetGroup: SearchFacetModel[];
   public facetGroupName: string;

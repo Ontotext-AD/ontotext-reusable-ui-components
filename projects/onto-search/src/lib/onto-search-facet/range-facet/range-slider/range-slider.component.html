@@ -1,0 +1,19 @@
+<div class="range-slider-wrapper">
+  <div class="range-slider">
+    <div class="slider" #slider>
+      <input class="range-slider-range min-range" type="range" min="{{minValue}}" max="{{maxValue}}" #minSlider
+             appCypressData="min-range"/>
+      <input class="range-slider-range max-range" type="range" min="{{minValue}}" max="{{maxValue}}" #maxSlider
+             appCypressData="max-range"/>
+    </div>
+  </div>
+  <div class="range-values">
+    <div class="range-slider-value value-min">{{minValue}}</div>
+    <div class="range-slider-value value-max">{{maxValue}}</div>
+  </div>
+  <div class="range-selecton">
+    <ng-container *ngTemplateOutlet="facetTemplate; context: {$implicit: data.selectedRange, sum: sumRange()}">
+    </ng-container>
+  </div>
+</div>
+

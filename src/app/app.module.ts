@@ -13,9 +13,10 @@ import {OntoSearchFieldModule} from '../../projects/onto-search/src/lib/onto-sea
 import {OntoSearchColumnSelectorModule} from '../../projects/onto-search/src/lib/onto-search-column-selector/onto-search-column-selector.module';
 import {SearchColumnSelectorComponent} from './components/search-column-selector/search-column-selector.component';
 import {SearchDatepickerFacetComponent} from './components/search-datepicker-facet/search-datepicker-facet.component';
-import {OntoSearchFacetModule} from '../../projects/onto-search/src/lib/onto-search-facet/onto-search-facet.module';
 import {SearchCheckboxFacetComponent} from './components/search-checkbox-facet/search-checkbox-facet.component';
 import {SearchToggleFacetComponent} from './components/search-toggle-facet/search-toggle-facet.component';
+import {OntoSearchFacetModule} from 'projects/onto-search/src/lib/onto-search-facet/onto-search-facet.module';
+import {SearchRangeFacetComponent} from './components/search-facet-range/search-range-facet.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {SearchToggleFacetComponent} from './components/search-toggle-facet/searc
     SearchResultsComponent,
     SearchFieldComponent,
     SearchColumnSelectorComponent,
+    SearchRangeFacetComponent,
     SearchCheckboxFacetComponent,
     SearchDatepickerFacetComponent,
     SearchToggleFacetComponent,

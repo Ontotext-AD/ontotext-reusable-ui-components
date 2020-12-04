@@ -5,6 +5,7 @@ import {SearchFieldComponent} from './components/search-field/search-field.compo
 import {SearchColumnSelectorComponent} from './components/search-column-selector/search-column-selector.component';
 import {SearchDatepickerFacetComponent} from './components/search-datepicker-facet/search-datepicker-facet.component';
 import {SearchCheckboxFacetComponent} from './components/search-checkbox-facet/search-checkbox-facet.component';
+import {SearchRangeFacetComponent} from './components/search-facet-range/search-range-facet.component';
 import {SearchToggleFacetComponent} from './components/search-toggle-facet/search-toggle-facet.component';
 
 const routes: Routes = [
@@ -13,7 +14,9 @@ const routes: Routes = [
   {path: 'search-column-select', component: SearchColumnSelectorComponent},
   {path: 'search-checkbox-facet', component: SearchCheckboxFacetComponent},
   {path: 'search-date-range-facet', component: SearchDatepickerFacetComponent},
-  {path: 'search-toggle-facet', component: SearchToggleFacetComponent}
+  {path: 'search-toggle-facet', component: SearchToggleFacetComponent},
+  {path: 'search-range-facet', component: SearchRangeFacetComponent},
+
 ];
 
 @NgModule({
