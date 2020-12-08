@@ -13,14 +13,14 @@
                      [facetTemplate]="template"
                      [facetTitleTemplate]="titleTemplate"></onto-search-facet>
 </div>
-<div *ngIf="selectedFilter && selectedFilter.selected">
-  <div appCypressData="toggle-facet-selection">{{selectedFilter.selected.label + ' - ' + selectedFilter.count}}</div>
-  <div appCypressData="toggle-facet-selection-value">{{selectedFilter.selected.selected}}</div>
+<div *ngIf="selectedFilter?.selected?.length">
+  <div appCypressData="toggle-facet-selection">{{selectedFilter.selected[0].label + ' - ' + selectedFilter.count}}</div>
+  <div appCypressData="toggle-facet-selection-value">{{selectedFilter.selected[0].selected}}</div>
 </div>
 
 <ng-template #titleTemplate let-context>
   <div appCypressData="template-title">{{context}}</div>
 </ng-template>
 <ng-template #template let-context>
-  <div appCypressData="template-data">Selected: {{context.label + ' - ' + context.count}}</div>
+  <div appCypressData="template-data">Selected: {{context?.label + ' - ' + context?.count}}</div>
 </ng-template>

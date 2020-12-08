@@ -22,15 +22,24 @@ export class ToggleFacetComponent extends OntoSearchFacetComponent implements On
     super.ngOnChanges(changes);
     if (changes?.data?.currentValue) {
       this.color = this.data.color;
+      this.facetGroup.sort(this.compareByLabel);
     }
+    if (this.selected.length) {
+      const indexOfSelectedElement = this.facetGroup.map((item) => item.label).indexOf(this.selected[0].label);
+      console.log('current valuew index: ' + indexOfSelectedElement);
+      this.currentValueIndex = indexOfSelectedElement > 0 ? indexOfSelectedElement : 0;
+      this.currentValue = Boolean(this.currentValueIndex);
+      this.currentSelection = this.facetGroup[this.currentValueIndex];
 
-    const indexOfSelectedElement = this.facetGroup.indexOf(this.selected[0]);
-    this.currentValueIndex = indexOfSelectedElement > 0 ? indexOfSelectedElement : 0;
-    this.currentValue = Boolean(this.currentValueIndex);
-    this.currentSelection = this.facetGroup[this.currentValueIndex];
-
-    if (this.facetGroup.length === 1 && indexOfSelectedElement === 0) {
-      this.currentValue = true;
+      if (this.facetGroup.length === 1 && indexOfSelectedElement === 0) {
+        this.currentValue = true;
+      }
+    } else if (this.facetGroup.length === 1) {
+      this.currentSelection = this.facetGroup[0];
+    } else {
+      this.currentSelection = null;
+      this.currentValue = null;
+      this.currentValueIndex = null;
     }
   }
 
@@ -40,7 +49,7 @@ export class ToggleFacetComponent extends OntoSearchFacetComponent implements On
       this.facetGroup[0].selected = $event.checked;
       selection = {
         name: this.facetGroupName,
-        selected: this.currentSelection,
+        selected: [this.currentSelection],
         count: this.currentSelection?.count
       };
     } else {
@@ -50,7 +59,7 @@ export class ToggleFacetComponent extends OntoSearchFacetComponent implements On
 
       selection = {
         name: this.facetGroupName,
-        selected: this.currentSelection,
+        selected: [this.currentSelection],
         count: this.currentSelection.count
       };
     }
@@ -59,5 +68,14 @@ export class ToggleFacetComponent extends OntoSearchFacetComponent implements On
 
   refreshSelection(indexOfSelected: number): void {
     this.facetGroup.forEach((value, index) => value.selected = (index === indexOfSelected));
+  }
+
+  private compareByLabel(item1, item2): number {
+    if (item1.label > item2.label) {
+      return 1;
+    } else if (item2.label > item1.label) {
+      return -1;
+    }
+    return 0;
   }
 }

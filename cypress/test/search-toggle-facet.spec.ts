@@ -1,6 +1,6 @@
 import {SearchToggleFacetSteps} from '../steps/search-toggle-facet-steps';
 
-describe('Search Togle facet', () => {
+describe('Search Toggle facet', () => {
   beforeEach(() => {
     SearchToggleFacetSteps.visit();
   });
@@ -14,12 +14,9 @@ describe('Search Togle facet', () => {
     // When data is loaded in facet passed template should be visible
     SearchToggleFacetSteps.getDualValueFacet().find('[appCypressData="template-title"]')
         .should('be.visible');
-    // And dual value facet should include 'false - 343987'
+    // And dual value facet should include 'null - null'
     SearchToggleFacetSteps.getDataTemplateOfDualValueFacet()
-        .should('contain', 'false - 343987');
-    // And single value facet should include 'Should I filter? - 666'
-    SearchToggleFacetSteps.getDataTemplateOfSingleValueFacet()
-        .should('contain', 'Should I filter? - 666');
+        .should('contain', 'null - null');
     // When I toggle dual value facet
     SearchToggleFacetSteps.toggleDualValueFacet();
     // Dual value facet should include 'true - 616'

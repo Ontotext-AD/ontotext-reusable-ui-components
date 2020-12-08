@@ -29,6 +29,13 @@ export class SearchToggleFacetComponent {
     facetData: {}
   };
 
+  selectedDual: SearchFacetModel = {
+    label: 'true',
+    count: 666,
+    selected: true,
+    facetData: {}
+  };
+
   selectedFilter: SearchFacetSelection;
 
   constructor(private activatedRoute: ActivatedRoute) {
@@ -41,6 +48,16 @@ export class SearchToggleFacetComponent {
         return {label: key, selected: false, count: apiResponse._values[key]};
       })
     };
+
+    setTimeout(() => {
+      this.groupModel = {
+        facetGroupName: apiResponse._name,
+        selected: [this.selectedDual],
+        facetGroupData: Object.keys(apiResponse._values).map((key) => {
+          return {label: key, selected: false, count: apiResponse._values[key]};
+        })
+      };
+    }, 3000);
     const selected = preselectedFilterValue ? [this.selected] : [];
     this.groupModelSingleValue = {
       facetGroupName: 'Toggle facet single value',

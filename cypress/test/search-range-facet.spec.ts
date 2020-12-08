@@ -1,4 +1,4 @@
-import SearchRangeFacetSteps from "../steps/search-range-facet-steps";
+import SearchRangeFacetSteps from '../steps/search-range-facet-steps';
 
 describe('Search Range facet', () => {
   beforeEach(() => {
