@@ -40,7 +40,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
   @Output()
   public selectionChange = this._selectionChange.pipe(debounce(() => interval(2000)));
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize(): void {}
 
   private facetData: SearchFacetModel[];
