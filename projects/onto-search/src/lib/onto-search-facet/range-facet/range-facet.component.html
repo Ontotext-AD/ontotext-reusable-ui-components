@@ -2,5 +2,5 @@
   <ng-container *ngTemplateOutlet="facetTitleTemplate; context: {$implicit: data.facetGroupName}">
   </ng-container>
 <onto-range-histogram *ngIf="data.showHistogram" [data]="data"></onto-range-histogram>
-<onto-range-slider [data]="data" [facetTemplate]="facetTemplate" (selectionChange)="onSelectionEvent($event)" ></onto-range-slider>
+<onto-range-slider [data]="data" [facetTemplate]="facetTemplate" (selectionChange)="onSelectionEvent($event)"></onto-range-slider>
 </div>
