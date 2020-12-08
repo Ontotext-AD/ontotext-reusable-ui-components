@@ -12,6 +12,9 @@ import {
 import {SearchFacetModel} from '../../models/search-facet-model';
 import {SelectedRange} from '../models/selected-range';
 import {SearchRangeFacetGroupModel} from '../models/search-range-facet-group-model';
+import {debounce} from 'rxjs/operators';
+import {interval} from 'rxjs';
+import {SearchFacetSelection} from '../../models/search-facet-selection';
 
 @Component({
   selector: 'onto-range-slider',
@@ -31,8 +34,11 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
   @ViewChild('maxSlider')
   public maxSlider: ElementRef;
 
+  public _selectionChange: EventEmitter<SearchFacetSelection> = new EventEmitter<SearchFacetSelection>();
+
+  // Add debounce of 2 s, as the event is emitted on every input change (drag of slider)
   @Output()
-  public selectionChange: EventEmitter<any> = new EventEmitter<any>();
+  public selectionChange = this._selectionChange.pipe(debounce(() => interval(2000)));
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {}
@@ -51,6 +57,25 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
   public maxElement;
 
   ngOnInit(): void {
+    this.initializeData();
+  }
+
+  public ngAfterViewInit(): void {
+    this.minElement = this.minSlider.nativeElement;
+    this.maxElement = this.maxSlider.nativeElement;
+
+    this.init(this.selectedMin, this.selectedMax);
+    this.onResize = (): void => this.update(this.parseInt(this.maxElement.getAttribute('max')));
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.data?.currentValue) {
+      this.initializeData();
+      this.init(this.selectedMin, this.selectedMax);
+    }
+  }
+
+  private initializeData(): void {
     this.facetData = [...this.data.facetGroupData];
     this.facetData.sort((a, b) => {
       try {
@@ -67,24 +92,6 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
     this.selectedMax = this.data.selectedRange?.end || this.maxValue;
 
     this.sum = this.sumRange();
-    this.updateSelection();
-  }
-
-  public ngAfterViewInit(): void {
-    this.minElement = this.minSlider.nativeElement;
-    this.maxElement = this.maxSlider.nativeElement;
-
-    this.init(this.selectedMin, this.selectedMax);
-    this.onResize = (): void => this.update(this.parseInt(this.maxElement.getAttribute('max')));
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes.data && this.minElement && this.maxElement) {
-      this.selectedMin = this.data.selectedRange?.start || this.slider.nativeElement.getAttribute('data-rangemin');
-      this.selectedMax = this.data.selectedRange?.end || this.slider.nativeElement.getAttribute('data-rangemax');
-      this.init(this.selectedMin, this.selectedMax);
-      this.updateSelection();
-    }
   }
 
   draw(splitvalue: number): void {
@@ -112,11 +119,14 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
   }
 
   init(min: any, max: any): void {
+    if (!(this.minElement && this.maxElement)) {
+      return;
+    }
     this.minElement.removeEventListener('input', () => this.update);
     this.maxElement.removeEventListener('input', () => this.update);
 
-    const rangemin: any = this.parseInt(this.minElement.getAttribute('min'));
-    const rangemax: any = this.parseInt(this.maxElement.getAttribute('max'));
+    const rangemin: any = this.parseInt(this.minValue);
+    const rangemax: any = this.parseInt(this.maxValue);
 
     const selectedMin = this.parseInt(min) || rangemin;
     const selectedMax = this.parseInt(max) || rangemax;
@@ -179,7 +189,12 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
   }
 
   public onSelectionChange(): void {
-    this.selectionChange.emit(this.data.selectedRange);
+    const selection = {
+      name: this.data.facetGroupName,
+      selected: this.data.selectedRange,
+      count: this.sumRange()
+    } as SearchFacetSelection;
+    this._selectionChange.emit(selection);
   }
 
   private updateSelection(): void {

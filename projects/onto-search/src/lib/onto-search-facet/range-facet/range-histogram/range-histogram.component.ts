@@ -1,4 +1,12 @@
-import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {SearchFacetModel} from '../../models/search-facet-model';
 import {HistogramModel} from '../models/histogram-model';
 import {SearchRangeFacetGroupModel} from '../models/search-range-facet-group-model';
@@ -8,7 +16,7 @@ import {SearchRangeFacetGroupModel} from '../models/search-range-facet-group-mod
   templateUrl: './range-histogram.component.html',
   styleUrls: ['./range-histogram.component.scss']
 })
-export class RangeHistogramComponent implements AfterViewInit {
+export class RangeHistogramComponent implements AfterViewInit, OnChanges {
   /**
    * Facet data holder.
    */
@@ -34,7 +42,17 @@ export class RangeHistogramComponent implements AfterViewInit {
     observer.observe(this.canvas.nativeElement);
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.data?.currentValue) {
+      this.histogramModel = this.data.histogramConfiguration;
+      this.init();
+    }
+  }
+
   init(): void {
+    if (!this.canvas) {
+      return;
+    }
     this.fitToContainer(this.canvas.nativeElement);
     this.ctx = this.canvas.nativeElement.getContext('2d');
 
@@ -47,6 +65,8 @@ export class RangeHistogramComponent implements AfterViewInit {
   }
 
   drawHistogram(data): void {
+    this.ctx.clearRect(0, 0, this.canvas.nativeElement.getBoundingClientRect().width, this.canvas.nativeElement.getBoundingClientRect().height);
+
     this.ctx.save();
 
     const canvasWidth = this.canvas.nativeElement.getBoundingClientRect().width;
