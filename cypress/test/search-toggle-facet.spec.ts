@@ -14,9 +14,9 @@ describe('Search Toggle facet', () => {
     // When data is loaded in facet passed template should be visible
     SearchToggleFacetSteps.getDualValueFacet().find('[appCypressData="template-title"]')
         .should('be.visible');
-    // And dual value facet should include 'null - null'
+    // And dual value facet value should not be visible
     SearchToggleFacetSteps.getDataTemplateOfDualValueFacet()
-        .should('contain', 'null - null');
+        .should('not.be.visible');
     // When I toggle dual value facet
     SearchToggleFacetSteps.toggleDualValueFacet();
     // Dual value facet should include 'true - 616'

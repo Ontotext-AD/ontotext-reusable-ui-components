@@ -43,13 +43,16 @@ export class RangeHistogramComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.data?.currentValue && this.canvas) {
+    if (changes.data?.currentValue) {
       this.histogramModel = this.data.histogramConfiguration;
       this.init();
     }
   }
 
   init(): void {
+    if (!this.canvas) {
+      return;
+    }
     this.fitToContainer(this.canvas.nativeElement);
     this.ctx = this.canvas.nativeElement.getContext('2d');
 

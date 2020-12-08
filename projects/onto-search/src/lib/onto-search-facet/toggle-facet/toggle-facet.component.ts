@@ -26,7 +26,7 @@ export class ToggleFacetComponent extends OntoSearchFacetComponent implements On
     }
     if (this.selected.length) {
       const indexOfSelectedElement = this.facetGroup.map((item) => item.label).indexOf(this.selected[0].label);
-      console.log('current valuew index: ' + indexOfSelectedElement);
+
       this.currentValueIndex = indexOfSelectedElement > 0 ? indexOfSelectedElement : 0;
       this.currentValue = Boolean(this.currentValueIndex);
       this.currentSelection = this.facetGroup[this.currentValueIndex];

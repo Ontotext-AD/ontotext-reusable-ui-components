@@ -36,6 +36,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
 
   public _selectionChange: EventEmitter<SearchFacetSelection> = new EventEmitter<SearchFacetSelection>();
 
+  // Add debounce of 2 s, as the event is emitted on every input change (drag of slider)
   @Output()
   public selectionChange = this._selectionChange.pipe(debounce(() => interval(2000)));
 
@@ -68,7 +69,7 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes?.data?.currentValue && this.minElement && this.maxElement) {
+    if (changes?.data?.currentValue) {
       this.initializeData();
       this.init(this.selectedMin, this.selectedMax);
     }
@@ -118,6 +119,9 @@ export class RangeSliderComponent implements OnInit, AfterViewInit, OnDestroy, O
   }
 
   init(min: any, max: any): void {
+    if (!(this.minElement && this.maxElement)) {
+      return;
+    }
     this.minElement.removeEventListener('input', () => this.update);
     this.maxElement.removeEventListener('input', () => this.update);
 

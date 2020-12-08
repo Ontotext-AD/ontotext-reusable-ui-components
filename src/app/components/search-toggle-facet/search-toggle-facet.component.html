@@ -22,5 +22,5 @@
   <div appCypressData="template-title">{{context}}</div>
 </ng-template>
 <ng-template #template let-context>
-  <div appCypressData="template-data">Selected: {{context?.label + ' - ' + context?.count}}</div>
+  <div *ngIf="context" appCypressData="template-data">Selected: {{context?.label + ' - ' + context?.count}}</div>
 </ng-template>
