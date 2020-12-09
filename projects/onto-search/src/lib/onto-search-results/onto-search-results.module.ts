@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import {DirectivesModule} from '../directives/directives.module';
 import {MatSortModule} from '@angular/material/sort';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [OntoSearchResultsComponent],
@@ -15,6 +16,7 @@ import {MatSortModule} from '@angular/material/sort';
     DirectivesModule,
     MatTableModule,
     MatSortModule,
+    DragDropModule
   ],
 })
 export class OntoSearchResultsModule {}

@@ -3,12 +3,16 @@
          matSort (matSortChange)="sortData.next($event)"
          [matSortDisabled]="!config.enableSort" [matSortDisableClear]="true"
          [matSortActive]="sort?.active" [matSortDirection]="sort?.direction"
-         class="onto-table onto-table-fixed-layout" appCypressData="onto-table">
-    <ng-container *ngFor="let columnConfig of config.columnConfigurations" cdkColumnDef="{{columnConfig.name}}">
-      <th cdk-header-cell
+         class="onto-table onto-table-fixed-layout" appCypressData="onto-table"
+         cdkDropList cdkDropListLockAxis="x" cdkDropListOrientation="horizontal"
+         (cdkDropListDropped)="reorderColumns($event)">
+    <ng-container *ngFor="let columnConfig of config.columnConfigurations; let i=index;"
+                  cdkColumnDef="{{columnConfig.name}}">
+      <th cdk-header-cell id="{{columnConfig.name}}"
           class="onto-table-header-cell {{'onto-table-column-' + columnConfig.name}}"
           *cdkHeaderCellDef appCypressData="onto-table-header-cell"
-          mat-sort-header [disabled]="!columnConfig.enableSort">
+          mat-sort-header [disabled]="!columnConfig.enableSort"
+          cdkDrag cdkDragLockAxis="x">
         <div>{{columnConfig.label}}</div>
       </th>
       <td cdk-cell class="onto-table-cell {{'onto-table-column-' + columnConfig.name}}"
