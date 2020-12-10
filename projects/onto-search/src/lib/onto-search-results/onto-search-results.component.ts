@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {TableConfig} from './models/configuration-types';
+import {ColumnConfig, TableConfig} from './models/configuration-types';
 import {Sort} from '@angular/material/sort';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'onto-search-results',
@@ -40,20 +41,51 @@ export class OntoSearchResultsComponent implements OnChanges {
    */
   @Output()
   sortData: EventEmitter<Sort> = new EventEmitter<Sort>();
-
   displayColumns: string[];
+
+  private initialSort = true;
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.config && changes.config.currentValue) {
-      const permanentColumns = [...this.config.columnConfigurations
-          .filter((column) => column.permanent)]
-          .map((column) => column.name);
-
-      const dynamicColumns = [...this.config.columnConfigurations
-          .filter((column) => !column.permanent && !column.hidden)]
-          .map((column) => column.name);
-
-      this.displayColumns = [...permanentColumns, ...dynamicColumns];
+      if (this.initialSort) {
+        this.sortColumnConfigurations();
+        this.initialSort = false;
+      }
+      this.setDisplayColumns([...this.getVisibleColumnNames()]);
     }
+  }
+
+  reorderColumns(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(
+        this.config.columnConfigurations,
+        this.findColumnConfigIndexByName(this.displayColumns[event.previousIndex]),
+        this.findColumnConfigIndexByName(this.displayColumns[event.currentIndex]));
+    this.setDisplayColumns(this.getVisibleColumnNames());
+  }
+
+  private findColumnConfigIndexByName(name: string): number {
+    return this.config.columnConfigurations.findIndex((columnConfig) => columnConfig.name === name);
+  }
+
+  /**
+   * Sorts the column configurations by permanent columns first
+   */
+  private sortColumnConfigurations(): void {
+    const permanentCC = this.getFilteredColumnConfigs((column) => column.permanent);
+    const dynamicCC = this.getFilteredColumnConfigs((column) => !column.permanent);
+    this.config.columnConfigurations = [...permanentCC, ...dynamicCC];
+  }
+
+  private setDisplayColumns(columnNamesArray: string[]): void {
+    this.displayColumns = columnNamesArray;
+  }
+
+  private getFilteredColumnConfigs(filterPredicate: (column: ColumnConfig) => boolean): ColumnConfig[] {
+    return this.config.columnConfigurations.filter(filterPredicate);
+  }
+
+  private getVisibleColumnNames(): string[] {
+    return this.getFilteredColumnConfigs((column) => column.permanent || !column.hidden)
+        .map((column) => column.name);
   }
 }
