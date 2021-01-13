@@ -36,14 +36,14 @@ pipeline {
         // Switch to branch
         sh "git checkout ${branch}"
 
+        // Change versions
+        sh "npm version --git-tag-version=false ${ReleaseVersion}"
+
         // Install
         sh "npm ci"
 
         // Build
-        sh "npm run build:onto-search-prod"
-
-        // Change versions
-        sh "npm version --git-tag-version=false ${ReleaseVersion}"
+        sh "npm run build:prod"
       }
     }
 
